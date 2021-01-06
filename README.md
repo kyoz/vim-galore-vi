@@ -1,21 +1,22 @@
 <div align='center'>
   <br /><br /><br />
-  <img src='https://raw.githubusercontent.com/mhinz/vim-galore/master/static/images/logo-vim-galore.png' alt='vim-galore logo' />
+  <img src='https://raw.githubusercontent.com/kyoz/vim-galore-vi/master/static/images/logo-vim-galore.png' alt='vim-galore logo' />
   <br /><br /><br /><br />
   <div>
+    <a href='https://github.com/mhinz/vim-galore'>English</a> |
     <a href='https://github.com/wsdjeg/vim-galore-zh_cn'>Chinese</a> |
     <a href='http://postd.cc/?s=vim-galore'>Japanese</a> |
     <a href='https://github.com/lsrdg/vim-galore'>Portuguese</a> |
     <a href='http://givi.olnd.ru/vim-galore/vim-galore-ru.html'>Russian</a>
     <div>
       <br />
-      <sub>Licensed under <a href='https://creativecommons.org/licenses/by-sa/4.0'>CC BY-SA 4.0<a/>.</sub>
+      <sub>Được cấp phép theo a href='https://creativecommons.org/licenses/by-sa/4.0'>CC BY-SA 4.0<a/>.</sub>
     </div>
   </div>
   <br /><br />
 </div>
 
-### [Intro](#intro-1)
+### [Giới thiệu](#gioi-thieu-1)
 
 - [What is Vim?](#what-is-vim)
 - [The Vim Philosophy](#the-vim-philosophy)
@@ -138,7 +139,7 @@
 
 <br>
 
-# Intro
+# Giới thiệu
 
 ## What is Vim?
 
