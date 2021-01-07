@@ -1,6 +1,6 @@
 <div align='center'>
   <br /><br /><br />
-  <img src='https://raw.githubusercontent.com/kyoz/vim-galore-vi/master/static/images/logo-vim-galore.png' alt='vim-galore logo' />
+  <img src='https://raw.githubusercontent.com/kyoz/vim-galore-vi/main/static/images/logo-vim-galore.png' alt='vim-galore logo' />
   <br /><br /><br /><br />
   <div>
     <a href='https://github.com/mhinz/vim-galore'>English</a> |
@@ -10,7 +10,7 @@
     <a href='http://givi.olnd.ru/vim-galore/vim-galore-ru.html'>Russian</a>
     <div>
       <br />
-      <sub>Được cấp phép theo a href='https://creativecommons.org/licenses/by-sa/4.0'>CC BY-SA 4.0<a/>.</sub>
+      <sub>Được cấp phép theo <a href='https://creativecommons.org/licenses/by-sa/4.0'>CC BY-SA 4.0<a/>.</sub>
     </div>
   </div>
   <br /><br />
@@ -141,7 +141,7 @@
 
 # Giới thiệu
 
-## What is Vim?
+## Vim là gì?
 
 [Vim](http://www.vim.org) is a text editor with a long line of ancestors that
 goes back to [qed](https://en.wikipedia.org/wiki/QED_(text_editor)). [Bram
