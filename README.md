@@ -1,6 +1,6 @@
 <div align='center'>
   <br /><br /><br />
-  <img src='https://raw.githubusercontent.com/kyoz/vim-galore-vi/main/static/images/logo-vim-galore.png' alt='vim-galore logo' />
+  <img src='https://raw.githubusercontent.com/mhinz/vim-galore/master/static/images/logo-vim-galore.png' alt='vim-galore logo' />
   <br /><br /><br /><br />
   <div>
     <a href='https://github.com/mhinz/vim-galore'>English</a> |
@@ -16,16 +16,16 @@
   <br /><br />
 </div>
 
-### [Giới thiệu](#gioi-thieu-1)
+### [Giới thiệu](#gioi-thieu)
 
-- [What is Vim?](#what-is-vim)
-- [The Vim Philosophy](#the-vim-philosophy)
-- [First steps](#first-steps)
-- [Minimal vimrc](#minimal-vimrc)
-- [What kind of Vim am I running?](#what-kind-of-vim-am-i-running)
+- [Vim là gì?](#vim-la-gi)
+- [Triết lý của Vim](#triet-ly-cua-vim)
+- [Những bước đầu tiên](#nhung-buoc-dau-tien)
+- [File cấu hình vimrc đơn giản](#file-cau-hinh-vimrc-don-gian)
+- [Bạn đang sử dụng phiên bản Vim nào?](#ban-dang-su-phien-ban-vim-nao)
 - [Cheatsheets](#cheatsheets)
 
-### [Basics](#basics-1)
+### [Cơ bản](#co-ban)
 
 - [Buffers, windows, tabs](#buffers-windows-tabs)
 - [Active, loaded, listed, named buffers](#active-loaded-listed-named-buffers)
@@ -49,7 +49,7 @@
 
 ### [Usage](#usage-1)
 
-- [Getting help offline](#getting-help-offline)
+- [Nhận hỗ trợ không cần kết nối mạng](#nhan-ho-tro-khong-can-ket-noi-mang)
 - [Getting help offline (alternative)](#getting-help-offline-alternative)
 - [Getting help online](#getting-help-online)
 - [Autocmds in practice](#autocmds-in-practice)
@@ -66,7 +66,7 @@
   - [Viminfo files](#viminfo-files)
   - [Example configuration for temporary files](#example-configuration-for-temporary-files)
 - [Editing remote files](#editing-remote-files)
-- [Managing plugins](#managing-plugins)
+- [Quản lý plugin](#quan-ly-plugin)
 - [Block insert](#block-insert)
 - [Running external programs and using filters](#running-external-programs-and-using-filters)
 - [Cscope](#cscope)
@@ -109,7 +109,7 @@
 
 ### [Miscellaneous](#miscellaneous-1)
 
-- [Additional resources](#additional-resources)
+- [Tài liệu bổ sung](#tai-lieu-bo-sung)
 - [Vim distributions](#vim-distributions)
 - [Standard plugins](#standard-plugins)
 - [Map CapsLock to Control](#map-capslock-to-control)
@@ -143,89 +143,103 @@
 
 ## Vim là gì?
 
-[Vim](http://www.vim.org) is a text editor with a long line of ancestors that
-goes back to [qed](https://en.wikipedia.org/wiki/QED_(text_editor)). [Bram
-Moolenaar](https://en.wikipedia.org/wiki/Bram_Moolenaar) released it in 1991.
+[Vim](http://www.vim.org) là một trình soạn thảo văn bản có nguồn gốc lâu đời
+[qed](https://en.wikipedia.org/wiki/QED_(text_editor)). [Bram Moolenaar]
+(https://en.wikipedia.org/wiki/Bram_Moolenaar) đã phát hành nó vào năm 1991.
 
-The project is hosted online at [vim.org](http://www.vim.org/index.php).
+Dự án của Vim được công khai trực tuyến tại [vim.org](http://www.vim.org/index.php).
 
-Getting Vim: Use your favourite package manager or visit the [download
-page](http://www.vim.org/download.php) from vim.org.
+Để tải Vim: Sử dụng trình quản lý package yêu thích của bạn hoặc tải trực tiếp 
+tại [vim.org](http://www.vim.org/download.php).
 
-Discussions and user questions are best done on the
-[vim_use](https://groups.google.com/forum/#!forum/vim_use) mailing list or using
-IRC ([Freenode](https://freenode.net)) in the `#vim` channel.
+Bạn nên thảo luận và đặt các câu hỏi tại 
+[vim_use](https://groups.google.com/forum/#!forum/vim_use) hoặc sử dụng 
+IRC ([Freenode](https://freenode.net)) trong kênh của `#vim`.
 
-Development happens on [GitHub](https://github.com/vim/vim), discussions on the
-[vim_dev](https://groups.google.com/forum/#!forum/vim_dev) mailing list.
+Xem quá trình phát triển của Vim tại [GitHub](https://github.com/vim/vim), 
+và cùng nhau thảo luận trên 
+[vim_dev](https://groups.google.com/forum/#!forum/vim_dev).
 
-Read [Why, oh WHY, do those #?@! nutheads use
-vi?](http://www.viemu.com/a-why-vi-vim.html) to see common misconceptions about
-Vim explained.
+Bạn cũng có thể đọc bài viết [Why, oh WHY, do those #?@! nutheads use
+vi?](http://www.viemu.com/a-why-vi-vim.html) để được giải thích thêm về những 
+quan niệm sai lầm phổ biến về Vim.
 
-## The Vim Philosophy
+## Triết lý của Vim
 
-Vim adheres to the modal editing philosophy. This means that it provides
-multiple modes and the meaning of keys changes according to the mode. You
-navigate files in _normal mode_, you insert text in _insert mode_, you select
-lines in _visual mode_, you access commands in _command-line mode_ and so on.
-This might sound complicated at first, but has a huge advantage: you don't have
-to break your fingers by holding several keys at once, most of the time you
-simply press them one after the other. The more common the task, the fewer keys
-are needed.
+Vim tuân thủ triết lý chỉnh sửa theo phương thức. Điều này có nghĩa là Vim sẽ 
+cung cấp nhiều chế độ và nhiều phím tắt khác nhau, ý nghĩa của các phím tắt sẽ 
+được thay đổi theo từng chế độ. Bạn có thể sử dụng chế độ _normal_ để điều hướng 
+các tệp tin và con trỏ chuột, sử dụng chế độ _insert_ để chèn văn bản, sử dụng 
+chế độ _visual_ để chọn nhiều dùng cùng một lúc, hoặc bạn có thể sử dụng chế độ 
+_command-line_ để truy cập các lệnh trong Vim, v.v. Điều này thoạt nghe thì có vẻ 
+phức tạp, nhưng nó lại mạng đến một lợi thế rất lớn: đó là bạn không phải làm 
+khổ các ngón tay của mình khi giữ nhiều nút trên bàn phím cùng một lúc, hầu hết 
+thời gian khi bạn sử dụng Vim, bạn chỉ cần nhấn lần lượt từ phím này đến phím 
+khác. Công việc càng thông dụng, thì càng ít phím phải nhấn.
 
-A related concept that works well with modal editing are operators and motions.
-_Operators_ start a certain action, e.g. changing, removing, or selecting text.
-Afterwards you specify the region of text you want to act on using a _motion_.
-To change everything between parentheses, use `ci(` (read _change inner
-parentheses_). To remove an entire paragraph of text, use `dap` (read _delete
-around paragraph_).
+Các khái niệm hoạt động tốt cùng với việc chỉnh sửa theo phương thức là 
+các toán tử (operators) và chuyển động (motions). _Operators_ sẽ bắt đầu một hành 
+động nhất định, ví dụ như: thay đổi, xóa hoặc chọn văn bản. Sau đó, bạn sẽ chỉ 
+định vùng văn bản bạn muốn thực hiện thay đổi bằng cách sử dụng _motion_. Để thay 
+đổi mọi thứ giữa các dấu ngoặc đơn, bạn có thể dùng `ci(`. Để xóa toàn bộ nội 
+dung của một đoạn văn bản, chỉ cần nhấn `dap`. (Bạn không cần quá lo lắng nếu 
+bạn không hiểu các ví dụ này, nội dung chi tiết sẽ được diễn giải cặn kẽ trong 
+các phần sau)
 
-If you see advanced Vim users working, you'll notice that they speak the
-_language of Vim_ as well as pianists handle their instruments. Complex
-operations are done using only a few key presses. They don't even think about it
-anymore as [muscle memory](https://en.wikipedia.org/wiki/Muscle_memory) took
-over already. This reduces [cognitive
-load](https://en.wikipedia.org/wiki/Cognitive_load) and helps to focus on the
-actual task.
+Nếu bạn nhìn những người sử dụng Vim thành thạo làm việc, bạn sẽ nhận thấy rằng 
+họ nói _ngôn ngữ của Vim_, cũng giống như các nghệ sĩ piano xử lý các nhạc cụ của 
+họ vậy. Các thao tác phức tạp được xử lý chỉ bằng một vài phím bấm. Họ thậm chí 
+còn không thèm nghĩ về nó nữa, bởi vì [bộ nhớ cơ bắp (muscle memory)]
+(https://en.wikipedia.org/wiki/Muscle_memory) đã tiếp quản công việc thay họ. 
+Điều này làm giảm [gánh nặng nhận thức (cognitive load)]
+(https://en.wikipedia.org/wiki/Cognitive_load) và giúp họ tập trung vào công 
+việc thực sự của họ.
 
-## First steps
+## Những bước đầu tiên
 
-Vim comes bundled with an interactive tutorial that teaches the most basic
-things you need to know about. You can start it from the shell:
+Vim đi kèm với một hướng dẫn tương tác (sử dụng), giúp bạn hiểu và dạy bạn 
+những điều cơ bản nhất mà bạn cần biết. Bạn có thể bắt đầu nó với lệnh:
 
 ```
 $ vimtutor
 ```
 
-Don't be put off by how boring it looks like and work through the exercises. The
-editors or IDEs you used before were most probably all non-modal, so working by
-switching modes will seem awkward at first, but the more you use Vim, the more
-it becomes [muscle memory](https://en.wikipedia.org/wiki/Muscle_memory).
+Đừng bỏ cuộc bởi vì trông nó thật nhàm chán mà hãy cố gắng vượt qua hết tất cả 
+các bài tập. Các trình soạn thảo văn bản hoặc IDE mà bạn sử dụng trước đây có 
+lẽ hầu hết đều không theo triết lý chỉnh sửa theo phương thức, vì vậy việc phải 
+chuyển qua, chuyển lại giữa các chế độ ban đầu sẽ có đôi chút khó khăn với bạn, 
+nhưng bạn càng tập luyện, càng sử dụng Vim nhiều, nó sẽ trở thành
+[bộ nhớ cơ bắp (muscle memory)](https://en.wikipedia.org/wiki/Muscle_memory) 
+của bạn.
 
-Vim was bolted on [Stevie](https://en.wikipedia.org/wiki/Stevie_(text_editor)), a
-[vi](https://en.wikipedia.org/wiki/Vi) clone, and supports two operating modes:
-"compatible" and "nocompatible". Using Vim in compatible mode means using vi
-defaults for all options, opposed to Vim defaults. As long as you didn't create
-a user vimrc yet or started Vim with `vim -N`, compatible mode is assumed! Don't
-use Vim in compatible mode. Just don't.
+Vim đã được tích hợp vào 
+[Stevie](https://en.wikipedia.org/wiki/Stevie_(text_editor)), một bản sao của 
+[vi](https://en.wikipedia.org/wiki/Vi), và hỗ trợ hai chế độ hoạt động khác 
+nhau: "tương thích (compatible)" và "không tương thích (nocompatible)". Sử dụng 
+vim ở chế độ compatible nghĩa là bạn sẽ sử dụng vi cho tất cả các thao tác, 
+thay vì Vim (theo mặc định). Miễn là bạn chưa tạo file cấu hình (vimrc) hoặc 
+khởi động Vim bằng cú pháp `vim -N`, chế độ tương thích chỉ là giả định, bạn 
+không nên sử dụng Vim ở chế độ tương thích. Đừng nhé.
 
-Next steps:
+Các bước tiếp theo:
 
-1. Create your own [vimrc](#minimal-vimrc).
-2. Have some [cheatsheets](#cheatsheets) ready for the first weeks.
-3. Read through the [basics](#basics-1) section to learn what is even possible.
-4. Learn on demand! You never finish learning Vim. If you encounter any
-   problems, just look for it on the internet. Your problem was solved already.
-   Vim comes with great documentation and knowing how to navigate it is a must:
-   [Getting help offline](#getting-help-offline).
-5. Have a look at the [additional resources](#additional-resources).
+1. Tạo file cấu hình [vimrc](#file-cau-hinh-vimrc-don-gian) cho riêng bạn.
+2. Chọn một vài [cheatsheets](#cheatsheets) để chuẩn bị sử dụng cho những tuần 
+đầu tiên sử dụng Vim.
+3. Đọc qua phần [basics](#basics-1) để biết được những điều khó tin mà Vim có 
+thể làm.
+4. Học theo nhu cầu sử dụng! Bạn sẽ không bao giờ học xong Vim. Nếu bạn gặp bất 
+kì vấn đề nào, chỉ cần tìm kiếm nó trên mạng. Vấn đề mà bạn mắc phải đã được 
+giải quyết sẵn trên mạng. Vim đi kèm với một bộ tài liệu tuyệt vời, và việc bạn 
+phải biết cách sử dụng, tra khảo nó là một điều bắt buộc: 
+[Getting help offline](#getting-help-offline).
+5. Đọc qua [tài liệu bổ sung](#tai-lieu-bo-sung).
 
-One last advice: Please learn how to use Vim properly before starting to add all
-kinds of hyped [plugins](#managing-plugins) that only implement features that
-Vim already supports natively.
+Lời khuyên cuối cùng: Vui lòng học cách sử dụng Vim đúng cách trước khi bạn bắt 
+đầu thêm thắt các loại [plugin](#quan-ly-plugin) mà bạn không hề biết rằng 
+những tính năng của các plugin đó đã sẵn có trong Vim.
 
-## Minimal vimrc
+## File cấu hình vimrc đơn giản
 
 The user vimrc can be put into `~/.vimrc` or for the sake of better separation
 into `~/.vim/vimrc`. The latter makes it easy to put the entire configuration
@@ -1148,7 +1162,7 @@ Many of the concepts mentioned above also have _local_ counterparts:
 
 # Usage
 
-## Getting help offline
+## Nhận hỗ trợ không cần kết nối mạng
 
 Vim comes with great documentation in the form of single text files with a
 special layout. Vim uses a system based on tags for accessing certain parts of
