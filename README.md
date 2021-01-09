@@ -18,7 +18,7 @@
 
 ### [Giới thiệu](#giới-thiệu-1)
 
-- [Vim là gì?](#vim-là-gì?-1)
+- [Vim là gì?](#vim-là-gì?)
 - [Triết lý của Vim](#triết-lý-của-vim)
 - [Những bước đầu tiên](#những-bước-đầu-tiên)
 - [File cấu hình vimrc đơn giản](#file-cấu-hình-vimrc-đơn-giản)
@@ -27,12 +27,12 @@
 
 ### [Cơ bản](#cơ-bản)
 
-- [Buffers, windows, tabs](#buffers-windows-tabs)
-- [Active, loaded, listed, named buffers](#active-loaded-listed-named-buffers)
-- [Argument list](#argument-list)
-- [Mappings](#mappings)
-- [Mapleader](#mapleader)
-- [Registers](#registers)
+- [Buffer, window và tab](#buffer,-window-và-tab)
+- [Hiểu rõ hơn về buffer](#hiểu-rõ-hơn-về-buffer)
+- [Danh sách tham số](#danh-sách-tham số)
+- [Mapping lệnh](#mapping-lệnh)
+- [Phím leader](#phím-leader)
+- [Register](#register)
 - [Ranges](#ranges)
 - [Marks](#marks)
 - [Completion](#completion)
@@ -165,6 +165,12 @@ Bạn cũng có thể đọc bài viết [Why, oh WHY, do those #?@! nutheads us
 vi?](http://www.viemu.com/a-why-vi-vim.html) để được giải thích thêm về những 
 quan niệm sai lầm phổ biến về Vim.
 
+**Chú ý:** mình sẽ giữ nguyện một số tên gọi và khái niệm ở nguyên bản tiếng anh, 
+bời vì có rất nhiều từ được sử dụng rộng rãi và phổ biến trong giới lập trình 
+rồi, nếu dịch hết sang Tiếng Việt, dù bạn có hiểu nhưng sau này khi muốn cài 
+thêm plugin, viết plugin, hoặc hoặc VimScript, các bạn sẽ dễ nhầm lẫn với các 
+khái niệm và tên gọi đó. Hơn hết nhiều từ dịch sang Tiếng Việt đọc rất chuối :3.
+
 ## Triết lý của Vim
 
 Vim tuân thủ triết lý chỉnh sửa theo phương thức. Điều này có nghĩa là Vim sẽ 
@@ -268,42 +274,47 @@ các file cấu hình của họ.
 
 ## Bạn đang sử dụng phiên bản Vim nào?
 
-Looking at `:version` will give you all the information you need to know about
-how the currently running Vim binary was compiled.
+Dùng lệnh `:version` trong vim sẽ cung cấp cho bạn tất cả các thông tin bạn cần 
+biết về phiên bản Vim mà bạn đang sử dụng.
 
-The first line tells you when the binary was compiled and the version, e.g. 7.4.
-One of the next lines states `Included patches: 1-1051`, which is the patch
-level. Thus, your exact Vim version is 7.4.1051.
+Dòng đầu tiên cho bạn biết phiên bản Vim bạn đang sử dụng được biên dịch khi 
+nào, cũng như phiên bản của nó, ví dụ: 7.4. Dòng tiếp theo có cấu trúc 
+`Included patches: 1-1051`, là bản patch của Vim. Do đó, phiên bản Vim chính 
+xác của bạn là 7.4.1051.
 
-Another line states something like `Tiny version without GUI` or `Huge version
-with GUI`. The obvious information from that is whether your Vim includes GUI
-support, e.g. for starting `gvim` from the shell or running `:gui` from Vim
-within a terminal emulator. The other important information is the `Tiny` and
-`Huge`. Vim distinguishes between feature sets called `tiny`, `small`, `normal`,
-`big`, and `huge`, all enabling different subsets of features.
+Dòng tiếp theo có thể là `Tiny version without GUI (Phiên bản tối giản với giao diện)` 
+hoặc `Huge version with GUI (Phiên bản đầy đủ với giao diện)` . Thông tin chúng 
+muốn đề cập là liệu Vim của bạn có hỗ trợ giao diện (GUI) hay không, ví dụ: để 
+khởi động `gvim` từ shell hoặc chạy `:gui` từ Vim trong terminal. Một thông tin 
+quan trọng khác là `Tiny` và `Huge`. Vim phân biệt giữa các tập tính năng bằng 
+các tên gọi như `tiny`, `small`, `normal`, `big`, và `huge`, mỗi tập sẽ cũng 
+cấp những tính năng khác nhau cho Vim của bạn.
 
-The majority of `:version` output is consumed by the feature list itself.
-`+clipboard` means the clipboard feature was compiled in, `-clipboard` means it
-wasn't compiled in.
+Hầu hết các phiên bản của vim khi bạn xem `:version` sẽ đều hiển thị các tính 
+năng đang được hay không được tích hợp sẵn. Ví dụ `+clipboard` nghĩa là tính 
+năng clipboard được tính hợp sẵn, `-clipboard` nghĩa là tính năng clipboard 
+không được tính hợp sẵn trong phiên bản Vim hiện tại của bạn.
 
-A few Vim features need to be compiled in for them to work. E.g. for `:prof` to
-work, you need a Vim with a huge feature set, because that set enables the
-`+profile` feature.
+Một số tính năng của Vim cần được biên dịch để có thể hoạt động. Ví dụ để chạy 
+được lệnh `:prof`, bạn sẽ cần phiên bản Vim với tập tính năng `Huge`, bởi vì 
+tập đó có sẵn tính năng `+profile`.
 
-If that's not the case and you installed Vim from a package manager, make sure
-to install a package called `vim-x`, `vim-x11`, `vim-gtk`, `vim-gnome` or
-similar, since these packages usually come with the huge feature set.
+Nếu không rành, hoặc giả sử bạn cài đặt Vim từ trình quản lý package, hãy đảm 
+bảo bạn đã cài đặt các gói có tên `vim-x`, `vim-x11`, `vim gtk`, `vim-gnome` 
+hoặc tương tự, vì các gói này thường đi kèm với bộ tính năng khổng lồ.
 
-You can also test for the version or features programmatically:
+Bạn cũng có thể kiểm tra phiên bản hoặc các tính năng của Vim bằng các lập 
+trình với lệnh như sau:
 
 ```vim
-" Do something if running at least Vim 7.4.42 with +profile enabled.
+" Chạy lệnh gì nó nếu phiên bản của Vim mới hơn hoặc bằng 7.4.42
+" Và phải có +profile
 if (v:version > 704 || v:version == 704 && has('patch42')) && has('profile')
   " do stuff
 endif
 ```
 
-Help:
+Để hiểu rõ hơn bạn có thể dùng các lệnh sau để tra cứu thêm thông tin:
 
 ```
 :h :version
@@ -319,307 +330,336 @@ Help:
 - http://michael.peopleofhonoronly.com/vim/vim_cheat_sheet_for_programmers_screen.png
 - http://www.rosipov.com/images/posts/vim-movement-commands-cheatsheet.png
 
-Or quickly open a cheatsheet from within Vim: [vim-cheat40](https://github.com/lifepillar/vim-cheat40).
+Hoặc bạn cũng có thể mở nhanh một bảng cheatsheet ngay bên trong vim: 
+[vim-cheat40](https://github.com/lifepillar/vim-cheat40).
 
-# Basics
+# Cơ bản
 
-## Buffers, windows, tabs
+## Buffer, window và tab
 
-Vim is a text editor. Every time text is shown, the text is part of a
-**buffer**. Each file will be opened in its own buffer. Plugins show stuff in
-their own buffers etc.
+Vim là một trình soạn thảo văn bản. Mỗi khi văn bản được hiển thị, văn bản sẽ 
+là một phần của **buffer (bộ nhớ đệm)**. Mỗi tệp sẽ được mở trong buffer của riêng 
+nó. Các plugin sẽ hiển thị nội dung của chúng trong buffer của riêng từng 
+plugin, vv.
 
-Buffers have many attributes, e.g. whether the text it contains is modifiable,
-or whether it is associated with a file and thus needs to be synchronized to
-disk on saving.
+Các buffer có rất nhiều thuộc tính, ví dụ: văn bản có bạn có thể chỉnh sửa 
+(modifiable) được hay không, hoặc liệu nó có được liên kết với một file nào đó 
+hay không, và do đó nó cần được đồng bộ với ổ đĩa khi bạn lưu văn bản.
 
-**Windows** are viewports _onto_ buffers. If you want to view several files at
-the same time or even different locations of the same file, you use windows.
+**Các window** là các cửa sổ (khung hiển thị) _để hiển thị_ các buffer. Nếu bạn muốn 
+xem nhiều file cùng một lúc hoặc nhiều vị trí các nhau trên một file, bạn sẽ 
+phải sử dụng window.
 
-And please, please don't call them _splits_. You can split a window in two, but
-that doesn't make them _splits_.
+Và làm ơn, đừng gọi chúng là _splits (chia cửa sổ)_ . Bạn có thể chia một window 
+làm 2, nhưng điều đó không khiến chúng trở thành _splits_.
 
-Windows can be split vertically or horizontally and the heights and widths of
-existing windows can be altered, too. Therefore, you can use whatever window
-layout you prefer.
+Window có thể được chia theo chiều ngang hoặc chiều dọc, chiều dài và rộng của 
+chúng cũng có thể được thay đổi. Do đó, bạn có thể sử dụng bất kì cách phân 
+chia cửa sổ nào mà bạn thích nhất.
 
-A **tab page** (or just tab) is a collection of windows. Thus, if you want to
-use multiple window layouts, use tabs.
+Tab (hay còn được gọi là Tab page), là tập hợp của các cửa sổ. Vì vậy, nếu bạn 
+muốn sử dụng nhiều bố cục cửa sổ khác nhau, hãy sử dụng các tab.
 
-Putting it in a nutshell, if you start Vim without arguments, you'll have one
-tab page that holds one window that shows one buffer.
+Tóm lại, nếu bạn khởi động Vim mà không có bất kì arguments (tham số) nào, bạn 
+sẽ chỉ có một tab, bên trong tab là một window đang hiển thị một buffer.
 
-By the way, the buffer list is global and you can access any buffer from any
-tab.
+Ngoài ra, tất cả các buffer đều khả dụng trong toàn bộ trình soạn thảo Vim, và 
+bạn có thể truy cập mọi buffer từ bất kì tab nào.
 
-## Active, loaded, listed, named buffers
+## Hiểu rõ hơn về buffer
 
-Run Vim like this `vim file1`. The file's content will be loaded into a buffer.
-You have a **loaded buffer** now. The content of the buffer is only synchronized
-to disk (written back to the file) if you save it within Vim.
+Bạn có thể khởi động Vim bằng các chạy lệnh `vim file-1`. Nội dung của file sẽ 
+được load vào buffer. Nội dung của buffer chỉ được đồng bộ hóa vào ổ đĩa (ghi 
+vào file) khi bạn lưu nó bằng lệnh bên trong Vim.
 
-Since the buffer is also shown in a window, it's also an **active buffer**. Now
-if you load another file via `:e file2`, `file1` will become a **hidden buffer**
-and `file2` the active one.
+Bởi vì buffer cũng được hiển thị bên trong window, nó cũng là một **active buffer 
+(buffer đang hoạt động)**. Bây giờ nếu bạn load một file khác với lệnh `e file-2`, 
+`file-1` sẽ trở thành **hidden buffer (buffer ẩn)** và `file-2` sẽ trở thành 
+`active buffer`.
 
-Both buffers are also **listed**, thus they will get listed in the output of
-`:ls`. Plugin buffers or help buffers are often marked as unlisted, since
-they're not regular files you usually edit with a text editor. Listed and
-unlisted buffers can be shown via `:ls!`.
+Cả hai buffer đều được **liệt kê** trong danh sách buffer, do đó, khi bạn dùng lệnh 
+`:ls` để hiển thị danh sách buffer, chúng đều sẽ được hiển thị trong danh sách. 
+Buffer của các plugin hoặc các buffer trợ giúp (help buffer) thông thường sẽ 
+không được hiển thị trong danh sách buffer, bởi vì chúng không đại diện cho các 
+file thông thường mà bạn hay chỉnh sửa bằng các trình soạn thảo văn bản. Để 
+hiển thị tất cả buffer (kể các các buffer ẩn) bạn có thể sử dụng lệnh `:ls!`.
 
-**Unnamed buffers**, also often used by plugins, are buffers that don't have an
-associated filename. E.g. `:enew` will create an unnamed scratch buffer. Add
-some text and write it to disk via `:w /tmp/foo`, and it will become a named
-buffer.
+**Unnamed buffers (các buffer không tên)**, cũng thường được sử dụng bởi các plugin, 
+chúng là các buffer không có liên kết và cũng không đại diện cho một file cụ 
+thể nào cả. Ví dụ: dùng lệnh `:enew` sẽ tạo ra một buffer tạm không có tên 
+(unnamed buffer). Bạn có thể gõ vài dòng chữ vào đó và ghi nó vào đĩa bằng cách 
+chỉ định một file để liên kết, ví dụ: `:w /tmp/foo`, nội dung bạn vừa gõ sẽ 
+được lưu vào file `/tmp/foo` và buffer vô danh vừa tạo sẽ trở thành một buffer 
+bình thường.
 
-## Argument list
+## Danh sách tham số
 
-The [global buffer list](#buffers-windows-tabs) is a Vim thing. Before that, in
-vi, there only used to be the argument list, which is also available in Vim.
+[Danh sách buffer toàn cục (global buffer list)](#buffer,-window-và-tab) là một 
+đặc trưng của Vim. Trước đây, bên trong vi, những thứ này chỉ được sử dụng như 
+là các tham số, trong khi đó chúng lại có sẵn bên trong Vim.
 
-Every filename given to Vim on the shell command-line, is remembered in the
-argument list. There can be multiple argument lists: by default all arguments
-are put into the global argument list, but you can use `:arglocal` to create a
-new argument list that is local to the window.
+Mỗi file (tên file) được cung cấp cho Vim bằng lệnh, đều được ghi nhớ trong 
+danh sách tham số (argument list). Trong Vim, có thể có nhiều danh sách tham 
+số khác nhau: theo mặc định, tất cả các tham số được đưa vào danh sách tham số 
+toàn cục (global argument list), nhưng bạn có thể sử dụng lệnh `:arglocal` để 
+tạo một danh sách tham số cục bộ (local) cho window.
 
-List the current arguments with `:args`. Switch between files from the argument
-list with `:next`, `:previous`, `:first`, `:last` and friends. Alter it with
-`:argadd`, `:argdelete` or `:args` with a list of files.
+Bạn có thể liệt kê danh sách tham số với lệnh `:args`. Chuyển đổi qua lại giữa 
+các file từ danh sách tham số với lệnh `:next`, `:before`, `:previous`, `:first`,
+`:last` và các lệnh khác. Hoặc bạn cũng có thể thay thế file đó với file khác 
+với lệnh `:argadd`, `:argdelete` hoặc `:args` với một danh sách các file.
 
-If you should prefer using the buffer or argument list for working with files is
-a matter of taste. My impression is that most people use the buffer list
-exclusively.
+Việc sử dụng buffer hoặc danh sách tham số để làm việc với các file là tùy 
+thuộc vào sở thích của bạn. Thông thường tôi thấy mọi người chỉ sử dụng danh 
+sách buffer.
 
-Nevertheless, there is one huge use case for the argument list: batch processing
-via `:argdo`! A simple refactoring example:
+Tuy nhiên, có một trường hợp bạn cần phải sử dụng danh sách đối số để xử lý. Ví 
+dụ: xử lý hàng loạt với lệnh `:argdo`!. Đây làm một ví dụ đơn giản:
 
 ```vim
 :args **/*.[ch]
 :argdo %s/foo/bar/ge | update
 ```
 
-This replaces all occurrences of "foo" by "bar" in all C source and header files
-from the current directory and below.
+Các lệnh trên sẽ thay thế tất cả các chữ "foo" thành "bar" trong tất cả các 
+file C và header file của chúng trong thư mục hiện tại.
 
-Help: `:h argument-list`
+Xem thêm: `:h argument-list`
 
-## Mappings
+## Mapping lệnh
 
-You can define your own mappings with the `:map` family of commands. Each
-command of that family defines a mapping for a certain set of modes. Technically
-Vim comes with a whopping 12 modes, 6 of them can be mapped. Additionally, some
-commands act on multiple modes at once.
+Bạn có thể định nghĩa các mapping của mình với danh sách các lệnh `:map`. Mỗi 
+lệnh trong danh sách các lệnh đó sẽ định nghĩa một mapping cho một chế độ (mode) 
+nhất định. Về mặt kĩ thuật, Vim đi kèm với 12 chế độ, 6 trong số đó chúng ta có 
+thể sử dụng được mapping. Ngoài ra, một số lệnh hoạt động trên nhiều chế độ 
+cùng một lúc.
 
-| Recursive | Non-recursive | Unmap     | Modes                            |
-|-----------|---------------|-----------|----------------------------------|
-| `:map`    | `:noremap`    | `:unmap`  | normal, visual, operator-pending |
-| `:nmap`   | `:nnoremap`   | `:nunmap` | normal                           |
-| `:xmap`   | `:xnoremap`   | `:xunmap` | visual                           |
-| `:cmap`   | `:cnoremap`   | `:cunmap` | command-line                     |
-| `:omap`   | `:onoremap`   | `:ounmap` | operator-pending                 |
-| `:imap`   | `:inoremap`   | `:iunmap` | insert                           |
+| Đệ quy    | Không đệ quy  | Bỏ mapping | Chế độ                           |
+|-----------|---------------|------------|----------------------------------|
+| `:map`    | `:noremap`    | `:unmap`   | normal, visual, operator-pending |
+| `:nmap`   | `:nnoremap`   | `:nunmap`  | normal                           |
+| `:xmap`   | `:xnoremap`   | `:xunmap`  | visual                           |
+| `:cmap`   | `:cnoremap`   | `:cunmap`  | command-line                     |
+| `:omap`   | `:onoremap`   | `:ounmap`  | operator-pending                 |
+| `:imap`   | `:inoremap`   | `:iunmap`  | insert                           |
 
-E.g. this defines the mapping for normal mode only:
+Ví dụ: lệnh sau đây sẽ map phím `space` cho chế độ normal
 
 ```vim
 :nmap <space> :echo "foo"<cr>
 ```
 
-Unmap it again by using `:nunmap <space>`.
+Bỏ mapping của phím vừa map bằng lệnh `:nunmap <space>`.
 
-For a few more but rather uncommon modes (or combinations of them), see `:h
-map-modes`.
+Để biết thêm một số chế độ phổ biến khác (hoặc sự kết hợp của chúng), bạn có 
+thể xem `:h map-modes`.
 
-So far, so good. There's only one problem that can be pretty confusing to
-beginners: `:nmap` is _recursive_! That is, the right-hand side takes other
-mappings into account.
+Càng học bạn sẽ càng thấy Vim tuyệt vời. Chỉ có một vấn đề khá khó hiểu với 
+những người mới bắt đầu, `:nmap` có tính _đệ quy_ !. Đúng vậy, vế phải của lệnh 
+sẽ nhận các lệnh mà bạn muốn map.
 
+Vì vậy, nếu bạn muốn map một lệnh đơn giản ghi ra màn hình chữ "Foo", dùng lệnh:
 So you defined a mapping that simply echoes "Foo":
 
 ```vim
 :nmap b :echo "Foo"<cr>
 ```
 
-But what if you want to map the default behavior of `b` (going one word back) to
-another key?
+Nhưng nếu bạn muốn map hành vi mặc định của phím `b` vừa map cho một phím khác (
+di chuyển con trỏ về 1 từ đứng trước từ hiện tại) thì sao?. Hãy dùng lệnh:
 
 ```vim
 :nmap a b
 ```
 
-If you hit <kbd>a</kbd>, we expect the cursor to go back a word, but instead
-"Foo" is printed in the command-line! Because the right-hand side, `b`, was
-mapped to another action already, namely `:echo "Foo"<cr>`.
+Nếu bạn nhấn nút <kbd>a</kbd>, chúng ta nghĩ là con trỏ sẽ nhảy đến từ đứng 
+trước từ hiện tại, nhưng thay vào đó, "Foo" sẽ được in ra trong dòng lệnh! Bởi 
+vì chúng ta đã map phím `b` cho một hành động khác rồi, đó là `:echo "Foo"<cr>`.
 
-The proper way to resolve this problem is to use a _non-recursive_ mapping
-instead:
+Cách thích hợp để giải quyết vấn đề này là sử dụng mapping _không đệ quy_ 
+(_non-recursive_ mapping):
 
 ```vim
 :nnoremap a b
 ```
 
-Rule of thumb: Always use non-recursive mappings unless recursing is actually
-desired.
+Quy tắc: Luôn sử dụng mapping không đệ quy (non-recursive mapping) trừ khi bạn 
+biết bạn đang làm gì.
 
-Look up your mappings by not giving a right-hand side. E.g. `:nmap` shows all
-normal mappings and `:nmap <leader>` shows all normal mappings that start with
-the mapleader.
+Tra cứu các mapping mà bạn đã map bằng cách dùng lệnh `:nmap`. Lệnh `:nmap` sẽ 
+liệt kê tất cả các mapping normal và `:nmap <leader>` sẽ liệt kê tất cả các 
+mapping bắt đầu mới mapleader (Phím leader mặc định, bạn có thể thay đổi phím 
+này, chi tiết sẽ được trình bày trong phần sau).
 
-If you want to disable a standard mapping, map them to the special `<nop>`
-character, e.g. `:noremap <left> <nop>`.
+Nếu bạn muốn vô hiệu hóa một mapping, hãy map chúng thành kí tự đặc biệt `<nop>`
+, ví dụ: `:noremap <left> <nop>`.
 
-Help:
+Xem thêm:
 
     :h key-notation
     :h mapping
     :h 05.3
 
-## Mapleader
+## Phím leader
 
-The mapleader is simply a placeholder than can be used with custom mappings and
-is set to `\` by default.
+Phím leader có thể sử dụng chung với các mapping của bạn, giúp bạn thao tác đơn 
+giản và nhanh chóng hơn. Mặc định, phím leader sẽ là `\`;
 
 ```vim
 nnoremap <leader>h :helpgrep<space>
 ```
 
-This mapping is triggered by `\h`. If you want to use `<space>h` instead:
+Sau khi map với lệnh trên, bạn có thể nhấn trên bàn phím lần lượt 2 phím 
+<kbd>/</kbd><kbd>h</kbd> để chạy lệnh `:helpgrep<space>`. Ngoài phím leader, 
+bạn cũng có thể map với phím cách (space) bằng cách thay `<leader>` bằng 
+`<space>`.
 
 ```vim
 let mapleader = ' '
 nnoremap <leader>h :helpgrep<space>
 ```
 
-Moreover, there is `<localleader>` that is the local counterpart to `<leader>`
-and is supposed to be used for mappings that are local to the buffer, eg.
-filetype-specific plugins. It also defaults to `\`.
+Ngoài `<leader>`` và `<space>`, bạn còn có thể sử dụng `<localleader>`.
+`<localleader>` là một bản sao cục bộ của `<leader>` được sử dụng để map các 
+phím cho một buffer. Ví dụ: plugin filetype-specific cũng sử dụng `\` làm phím 
+leader mặc định.
 
-**Note**: Set the mapleaders before mappings! All leader mappings that are in
-effect already, won't change just because the mapleader was changed. `:nmap
-<leader>` will show all normal mode leader mappings with the mapleader resolved
-already, so use it to double-check your mappings.
+Lưu ý: Bạn cần phải cấu hình các leader trước khi tiến hành định nghĩa các 
+mapping của mình. Tất cả các mapping đã được định nghĩa trước khi bạn định 
+nghĩa các mapleader đều đã có hiệu lực, chúng sẽ không thay đổi vì bạn định 
+nghĩa mapleader sau chúng. `:nmap <leader>` sẽ liệt kê tất cả các mapping với 
+mapleader đã được áp dụng, bạn nên dùng lệnh này để kiểm tra lại các mapping 
+của mình.
 
-See `:h mapleader` and `:h maplocalleader` for more.
+Xem thêm `:h mapleader` và `:h maplocalleader` để biết thêm chi tiết.
 
-## Registers
+## Register
 
-Registers are slots that save text. Copying text into a register is called
-**yanking** and extracting text from a register is called **pasting**.
+Registers (Bộ đăng ký, thanh ghi) là nơi lưu trữ các thao tác trên văn bản của 
+bạn. Việc bạn sao chép một đoạn văn bản vào register được gọi là **yanking** và 
+việc bạn trích xuất dữ liệu từ register được gọi là **pasting**.
 
-Vim provides the following registers:
+Vim cung cấp cho bạn các register sau:
 
-| Type                | Character              | Filled by? | Readonly? | Contains text from? |
-|---------------------|------------------------|------------|-----------|---------------------|
-| Unnamed             | `"`                    | vim        | [ ]       | Last yank or deletion. (`d`, `c`, `s`, `x`, `y`) |
-| Numbered            | `0` to `9`             | vim        | [ ]       | Register `0`: Last yank. Register `1`: Last deletion. Register `2`: Second last deletion. And so on. Think of registers `1`-`9` as a read-only [queue](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)) with 9 elements. |
-| Small delete        | `-`                    | vim        | [ ]       | Last deletion that was less than one line. |
-| Named               | `a` to `z`, `A` to `Z` | user       | [ ]       | If you yank to register `a`, you replace its text. If you yank to register `A`, you append to the text in register `a`. |
-| Read-only           | `:`, `.`, `%`          | vim        | [x]       | `:`: Last command, `.`: Last inserted text, `%`: Current filename. |
-| Alternate buffer    | `#`                    | vim        | [ ]       | Most of the time the previously visited buffer of the current window. See `:h alternate-file` |
-| Expression          | `=`                    | user       | [ ]       | Evaluation of the VimL expression that was yanked. E.g. do this in insert mode: `<c-r>=5+5<cr>` and "10" will be inserted in the buffer. |
-| Selection           | `+`, `*`               | vim        | [ ]       | `*` and `+` are the [clipboard](#clipboard) registers. |
-| Drop                | `~`                    | vim        | [x]       | From last drag'n'drop. |
-| Black hole          | `_`                    | vim        | [ ]       | If you don't want any other registers implicitly affected. E.g. `"_dd` deletes the current line without affecting registers `"`, `1`, `+`, `*`. |
-| Last search pattern | `/`                    | vim        | [ ]       | Last pattern used with `/`, `?`, `:global`, etc. |
+| Loại                | Kí tự                  | Được nhập bởi? | Không được chỉnh sửa? | Contains text from? |
+|---------------------|------------------------|----------------|-----------------------|---------------------|
+| Unnamed             | `"`                    | vim            | [ ]                   | Thông tin sao chép hoặc xóa gần nhất. (`d`, `c`, `s`, `x`, `y`) |
+| Numbered            | `0` to `9`             | vim            | [ ]                   | register `0`: Lần sao chép gần nhất. register `1`: Lần xóa gần nhất. register `2`: Lần xóa gần thứ nhì. Và cứ như vậy. Các register từ `1`-`9` không được phép chỉnh sửa [queue](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)). |
+| Small delete        | `-`                    | vim            | [ ]                   | Lần xóa gần nhất mà có ít hơn 1 dòng. |
+| Named               | `a` to `z`, `A` to `Z` | user           | [ ]                   | Nếu bạn muốn sao chép vào register `a`, bạn có thể thay thế nội dung của nó. Nếu bạn muốn sao chép vào register `A`, bạn thêm nó vào sau nội dung của register `a`. |
+| Read-only           | `:`, `.`, `%`          | vim            | [x]                   | `:`: Lệnh bạn dùng cuối cùng, `.`: Những từ gần nhất bạn thêm vào, `%`: Tên file của buffer hiện tại. |
+| Alternate buffer    | `#`                    | vim            | [ ]                   | Những buffer được truy cập gần nhất của window hiện tại. Xem `:h alternate-file` |
+| Expression          | `=`                    | user           | [ ]                   | Đánh giá biểu thức VimL đã được sao chép. Ví dụ, nhập lệnh sao đây trong chế độ insert: `<c-r>=5+5<cr>` và "10" sẽ được chèn vào buffer. |
+| Selection           | `+`, `*`               | vim            | [ ]                   | `*` và `+` là register [clipboard](#clipboard). |
+| Drop                | `~`                    | vim            | [x]                   | Lần kéo thả gần nhất. |
+| Black hole          | `_`                    | vim            | [ ]                   | Nếu bạn không muốn bất kì register nào khác bị ảnh hưởng. Ví dụ, lệnh `"_dd` sẽ xóa dòng hiện tại mà không thay đổi (ảnh hưởng) đến các register `"`, `1`, `+`, `*`. |
+| Last search pattern | `/`                    | vim            | [ ]                   | Pattern gần nhất được sử dụng vơi `/`, `?`, `:global`, etc. |
 
 Each register that is not readonly can be set by the user:
+Mỗi thanh ghi không bị giới hạn ghi chép (readonly), có thể được thiết lập bởi 
+người dùng:
 
 ```vim
 :let @/ = 'register'
 ```
 
-Afterwards <kbd>n</kbd> would jump to the next occurrence of "register".
+Sau đó, phím <kbd>n</kbd> sẽ di chuyển con trỏ đến lần xuất hiện tiếp theo của 
+"register".
 
-There are numerous exceptions when registers get implicitly filled, so be sure
-to read `:h registers`.
+Có rất nhiều trường hợp ngoại lệ khi các thanh ghi được lấp đầy một cách âm thầm,
+do đó, để chắc ăn, bạn nên đọc thêm `:h registers`.
 
-Yank with `y` and paste with `p`/`P`, but mind that Vim distinguishes between
-characterwise and linewise visual selections. See `:h linewise`.
+Sao chép với `y` và dán với `p`/`P`, nhưng hãy nhớ rằng Vim phân biệt giữa các 
+lựa chọn trực quan theo chiều của ký tự, và theo dòng. Xem thêm `:h linewise`.
 
-**Example: linewise**
+**Ví dụ: sao chép dòng**
 
-`yy` (or just `Y`) yanks the current line, move the cursor somewhere else, use
-`p` to paste below the current line `P` for pasting above it.
+`yy` (hoặc `Y`) sẽ sao chép dòng hiện tại. Sau đó, bạn di chuyển con trỏ đến 1 
+nơi nào khác tùy ý, dùng `p` để dán nội dung đã sao chép bên dưới dòng hiện 
+tại, `P` để dán bên trên dòng hiện tại.
 
-**Example: charwise**
+**Ví dụ: sao chép chữ**
 
-Yank the first word with `0yw`, move somewhere else, paste after the cursor on
-the current line with `p` and before the cursor with `P`.
+Sao chép từ đầu tiên với `0yw`, sau đó bạn di chuyển con trỏ đến một nơi nào 
+khác, dán từ vừa sao chép phía sau con trỏ của dòng hiện tại với phím `p` và 
+phía trước con trỏ với phím `P`;
 
-**Example: explicit naming of register**
+**Ví dụ: đặt tên cho register**
 
-`"aY` yanks the current line into register `a`. Move to another line. `"AY`
-appends the current line to register `a`.
+Lệnh `"aY` sẽ sao chép dòng hiện tại vào register `a`. Di chuyển sang một dòng 
+khác. Lệnh `"AY` sẽ chèn dòng hiện tại vào phía cuối của register `a`.
 
-I suggest playing around with all these registers a bit and constantly checking
-`:reg`, so you can see what's actually happening.
+Tôi khuyên bạn nên thử với tất cả các thanh ghi này một chút và liên tục dùng 
+lệnh `:reg` để kiểm tra những gì đang thực sự diễn ra.
 
-**Fun fact**: In Emacs "yanking" stands for pasting (or _reinserting previously
-killed text_) not copying.
+**Sự thật thú vị**: Trong Emacs "yanking" (sao chép) lại có nghĩa là pasting (dán)
+(hoặc chèn lại vào văn bản đã bị xóa trước đó), chứ không phải mang nghĩa 
+copying (sao chép).
 
 ## Ranges
 
-Ranges are pretty easy to understand, but many Vimmers don't know about their
-full potential.
+Ranges (phạm vi) khá là dễ hiểu, những hầu hết các Vimmers đều không biết về 
+chức năng đầy đủ của chúng.
 
-- Many commands take ranges.
-- An address denotes a certain line.
-- A range is either a single address or a pair of addresses separated by either
-  `,` or `;`.
-- Ranges tell commands which lines to act on.
-- Most commands act only on the current line by default. Notable exceptions are
-  `:write` and `:global` which act on all lines.
+- Rất nhiều lệnh đều có phạm vi (ranges).
+- Một địa chỉ sẽ chỉ định một dòng nhất định.
+- Một range có thể là một địa chỉ duy nhất hoặc một cặp địa chỉ được phân cách 
+bởi `,` hoặc là `;`.
+- Ranges cho biết cách lệnh nên thực thi trên dòng nào.
+- Hầu hết các lệnh chỉ hoạt động trông dòng hiện tại theo mặc định. Các trường 
+hợp đáng chú ý có thể kể đến là `:write` và `:global`, chúng sẽ hoạt động trên 
+tất cả các dòng.
 
-The usage of ranges is pretty intuitive, so here are some examples (using `:d`
-as short form of `:delete`):
+Việc sử dụng các range khá là trực quan, đây là một số ví dụ (lệnh `:d`
+là viết tắt của `:delete`):
 
-| Command | Lines acted on |
-|---------|----------------|
-| `:d` | Current line. |
-| `:.d` | Current line. |
-| `:1d` | First line. |
-| `:$d` | Last line. |
-| `:1,$d` | All lines. |
-| `:%d` | All lines (syntactic sugar for `1,$`). |
-| `:.,5d` | Current line to line 5. |
-| `:,5d` | Also current line to line 5. |
-| `:,+3d` | Current line and the next 3 lines. |
-| `:1,+3d` | First line to current line + 3. |
-| `:,-3d` | Current line and the last 3 lines. (Vim will prompt you, since this is a reversed range.) |
-| `:3,'xdelete` | Lines 3 to the line marked by [mark](#marks) x. |
-| `:/^foo/,$delete` | From the next line that starts with "foo" to the end. |
-| `:/^foo/+1,$delete` | From the line after the line that starts with "foo" to the end. |
+| Lệnh     | Các dòng sẽ thực thi lệnh |
+|----------|----------------|
+| `:d`     | Dòng hiện tại. |
+| `:.d`    | Dòng hiện tại. |
+| `:1d`    | Dòng đầu tiên. |
+| `:$d`    | Dòng cuối. |
+| `:1,$d`  | Tất cả các dòng. |
+| `:%d`    | Tất cả các dòng (cú pháp ngắn gọn cho lệnh `1,$`). |
+| `:.,5d`  | Dòng hiện tại tới dòng thứ 5. |
+| `:,5d`   | Cũng là dòng hiện tại tới dòng thứ 5. |
+| `:,+3d`  | Dòng hiện tại và 3 dòng tiếp theo. |
+| `:1,+3d` | Dòng đầu tiên tới dòng hiện tại, và thêm 3 dòng sau đó. |
+| `:,-3d`  | Dòng hiện tại và 3 dòng cuối. (Vim sẽ cảnh báo bạn, vì đây là phạm vi đảo ngược.) |
+| `:3,'xdelete` | Dòng thứ 3 cho tới dòng được [đánh dấu](#đánh-dấu) x. |
+| `:/^foo/,$delete` | Từ dòng tiếp theo, bắt đầu với từ "foo" cho tới hết file. |
+| `:/^foo/+1,$delete` | Từ dòng kế tiếp của dòng bắt đầu với "foo" cho tới hết file. |
 
-Note that instead of `,`, `;` can be used as a separator. The difference is that
-in the case of `from,to`, the _to_ is relative to the current line, but when
-using `from;to`, the _to_ is relative to the address of _from_! Assuming you're
-on line 5, `:1,+1d` would delete lines 1 to 6, whereas `:1;+1d` would only
-delete lines 1 and 2.
+Lưu ý là thay vì dùng `,`, `;` có thể được dùng như là dấu phân cách. Sự khác 
+biệt là trong trường hợp của công thức `from,to`, thì _to_ là chỉ cho dòng hiện 
+tại, nhưng khi dùng công thức `from;to`, _to_ ở đây có liên quan đến địa chỉ 
+của _from_!. Giả sử bạn đang ở dòng 5, `:1;+1d` sẽ chỉ xóa dòng 1 và 2.
 
-The `/` address can be preceded with another address. This allows you to _stack_
-patterns, e.g.:
+Địa chỉ `/` có thể được đặt trước bằng một địa chỉ khác. Điều này cho phép bạn 
+_gộp các pattern_ lại với nhau. Ví dụ:
 
 ```vim
 :/foo//bar//quux/d
 ```
 
-This would delete the first line containing "quux" after the first line
-containing "bar" after the first line containing "foo" after the current line.
+Lệnh trên sẽ xóa dòng đầu tiên có chứa "quux" sau dòng đầu tiên chứa "bar" sau 
+dòng đầu tiên có chứa "foo" kể từ sau dòng hiện tại.
 
-Sometimes Vim automatically prepends the command-line with a range. E.g. start a
-visual line selection with `V`, select some lines and type `:`. The command-line
-will be populated with the range `'<,'>`, which means the following command will
-use the previously selected lines as a range. (This is also why you sometimes
-see mappings like `:vnoremap foo :<c-u>command`. Here `<c-u>` is used to remove
-the range, because Vim will throw an error when giving a range to a command that
-doesn't support it.)
+Đôi khi Vim tự động thêm một ranges vào trước dòng lệnh của bạn. Ví dụ: bắt 
+đầu lựa chọn nhiều dòng với chế độ visual bằng lệnh `V`, chọn một số dòng bạn 
+thích và nhập `:`. Dòng lệnh sẽ được điền với ranges `'<,'>`, có nghĩa là lệnh 
+bạn chuẩn bị thực thi sẽ được áp dụng cho các dòng đã chọn trước đó. (Đây cũng 
+là lý do tại sao đôi khi bạn thấy các mapping như là 
+`:vnoremap foo :<c-u>command`. Ở đây `<c-u>` được sử dụng để loại bỏ ranges, 
+bởi vì Vim sẽ quăng lỗi khi bạn cho ranges vào một lệnh không hỗ trợ ranges.
 
-Another example is using `!!` in normal mode. This will populate the
-command-line with `:.!`. If followed by an external program, that program's
-output would replace the current line. So you could replace the current
-paragraph with the output of ls by using `:?^$?+1,/^$/-1!ls`. Fancy!
+Một ví dụ khác nữa là sử dụng `!!` ở chế độ normal. Thao tác này sẽ tự động 
+điền `:.!` vào dòng lệnh của bạn. Nếu bạn điền tiếp theo sau bởi một dòng lệnh,
+hay ứng dụng bên ngoài, đầu ra của dòng lệnh, ứng dụng đó sẽ thay thế cho dòng 
+hiện tại. Vì vậy, bạn có thể thay thế đoạn văn hiện tại bằng đầu ra của lệnh 
+`ls` bằng cách sử dụng: `:?^$?+1,/^$/-1!ls`. Thật tuyệt.
 
-Help:
+Xem thêm:
 
 ```
 :h cmdline-ranges
@@ -628,47 +668,51 @@ Help:
 
 ## Marks
 
-You use marks to remember a position, that is line number and column, in a file.
+Bạn có thể sử dụng marks (đánh dấu) để ghi nhớ một vị trí, đó là vị trí dòng và 
+cột bên trong một file.
 
-| Marks | Set by.. | Usage |
+| Marks | Được đặt bởi.. | Công dụng |
 |-------|----------|-------|
-| `a` - `z` | User | Local to file, thus only valid within one file. Jumping to a lowercase mark, means jumping within the current file. |
-| `A` - `Z` | User | Global, thus valid between files. Also called _file marks_. Jumping to a file mark may switch to another buffer. |
-| `0` - `9` | viminfo | `0` is the position when the viminfo file was written last. In practice this means when the last Vim process ended. `1` is the position of when the second last Vim process ended and so on. |
+| `a` - `z` | Người dùng | Chỉ khả dụng cục bộ trong một file. Chuyển đến một mark được đánh dấu bằng chữ viết thường nghĩa là chuyển con trỏ qua lại trong một file. |
+| `A` - `Z` | Người dùng | Khả dụng toàn cục, cho tất cả các file. Còn được gọi là các _file mark__. Chuyển cho trỏ đến một marker được đánh dấu bằng chữ viết hoa có thể nhảy sang một buffer khác buffer hiện tại. |
+| `0` - `9` | viminfo | `0` là vị trí khi file viminfo được ghi lần cuối. Trong thực tế, điều này có nghĩa là khi Vim được đóng lần cuối. `1` là vị trí khi Vim kết thúc lần gần thứ 2, và cứ thế cho các số tiếp theo. |
 
-Put `'`/`g'` or `` ` ``/`` g` `` in front of a mark to form a motion.
+Đặt `'`/`g'` hoặc `` ` ``/`` g` `` trước một mark để tạo một cử chỉ (motion).
 
-Use `mm` to remember the current position with mark "m". Move around the file
-and then jump back via `'m` (first non-blank) or `` `m `` (exact column).
-Lowercase marks will be remembered after exiting Vim, if you tell your viminfo
-file to do so, see `:h viminfo-'`.
+Sử dụng `mm` để ghi nhớ vị trí hiện tại với mark "m". Di chuyển xung quanh tệp 
+và sau đó quay lại với `'m` (ký tự đầu tiên không phải khoảng trống trên 1 dòng) 
+hoặc `` `m `` (vị trí cột chính xác đã đánh mark).
+Các mark được đánh dấu bằng chữ thường sẽ được ghi nhớ khi bạn thoát Vim, nếu 
+bạn yêu cầu file viminfo của mình làm như vậy, xem thêm `:h viminfo-'`.
 
-Use `mM` to remember the current position with file mark "M". Switch to another
-buffer and switch back via `'M` or `` `M ``.
+Sử dụng `mM` để ghi nhớ vị trí hiện tại với mark "M". Chuyển sang buffer khác 
+và quay lại vị trí vừa đánh dấu với `'M` hoặc `` `M ``.
 
-Other motions include:
+Các cử chỉ khác:
 
-| Motion           | Jump to.. |
+| Cử chỉ           | Nhảy đến.. |
 |------------------|-----------|
-| `'[`, `` `[ ``   | First line or character of previously changed or yanked text. |
-| `']`, `` `] ``   | Last line or character of previously changed or yanked text. |
-| `'<`, `` `< ``   | Beginning line or character of last visual selection. |
-| `'>`, `` `> ``   | Ending line or character of last visual selection. |
-| `''`, ``` `` ``` | Position before the latest jump. |
-| `'"`, `` `" ``   | Position when last exiting the current buffer. |
-| `'^`, `` `^ ``   | Position where last insertion stopped. |
-| `'.`, `` `. ``   | Position where last change was made. |
-| `'(`, `` `( ``   | Start of current sentence. |
-| `')`, `` `) ``   | End of current sentence. |
-| `'{`, `` `{ ``   | Start of current paragraph. |
-| `'}`, `` `} ``   | End of current paragraph. |
+| `'[`, `` `[ ``   | Dòng hoặc ký tự đầu tiên của văn bản đã thay đổi hay được sao chép trước đó. |
+| `']`, `` `] ``   | Dòng hoặc ký tự cuối cùng của văn bản đã thay đổi hay được sao chép trước đó. |
+| `'<`, `` `< ``   | Dòng bắt đầu hoặc ký tự của các lựa chọn được chọn trong chế độ visual lần gần nhất. |
+| `'>`, `` `> ``   | Dòng kết thúc hoặc ký tự của các lựa chọn được chọn trong chế độ visual lần gần nhất. |
+| `''`, ``` `` ``` | Vị trí mà bạn vừa từ đó nhảy đến. |
+| `'"`, `` `" ``   | Ví trí khi bạn thoát buffer lần gần nhất. |
+| `'^`, `` `^ ``   | Vị trí bạn thực hiện chèn kí tự lần gần nhất. |
+| `'.`, `` `. ``   | Vị trí bạn thực hiện thay đổi lần gần nhất. |
+| `'(`, `` `( ``   | Bắt đầu câu hiện tại. |
+| `')`, `` `) ``   | Kết thúc của câu hiện tại. |
+| `'{`, `` `{ ``   | Bắt đầu của đoạn văn bản hiện tại. |
+| `'}`, `` `} ``   | Kết thúc của đoạn văn bản hiện tại. |
 
-Marks can also be used in a [range](#ranges). You probably saw this before and
-wondered what it means: Select some text in visual mode and do `:`, the
-command-line will be prepended with `:'<,'>`, which means the following command
-would get a range that denotes the visual selection.
+Các mark đánh dấu cũng có thể được sử dụng trong một [range](#ranges). Bạn hẳn 
+là đã thấy điều này trước đây và tự hỏi ý nghĩa của nó là gì: Chọn một số đoạn 
+văn bản bạn thích ở chế độ visual và nhấn `:`, dòng lệnh sẽ hiển thị, và được 
+thêm sẵn vào phía trước như thế này `:'<,'>`, có nghĩa là lệnh sau sẽ nhận được 
+một phạm vi mà bạn đã chọn với chế độ visual.
 
-Use `:marks` to list all marks. Read everything in `:h mark-motions`.
+Sử dụng `:marks` để liệt kê tất cả mark mà bạn đã đánh dấu. Đọc thêm tất cả mọi 
+thứ về mark trong `:h mark-motions`.
 
 ## Completion
 
