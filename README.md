@@ -18,22 +18,22 @@
 
 ### [Giới thiệu](#giới-thiệu-1)
 
-- [Vim là gì?](#vim-là-gì?)
+- [Vim là gì?](#vim-là-gì)
 - [Triết lý của Vim](#triết-lý-của-vim)
 - [Những bước đầu tiên](#những-bước-đầu-tiên)
 - [File cấu hình vimrc đơn giản](#file-cấu-hình-vimrc-đơn-giản)
-- [Bạn đang sử dụng phiên bản Vim nào?](#bạn-đang-sử-dụng-phiên-bản-vim-nào?)
+- [Bạn đang sử dụng phiên bản Vim nào?](#bạn-đang-sử-dụng-phiên-bản-vim-nào)
 - [Cheatsheets](#cheatsheets)
 
-### [Cơ bản](#cơ-bản)
+### [Cơ bản](#cơ-bản-1)
 
-- [Buffer, window và tab](#buffer,-window-và-tab)
+- [Buffer, window và tab](#buffer-window-và-tab)
 - [Hiểu rõ hơn về buffer](#hiểu-rõ-hơn-về-buffer)
-- [Danh sách tham số](#danh-sách-tham số)
+- [Danh sách tham số](#danh-sách-tham-số)
 - [Mapping lệnh](#mapping-lệnh)
 - [Phím leader](#phím-leader)
 - [Bộ ghi nhớ](#bộ-ghi-nhớ)
-- [Vùng chọn](#vùng chọn)
+- [Vùng chọn](#vùng-chọn)
 - [Đánh dấu](#đánh-dấu)
 - [Gợi ý code](#gợi-ý-code)
 - [Chuyển động, các toán tử, các đối tượng văn bản](#chuyển-động,-các-toán-tử,-các-đối-tượng-văn-bản)
