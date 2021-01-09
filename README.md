@@ -16,16 +16,16 @@
   <br /><br />
 </div>
 
-### [Giới thiệu](#gioi-thieu)
+### [Giới thiệu](#giới-thiệu)
 
-- [Vim là gì?](#vim-la-gi)
-- [Triết lý của Vim](#triet-ly-cua-vim)
-- [Những bước đầu tiên](#nhung-buoc-dau-tien)
-- [File cấu hình vimrc đơn giản](#file-cau-hinh-vimrc-don-gian)
-- [Bạn đang sử dụng phiên bản Vim nào?](#ban-dang-su-phien-ban-vim-nao)
+- [Vim là gì?](#vim-là-gì?)
+- [Triết lý của Vim](#triết-lý-của-vim)
+- [Những bước đầu tiên](#những-bước-đầu-tiên)
+- [File cấu hình vimrc đơn giản](#file-cấu-hình-vimrc-đơn-giản)
+- [Bạn đang sử dụng phiên bản Vim nào?](#bạn-đang-sử-dụng-phiên-bản-vim-nào?)
 - [Cheatsheets](#cheatsheets)
 
-### [Cơ bản](#co-ban)
+### [Cơ bản](#cơ-bản)
 
 - [Buffers, windows, tabs](#buffers-windows-tabs)
 - [Active, loaded, listed, named buffers](#active-loaded-listed-named-buffers)
@@ -49,7 +49,7 @@
 
 ### [Usage](#usage-1)
 
-- [Nhận hỗ trợ không cần kết nối mạng](#nhan-ho-tro-khong-can-ket-noi-mang)
+- [Nhận hỗ trợ mà không cần kết nối mạng](#nhận-hỗ-trợ-mà-không-cần-kết-nối-mạng)
 - [Getting help offline (alternative)](#getting-help-offline-alternative)
 - [Getting help online](#getting-help-online)
 - [Autocmds in practice](#autocmds-in-practice)
@@ -144,8 +144,9 @@
 ## Vim là gì?
 
 [Vim](http://www.vim.org) là một trình soạn thảo văn bản có nguồn gốc lâu đời
-[qed](https://en.wikipedia.org/wiki/QED_(text_editor)). [Bram Moolenaar]
-(https://en.wikipedia.org/wiki/Bram_Moolenaar) đã phát hành nó vào năm 1991.
+[qed](https://en.wikipedia.org/wiki/QED_(text_editor)). 
+[Bram Moolenaar](https://en.wikipedia.org/wiki/Bram_Moolenaar) đã phát hành nó 
+vào năm 1991.
 
 Dự án của Vim được công khai trực tuyến tại [vim.org](http://www.vim.org/index.php).
 
@@ -189,11 +190,11 @@ các phần sau)
 Nếu bạn nhìn những người sử dụng Vim thành thạo làm việc, bạn sẽ nhận thấy rằng 
 họ nói _ngôn ngữ của Vim_, cũng giống như các nghệ sĩ piano xử lý các nhạc cụ của 
 họ vậy. Các thao tác phức tạp được xử lý chỉ bằng một vài phím bấm. Họ thậm chí 
-còn không thèm nghĩ về nó nữa, bởi vì [bộ nhớ cơ bắp (muscle memory)]
-(https://en.wikipedia.org/wiki/Muscle_memory) đã tiếp quản công việc thay họ. 
-Điều này làm giảm [gánh nặng nhận thức (cognitive load)]
-(https://en.wikipedia.org/wiki/Cognitive_load) và giúp họ tập trung vào công 
-việc thực sự của họ.
+còn không thèm nghĩ về nó nữa, bởi vì 
+[bộ nhớ cơ bắp (muscle memory)](https://en.wikipedia.org/wiki/Muscle_memory) đã 
+tiếp quản công việc thay họ.  Điều này làm giảm 
+[gánh nặng nhận thức (cognitive load)](https://en.wikipedia.org/wiki/Cognitive_load) 
+và giúp họ tập trung vào công việc thực sự của họ.
 
 ## Những bước đầu tiên
 
@@ -223,20 +224,20 @@ không nên sử dụng Vim ở chế độ tương thích. Đừng nhé.
 
 Các bước tiếp theo:
 
-1. Tạo file cấu hình [vimrc](#file-cau-hinh-vimrc-don-gian) cho riêng bạn.
+1. Tạo file cấu hình [vimrc](#file-cấu-hình-vimrc-đơn-giản) cho riêng bạn.
 2. Chọn một vài [cheatsheets](#cheatsheets) để chuẩn bị sử dụng cho những tuần 
 đầu tiên sử dụng Vim.
-3. Đọc qua phần [basics](#basics-1) để biết được những điều khó tin mà Vim có 
+3. Đọc qua phần [cơ bản](#cơ-bản) để biết được những điều khó tin mà Vim có 
 thể làm.
-4. Học theo nhu cầu sử dụng! Bạn sẽ không bao giờ học xong Vim. Nếu bạn gặp bất 
+4. Học theo nhu cầu sử dụng! Bạn sẽ không bao giờ hết được Vim. Nếu bạn gặp bất 
 kì vấn đề nào, chỉ cần tìm kiếm nó trên mạng. Vấn đề mà bạn mắc phải đã được 
 giải quyết sẵn trên mạng. Vim đi kèm với một bộ tài liệu tuyệt vời, và việc bạn 
 phải biết cách sử dụng, tra khảo nó là một điều bắt buộc: 
-[Getting help offline](#getting-help-offline).
-5. Đọc qua [tài liệu bổ sung](#tai-lieu-bo-sung).
+[Nhận hỗ trợ mà không cần kết nối mạng](#nhận-hỗ-trợ-mà-không-cần-kết-nối-mạng).
+5. Đọc qua [tài liệu bổ sung](#tài-liệu-bổ-sung).
 
 Lời khuyên cuối cùng: Vui lòng học cách sử dụng Vim đúng cách trước khi bạn bắt 
-đầu thêm thắt các loại [plugin](#quan-ly-plugin) mà bạn không hề biết rằng 
+đầu thêm thắt các loại [plugin](#quản-lý-plugin) mà bạn không hề biết rằng 
 những tính năng của các plugin đó đã sẵn có trong Vim.
 
 ## File cấu hình vimrc đơn giản
