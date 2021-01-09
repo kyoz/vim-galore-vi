@@ -32,11 +32,11 @@
 - [Danh sách tham số](#danh-sách-tham số)
 - [Mapping lệnh](#mapping-lệnh)
 - [Phím leader](#phím-leader)
-- [Register](#register)
-- [Ranges](#ranges)
-- [Marks](#marks)
-- [Completion](#completion)
-- [Motions, operators, text objects](#motions-operators-text-objects)
+- [Bộ ghi nhớ](#bộ-ghi-nhớ)
+- [Vùng chọn](#vùng chọn)
+- [Đánh dấu](#đánh-dấu)
+- [Gợi ý code](#gợi-ý-code)
+- [Chuyển động, các toán tử, các đối tượng văn bản](#chuyển-động,-các-toán-tử,-các-đối-tượng-văn-bản)
 - [Autocmds](#autocmds)
 - [Changelist, jumplist](#changelist-jumplist)
 - [Undo tree](#undo-tree)
@@ -533,30 +533,29 @@ của mình.
 
 Xem thêm `:h mapleader` và `:h maplocalleader` để biết thêm chi tiết.
 
-## Register
+## Bộ ghi nhớ
 
-Registers (Bộ đăng ký, thanh ghi) là nơi lưu trữ các thao tác trên văn bản của 
-bạn. Việc bạn sao chép một đoạn văn bản vào register được gọi là **yanking** và 
-việc bạn trích xuất dữ liệu từ register được gọi là **pasting**.
+Bộ ghi nhớ (register) là nơi lưu trữ các thao tác trên văn bản của 
+bạn. Việc bạn sao chép một đoạn văn bản vào bộ ghi nhớ được gọi là **yanking** và 
+việc bạn trích xuất dữ liệu từ bộ ghi nhớ được gọi là **pasting**.
 
-Vim cung cấp cho bạn các register sau:
+Vim cung cấp cho bạn các bộ ghi nhớ sau:
 
 | Loại                | Kí tự                  | Được nhập bởi? | Không được chỉnh sửa? | Contains text from? |
 |---------------------|------------------------|----------------|-----------------------|---------------------|
 | Unnamed             | `"`                    | vim            | [ ]                   | Thông tin sao chép hoặc xóa gần nhất. (`d`, `c`, `s`, `x`, `y`) |
-| Numbered            | `0` to `9`             | vim            | [ ]                   | register `0`: Lần sao chép gần nhất. register `1`: Lần xóa gần nhất. register `2`: Lần xóa gần thứ nhì. Và cứ như vậy. Các register từ `1`-`9` không được phép chỉnh sửa [queue](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)). |
+| Numbered            | `0` to `9`             | vim            | [ ]                   | bộ ghi nhớ `0`: Lần sao chép gần nhất. bộ ghi nhớ `1`: Lần xóa gần nhất. bộ ghi nhớ `2`: Lần xóa gần thứ nhì. Và cứ như vậy. Các bộ ghi nhớ từ `1`-`9` không được phép chỉnh sửa [queue](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)). |
 | Small delete        | `-`                    | vim            | [ ]                   | Lần xóa gần nhất mà có ít hơn 1 dòng. |
-| Named               | `a` to `z`, `A` to `Z` | user           | [ ]                   | Nếu bạn muốn sao chép vào register `a`, bạn có thể thay thế nội dung của nó. Nếu bạn muốn sao chép vào register `A`, bạn thêm nó vào sau nội dung của register `a`. |
+| Named               | `a` to `z`, `A` to `Z` | user           | [ ]                   | Nếu bạn muốn sao chép vào bộ ghi nhớ `a`, bạn có thể thay thế nội dung của nó. Nếu bạn muốn sao chép vào bộ ghi nhớ `A`, bạn thêm nó vào sau nội dung của bộ ghi nhớ `a`. |
 | Read-only           | `:`, `.`, `%`          | vim            | [x]                   | `:`: Lệnh bạn dùng cuối cùng, `.`: Những từ gần nhất bạn thêm vào, `%`: Tên file của buffer hiện tại. |
 | Alternate buffer    | `#`                    | vim            | [ ]                   | Những buffer được truy cập gần nhất của window hiện tại. Xem `:h alternate-file` |
 | Expression          | `=`                    | user           | [ ]                   | Đánh giá biểu thức VimL đã được sao chép. Ví dụ, nhập lệnh sao đây trong chế độ insert: `<c-r>=5+5<cr>` và "10" sẽ được chèn vào buffer. |
-| Selection           | `+`, `*`               | vim            | [ ]                   | `*` và `+` là register [clipboard](#clipboard). |
+| Selection           | `+`, `*`               | vim            | [ ]                   | `*` và `+` là bộ ghi nhớ [clipboard](#clipboard). |
 | Drop                | `~`                    | vim            | [x]                   | Lần kéo thả gần nhất. |
-| Black hole          | `_`                    | vim            | [ ]                   | Nếu bạn không muốn bất kì register nào khác bị ảnh hưởng. Ví dụ, lệnh `"_dd` sẽ xóa dòng hiện tại mà không thay đổi (ảnh hưởng) đến các register `"`, `1`, `+`, `*`. |
+| Black hole          | `_`                    | vim            | [ ]                   | Nếu bạn không muốn bất kì bộ ghi nhớ nào khác bị ảnh hưởng. Ví dụ, lệnh `"_dd` sẽ xóa dòng hiện tại mà không thay đổi (ảnh hưởng) đến các bộ ghi nhớ `"`, `1`, `+`, `*`. |
 | Last search pattern | `/`                    | vim            | [ ]                   | Pattern gần nhất được sử dụng vơi `/`, `?`, `:global`, etc. |
 
-Each register that is not readonly can be set by the user:
-Mỗi thanh ghi không bị giới hạn ghi chép (readonly), có thể được thiết lập bởi 
+Mỗi bộ ghi nhớ không bị giới hạn ghi chép (readonly), có thể được thiết lập bởi 
 người dùng:
 
 ```vim
@@ -564,7 +563,7 @@ người dùng:
 ```
 
 Sau đó, phím <kbd>n</kbd> sẽ di chuyển con trỏ đến lần xuất hiện tiếp theo của 
-"register".
+"bộ ghi nhớ".
 
 Có rất nhiều trường hợp ngoại lệ khi các thanh ghi được lấp đầy một cách âm thầm,
 do đó, để chắc ăn, bạn nên đọc thêm `:h registers`.
@@ -584,10 +583,10 @@ Sao chép từ đầu tiên với `0yw`, sau đó bạn di chuyển con trỏ đ
 khác, dán từ vừa sao chép phía sau con trỏ của dòng hiện tại với phím `p` và 
 phía trước con trỏ với phím `P`;
 
-**Ví dụ: đặt tên cho register**
+**Ví dụ: đặt tên cho bộ ghi nhớ**
 
-Lệnh `"aY` sẽ sao chép dòng hiện tại vào register `a`. Di chuyển sang một dòng 
-khác. Lệnh `"AY` sẽ chèn dòng hiện tại vào phía cuối của register `a`.
+Lệnh `"aY` sẽ sao chép dòng hiện tại vào bộ ghi nhớ `a`. Di chuyển sang một dòng 
+khác. Lệnh `"AY` sẽ chèn dòng hiện tại vào phía cuối của bộ ghi nhớ `a`.
 
 Tôi khuyên bạn nên thử với tất cả các thanh ghi này một chút và liên tục dùng 
 lệnh `:reg` để kiểm tra những gì đang thực sự diễn ra.
@@ -596,21 +595,21 @@ lệnh `:reg` để kiểm tra những gì đang thực sự diễn ra.
 (hoặc chèn lại vào văn bản đã bị xóa trước đó), chứ không phải mang nghĩa 
 copying (sao chép).
 
-## Ranges
+## Vùng chọn
 
 Ranges (phạm vi) khá là dễ hiểu, những hầu hết các Vimmers đều không biết về 
 chức năng đầy đủ của chúng.
 
-- Rất nhiều lệnh đều có phạm vi (ranges).
+- Rất nhiều lệnh đều có vùng chọn (phạm vi).
 - Một địa chỉ sẽ chỉ định một dòng nhất định.
-- Một range có thể là một địa chỉ duy nhất hoặc một cặp địa chỉ được phân cách 
+- Một vùng chọn có thể là một địa chỉ duy nhất hoặc một cặp địa chỉ được phân cách 
 bởi `,` hoặc là `;`.
 - Ranges cho biết cách lệnh nên thực thi trên dòng nào.
 - Hầu hết các lệnh chỉ hoạt động trông dòng hiện tại theo mặc định. Các trường 
 hợp đáng chú ý có thể kể đến là `:write` và `:global`, chúng sẽ hoạt động trên 
 tất cả các dòng.
 
-Việc sử dụng các range khá là trực quan, đây là một số ví dụ (lệnh `:d`
+Việc sử dụng các vùng chọn khá là trực quan, đây là một số ví dụ (lệnh `:d`
 là viết tắt của `:delete`):
 
 | Lệnh     | Các dòng sẽ thực thi lệnh |
@@ -645,13 +644,13 @@ _gộp các pattern_ lại với nhau. Ví dụ:
 Lệnh trên sẽ xóa dòng đầu tiên có chứa "quux" sau dòng đầu tiên chứa "bar" sau 
 dòng đầu tiên có chứa "foo" kể từ sau dòng hiện tại.
 
-Đôi khi Vim tự động thêm một ranges vào trước dòng lệnh của bạn. Ví dụ: bắt 
+Đôi khi Vim tự động thêm một vùng chọn vào trước dòng lệnh của bạn. Ví dụ: bắt 
 đầu lựa chọn nhiều dòng với chế độ visual bằng lệnh `V`, chọn một số dòng bạn 
-thích và nhập `:`. Dòng lệnh sẽ được điền với ranges `'<,'>`, có nghĩa là lệnh 
+thích và nhập `:`. Dòng lệnh sẽ được điền với vùng chọn `'<,'>`, có nghĩa là lệnh 
 bạn chuẩn bị thực thi sẽ được áp dụng cho các dòng đã chọn trước đó. (Đây cũng 
 là lý do tại sao đôi khi bạn thấy các mapping như là 
-`:vnoremap foo :<c-u>command`. Ở đây `<c-u>` được sử dụng để loại bỏ ranges, 
-bởi vì Vim sẽ quăng lỗi khi bạn cho ranges vào một lệnh không hỗ trợ ranges.
+`:vnoremap foo :<c-u>command`. Ở đây `<c-u>` được sử dụng để loại bỏ vùng chọn, 
+bởi vì Vim sẽ quăng lỗi khi bạn cho vùng chọn vào một lệnh không hỗ trợ vùng chọn.
 
 Một ví dụ khác nữa là sử dụng `!!` ở chế độ normal. Thao tác này sẽ tự động 
 điền `:.!` vào dòng lệnh của bạn. Nếu bạn điền tiếp theo sau bởi một dòng lệnh,
@@ -666,26 +665,26 @@ Xem thêm:
 :h 10.3
 ```
 
-## Marks
+## Đánh dấu
 
-Bạn có thể sử dụng marks (đánh dấu) để ghi nhớ một vị trí, đó là vị trí dòng và 
+Bạn có thể đánh dấu (marks) để ghi nhớ một vị trí, đó là vị trí dòng và 
 cột bên trong một file.
 
 | Marks | Được đặt bởi.. | Công dụng |
 |-------|----------|-------|
-| `a` - `z` | Người dùng | Chỉ khả dụng cục bộ trong một file. Chuyển đến một mark được đánh dấu bằng chữ viết thường nghĩa là chuyển con trỏ qua lại trong một file. |
-| `A` - `Z` | Người dùng | Khả dụng toàn cục, cho tất cả các file. Còn được gọi là các _file mark__. Chuyển cho trỏ đến một marker được đánh dấu bằng chữ viết hoa có thể nhảy sang một buffer khác buffer hiện tại. |
+| `a` - `z` | Người dùng | Chỉ khả dụng cục bộ trong một file. Chuyển đến một dấu được đánh dấu bằng chữ viết thường nghĩa là chuyển con trỏ qua lại trong một file. |
+| `A` - `Z` | Người dùng | Khả dụng toàn cục, cho tất cả các file. Còn được gọi là các _file mark. Chuyển cho trỏ đến một marker được đánh dấu bằng chữ viết hoa có thể nhảy sang một buffer khác buffer hiện tại. |
 | `0` - `9` | viminfo | `0` là vị trí khi file viminfo được ghi lần cuối. Trong thực tế, điều này có nghĩa là khi Vim được đóng lần cuối. `1` là vị trí khi Vim kết thúc lần gần thứ 2, và cứ thế cho các số tiếp theo. |
 
-Đặt `'`/`g'` hoặc `` ` ``/`` g` `` trước một mark để tạo một cử chỉ (motion).
+Đặt `'`/`g'` hoặc `` ` ``/`` g` `` trước một đánh dấu để tạo một cử chỉ (motion).
 
-Sử dụng `mm` để ghi nhớ vị trí hiện tại với mark "m". Di chuyển xung quanh tệp 
+Sử dụng `mm` để ghi nhớ vị trí hiện tại với marker "m". Di chuyển xung quanh tệp 
 và sau đó quay lại với `'m` (ký tự đầu tiên không phải khoảng trống trên 1 dòng) 
-hoặc `` `m `` (vị trí cột chính xác đã đánh mark).
-Các mark được đánh dấu bằng chữ thường sẽ được ghi nhớ khi bạn thoát Vim, nếu 
+hoặc `` `m `` (vị trí cột chính xác đã đánh dấu).
+Các marker được đánh dấu bằng chữ thường sẽ được ghi nhớ khi bạn thoát Vim, nếu 
 bạn yêu cầu file viminfo của mình làm như vậy, xem thêm `:h viminfo-'`.
 
-Sử dụng `mM` để ghi nhớ vị trí hiện tại với mark "M". Chuyển sang buffer khác 
+Sử dụng `mM` để ghi nhớ vị trí hiện tại với marker "M". Chuyển sang buffer khác 
 và quay lại vị trí vừa đánh dấu với `'M` hoặc `` `M ``.
 
 Các cử chỉ khác:
@@ -705,60 +704,66 @@ Các cử chỉ khác:
 | `'{`, `` `{ ``   | Bắt đầu của đoạn văn bản hiện tại. |
 | `'}`, `` `} ``   | Kết thúc của đoạn văn bản hiện tại. |
 
-Các mark đánh dấu cũng có thể được sử dụng trong một [range](#ranges). Bạn hẳn 
+Các marker cũng có thể được sử dụng trong một [vùng chọn](#vùng-chọn). Bạn hẳn 
 là đã thấy điều này trước đây và tự hỏi ý nghĩa của nó là gì: Chọn một số đoạn 
 văn bản bạn thích ở chế độ visual và nhấn `:`, dòng lệnh sẽ hiển thị, và được 
 thêm sẵn vào phía trước như thế này `:'<,'>`, có nghĩa là lệnh sau sẽ nhận được 
 một phạm vi mà bạn đã chọn với chế độ visual.
 
-Sử dụng `:marks` để liệt kê tất cả mark mà bạn đã đánh dấu. Đọc thêm tất cả mọi 
-thứ về mark trong `:h mark-motions`.
+Sử dụng `:marks` để liệt kê tất cả marker mà bạn đã đánh dấu. Đọc thêm tất cả mọi 
+thứ về đánh dấu trong `:h mark-motions`.
 
-## Completion
+## Gợi ý code
 
-Vim provides many kinds of insert mode completions. If there are multiple
-matches, a popup menu will let you navigate to the match of your choice.
+Vim cung cấp nhiều loại gợi ý code tự động (completion) trong chế 
+độ insert. Nếu có nhiều kết quả gợi ý phù hợp, vim sẽ hiện một popup để bạn có 
+thể lựa chọn kết quả phù hợp với ý của mình.
 
-Typical kinds of completion are tags, functions from imported modules or
-libraries, file names, dictionary or simply words from the current buffer.
+Các loại gợi ý code điển thì là các thẻ (tag), các hàm (function) được import 
+từ các module hoặc các thư viện (library), tên file, từ điển (dictionary) hoặc 
+các từ đơn giản xuất hiện trong buffer hiện tại.
 
-Vim provides a mapping for each kind of completion and they all start with
-`<c-x>` (remember to use them in insert mode):
+Vim cung cấp các mapping cho các loại gợi ý code và chúng đều bắt đầu với 
+`<c-x>` (Hãy nhớ là bạn cần sử dụng chúng trong chế độ insert):
 
-| Mapping | Kind | Help         |
+| Mapping | Phân loại | Xem thêm chi tiết |
 |---------|------|--------------|
-| `<c-x><c-l>` | whole lines | `:h i^x^l` |
-| `<c-x><c-n>` | keywords from current file | `:h i^x^n` |
-| `<c-x><c-k>` | keywords from `'dictionary'` option | `:h i^x^k` |
-| `<c-x><c-t>` | keywords from `'thesaurus'` option | `:h i^x^t` |
-| `<c-x><c-i>` | keywords from current and included files | `:h i^x^i` |
-| `<c-x><c-]>` | tags | `:h i^x^]` |
-| `<c-x><c-f>` | file names | `:h i^x^f` |
-| `<c-x><c-d>` | definitions or macros | `:h i^x^d` |
-| `<c-x><c-v>` | Vim commands | `:h i^x^v` |
-| `<c-x><c-u>` | user defined (as specified in `'completefunc'`) | `:h i^x^u` |
-| `<c-x><c-o>` | omni completion (as specified in `'omnifunc'`) | `:h i^x^o` |
-| `<c-x>s`     | spelling suggestions | `:h i^Xs` |
+| `<c-x><c-l>` | toàn bộ dòng | `:h i^x^l` |
+| `<c-x><c-n>` | các từ khóa trong file hiện tại | `:h i^x^n` |
+| `<c-x><c-k>` | các từ khóa trong tùy chọn `'dictionary'` | `:h i^x^k` |
+| `<c-x><c-t>` | các từ khóa trong tùy chọn `'thesaurus'` | `:h i^x^t` |
+| `<c-x><c-i>` | các từ khóa trong các files hiện tại được mở | `:h i^x^i` |
+| `<c-x><c-]>` | các thẻ (tags) | `:h i^x^]` |
+| `<c-x><c-f>` | tên file | `:h i^x^f` |
+| `<c-x><c-d>` | các định nghĩa (definitions) hoặc macros | `:h i^x^d` |
+| `<c-x><c-v>` | các lệnh của Vim | `:h i^x^v` |
+| `<c-x><c-u>` | người dùng tự định nghĩa (như đã được chỉ định trong `'completefunc'`) | `:h i^x^u` |
+| `<c-x><c-o>` | omni gợi ý code (như đã được chỉ định trong `'omnifunc'`) | `:h i^x^o` |
+| `<c-x>s`     | gợi ý chính tả | `:h i^Xs` |
 
-People might be confused about the difference between user defined completion
-and omni completion, but technically they do the same thing. They take a
-function that inspects the current position and return a list of suggestions.
-User defined completion is defined by the user for their own personal purposes.
-(Surprise!) It could be anything. Omni completion is meant for filetype-specific
-purposes, like completing struct members or class methods, and is often set by
-filetype plugins.
+Mọi người có lẽ sẽ nhầm lẫn về sự khác biệt giữa các gợi ý code do người dùng 
+tự định nghĩa và omni gợi ý code, nhưng về mặt kĩ thuật, chúng đều làm những 
+việc tương tự nhau. Chúng nhận một hàm kiểm tra vị trí hiện tại và trả về một 
+danh sách gợi ý. Các gợi ý code do người dùng tự định nghĩa sẽ được định nghĩa 
+theo mục đích cá nhân của người dùng đó. (Ngạc nhiên chưa!) Chúng có thể là bất 
+cứ thứ gì. Omni gợi ý code thì có mục đích sử dụng cụ thể cho từng loại file, ví 
+dụ như gợi ý các thành phần của struct, các phương thức (method) của class, và 
+thường được cấu hình bởi các loại plugin cho từng loại file cụ thể.
 
-Vim also allows for completing multiple kinds at once by setting the
-`'complete'` option. By default that option includes quite a lot, so be sure to
-trim it to your taste. You can trigger this completion by using either `<c-n>`
-(next) and `<c-p>` (previous), which also happen to be the keys used for
-choosing entries in the popup menu. See `:h i^n` and `:h 'complete'` for more on
-this.
 
-Be sure to check out `:h 'completeopt'` for configuring the behaviour of the
-popup menu. The default is quite sane, but I prefer adding "noselect" as well.
+Vim cũng cho phép thực hiện gợi ý code (completing) cho nhiều loại gợi ý code 
+cùng một lúc bằng cách cấu hình cho cài đặt `'complete'`. Theo mặc định, cấu 
+hình đó bao gồm khá nhiều thứ, vì vậy hãy nhớ loại bỏ bớt chúng để tối ưu theo 
+sở thích của bạn. Bạn có thể kích hoạt gợi ý code bằng cách sử dụng `<c-n>`
+(chọn gợi ý tiếp theo) and `<c-p>` (chọn gợi ý trước), đây cũng là các phím 
+được sử dụng để chọn các lựa chọn trong popup menu. Xem `:h i^n` và 
+`:h 'complete'` để có thêm nhiều thông tin bổ ích.
 
-Help:
+Bạn cũng phải xem qua `:h 'completeopt'` để biết cách cấu hình cách hoặt động 
+của các popup menu. Cấu hình mặc định là khá tốt, nhưng tôi cũng thích thêm 
+cài đặt "noselect" vào.
+
+Xem thêm:
 
 ```
 :h ins-completion
@@ -766,45 +771,51 @@ Help:
 :h new-omni-completion
 ```
 
-## Motions, operators, text objects
+## Chuyển động, các toán tử, các đối tượng văn bản
 
-**Motions** move the cursor. You all know `h`/`j`/`k`/`l`. Or `w` and `b`. Even
-`/` is a motion. They also take a count. `2?the<cr>` jumps to the second last
-occurrence of "the".
+**Sự di chuyển (Motions)** giúp bạn di chuyển con trỏ của mình. Sau khi tập luyện qua vimtutor , 
+các bạn đều biết các phím `h`/`j`/`k`/`l`. Hoặc `w` và `b`. Thậm chí cả phím 
+`/` cũng là chuyển động. Chúng cũng có nhận cho mình số lần thực hiện. Ví dụ 
+`2?the<cr>` sẽ di chuyển con trỏ đến lần xuất hiện gần thứ nhì của từ "the".
 
-See `:h navigation` and everything below for all available motions.
+Xem qua `:h navigation` và tất cả những thứ bên dưới để biết tất cả các loại 
+chuyển động khả dụng.
 
-**Operators** act on a region of text, e.g. `d`, `~`, `gU`, `>` to name just a
-few. They get used in two contexts, either in normal or visual mode. In normal
-mode, operators come first followed by a motion, e.g. `>j`. In visual mode,
-operators simply act on the selection, e.g. `Vjd`.
+**Operators** hoạt động trên một vùng văn bản, một vài ví dụ như  `d`, `~`, `gU`, 
+`>`. Chúng được sử dụng trong cả hai chế độ normal và visual. Ở chế độ normal, 
+toán tử sẽ đi trước, kèm theo sau là một chuyển động, ví dụ `>j`. Trong chế độ 
+visual, các toán tử chỉ đơn giản là để thực hiện các lựa chọn, ví như `Vjd`.
 
-Like motions, operators take a count, e.g. `2gUw` makes the rest of the current
-word and the next one uppercase. Since motions and operators take counts,
-`2gU2w` works just as well and executes `gU2w` twice.
+Giống như các chuyển động, các toán tử cũng nhận cho mình số lần thực hiện, ví dụ `2gUw`
+sẽ viết hoa phần còn lại của từ hiện tại và từ tiếp theo. Vì các toán tử có số 
+lần thực hiện, `2gU2w` cũng hoạt động giống như `gU2w` nhưng được thực hiện 2 
+lần.
 
-See `:h operator` for all available operators. Use `:set tildeop` to make `~`
-act as an operator.
+Xem `:h toán tử` để biết tất cả các toán tử khả dụng. Sử dụng `:set tildeop` 
+để cho phím `~` hoạt động như một toán tử.
 
-**Text objects** act on the surrounding area, opposed to motions that act into
-one direction. Actually they work on objects, e.g. a whole word, a whole
-sentence, everything between parentheses, and so on.
+**Các đối tượng văn bản** hoạt động trên khu vực xung quanh chúng, trái ngược với 
+các chuyển động chỉ hoạt động trên một hướng. Trên thực tế, chúng hoạt động trên 
+các đối tượng (object), ví dụ: cả một từ, toàn bộ một câu, mọi thứ nằm trong 
+dấu ngoặc đơn, v.v.
 
-Text objects can't be used to move the cursor in normal mode, because even the
-most-skilled cursors can't jump into two directions at the same time. It works
-in visual mode though, because then one side of the object is already selected
-and the cursor simply jumps to the other side.
+Các đối tượng văn bản không thể được sử dụng để di chuyển con trỏ trong chế độ 
+normal, bởi vì ngay cả những con trỏ đỉnh cao nhất cũng không thể nhảy về 2 
+hướng cùng một lúc. Mặc dù vậy, chúng hoạt động trong chế độ visual, vì khi đó 
+một bên của đối tượng đã được chọn, và con trỏ chỉ đơn giản là nhảy sang bên 
+còn lại.
 
-Text objects start with either `i` (think _inner_) or `a` (think _around_)
-followed by a character denoting the object. With `i` it only acts on the object
-itself, with `a` on the object plus trailing whitespace. E.g. `diw` deletes the
-current word and `ci(` changes everything between parentheses.
+Các đối tượng văn bản bắt đầu bằng `i` (_inner_) hoặc `a` (_around_) theo sau là 
+một ký tự biểu thị đối tượng. Với `i`, chúng chỉ hoạt động trên chính đối 
+tượng đó, còn với `a` chúng hoạt động trên đối tượng đó cộng với khoảng trắng 
+đi theo sau đó. Ví dụ, `diw` sẽ xóa từ hiện tại và `ci(` thay đổi mọi thứ nằm 
+bên trong dấu ngoặc đơn.
 
-Text objects take a count. Imagine `((( )))` and the cursor on or between the
-most inner parentheses, then `d2a(` will remove the 2 inner pairs of parentheses
-and everything in between.
+Các đối tượng văn bản cũng nhận vào số lượng. Hãy tưởng tượng `((( )))` và con 
+trỏ trên hoặc giữa đấu ngoặc đơn trong cùng, thì `d2a(` sẽ xóa 2 cặp dấu ngoặc 
+đơn bên trong và mọi thứ ở giữa chúng.
 
-See `:h text-objects` for all available text objects.
+Xem thêm `:h text-objects` để biết tất cả các đối tượng văn bản khả dụng.
 
 ## Autocmds
 
