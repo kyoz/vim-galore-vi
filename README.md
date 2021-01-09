@@ -16,9 +16,9 @@
   <br /><br />
 </div>
 
-### [Giới thiệu](#giới-thiệu)
+### [Giới thiệu](#giới-thiệu-1)
 
-- [Vim là gì?](#vim-là-gì?)
+- [Vim là gì?](#vim-là-gì?-1)
 - [Triết lý của Vim](#triết-lý-của-vim)
 - [Những bước đầu tiên](#những-bước-đầu-tiên)
 - [File cấu hình vimrc đơn giản](#file-cấu-hình-vimrc-đơn-giản)
@@ -242,28 +242,31 @@ những tính năng của các plugin đó đã sẵn có trong Vim.
 
 ## File cấu hình vimrc đơn giản
 
-The user vimrc can be put into `~/.vimrc` or for the sake of better separation
-into `~/.vim/vimrc`. The latter makes it easy to put the entire configuration
-under version control and upload it to, let's say GitHub.
+Bạn có thể đặt file cấu hình vimrc của bạn ở `~/.vimrc` hoặc để quản lý tốt 
+hơn, bạn có thể phân chia nó ra và đặt nó vào `~/.vim/vimrc`. Việc tách các 
+file cấu hình ra sẽ giúp bạn dễ dàng quản lý các phiên bản cho từng bộ cấu hình 
+của mình, và tải nó lên mạng, giả sử như Github chẳng hạn.
 
-You find many "minimal vimrcs" all over the net, and maybe my version isn't as
-minimal as it should be, but it provides a good set of sane settings that I deem
-to be useful for starting out.
+Bạn có thể tìm thấy nhiều file cấu hình `vimrc đơn giản` trên mạng, ví dụ như 
+những file cấu hình của tôi, mặc dù trông chúng không được đơn giản cho lắm, 
+nhưng nó sẽ cung cấp cho bạn một bộ cài đặt, cấu hình ổn định mà tôi cho là 
+rất hữu ích để bạn bắt đầu.
 
-Eventually you have to read up on all the mentioned settings anyway and decide
-for yourself. :-)
+Cuối cùng, bạn vẫn phải đọc qua hết tất cả các cài đặt có trong file cấu hình 
+và tự quyết định sẽ cấu hình như thế nào cho chính bản thân mình. :-)
 
-So here it is: [minimal-vimrc](static/minimal-vimrc.vim)
+Xem file cấu hình ở đây nhé: [vimrc](static/minimal-vimrc.vim)
 
-In case you're interested, here's
-[my vimrc](https://github.com/mhinz/dotfiles/blob/master/.vim/vimrc).
+Trong trường hợp bạn quan tâm, đây là 
+[file cấu hình của tôi](https://github.com/kyoz/neovim).
 
-**TIP**: Most plugin authors maintain several plugins and also publish their
-vimrc on GitHub (often in a repository called "vim-config" or "dotfiles"), so
-whenever you find a plugin you like, look up its maintainer's GitHub page and
-look through the repositories.
+**MẸO NHỎ**: Hầu hết những người làm ra plugin đều chia sẻ file cấu hình vimrc 
+của họ trên Github (thường thì họ sẽ đặt trong repo có tên "dotfiles" hoặc 
+"vim-config"), vì vậy bất cứ khi nào bạn tìm thấy một plugin bạn thích, bạn hãy 
+xem qua GitHub của tác giả làm ra plugin đó và xem qua các repo để tham khảo 
+các file cấu hình của họ.
 
-## What kind of Vim am I running?
+## Bạn đang sử dụng phiên bản Vim nào?
 
 Looking at `:version` will give you all the information you need to know about
 how the currently running Vim binary was compiled.
