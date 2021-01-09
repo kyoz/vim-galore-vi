@@ -144,9 +144,9 @@
 ## Vim là gì?
 
 [Vim](http://www.vim.org) là một trình soạn thảo văn bản có nguồn gốc lâu đời
-[qed](https://en.wikipedia.org/wiki/QED_(text_editor)). 
-[Bram Moolenaar](https://en.wikipedia.org/wiki/Bram_Moolenaar) đã phát hành nó 
-vào năm 1991.
+[qed](https://en.wikipedia.org/wiki/QED_(text_editor)). Được 
+[Bram Moolenaar](https://en.wikipedia.org/wiki/Bram_Moolenaar) phát hành vào 
+năm 1991.
 
 Dự án của Vim được công khai trực tuyến tại [vim.org](http://www.vim.org/index.php).
 
