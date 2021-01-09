@@ -36,7 +36,7 @@
 - [Vùng chọn](#vùng-chọn)
 - [Đánh dấu](#đánh-dấu)
 - [Gợi ý code](#gợi-ý-code)
-- [Chuyển động, các toán tử, các đối tượng văn bản](#chuyển-động,-các-toán-tử,-các-đối-tượng-văn-bản)
+- [Chuyển động, các toán tử, các đối tượng văn bản](#chuyển-động-các-toán-tử-các-đối-tượng-văn-bản)
 - [Autocmds](#autocmds)
 - [Changelist, jumplist](#changelist-jumplist)
 - [Undo tree](#undo-tree)
