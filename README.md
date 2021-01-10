@@ -37,9 +37,9 @@
 - [Đánh dấu](#đánh-dấu)
 - [Gợi ý code](#gợi-ý-code)
 - [Chuyển động, các toán tử, các đối tượng văn bản](#chuyển-động-các-toán-tử-các-đối-tượng-văn-bản)
-- [Autocmds](#autocmds)
-- [Changelist, jumplist](#changelist-jumplist)
-- [Undo tree](#undo-tree)
+- [Lệnh tự động](#lệnh-tự-động)
+- [Danh sách thay đổi, danh sách nhảy](#danh-sách-thay-đổi-danh-sách-nhảy)
+- [Cây hoàn tác](#cây-hoàn-tác)
 - [Quickfix and location lists](#quickfix-and-location-lists)
 - [Macros](#macros)
 - [Colorschemes](#colorschemes)
@@ -817,103 +817,107 @@ trỏ trên hoặc giữa đấu ngoặc đơn trong cùng, thì `d2a(` sẽ xó
 
 Xem thêm `:h text-objects` để biết tất cả các đối tượng văn bản khả dụng.
 
-## Autocmds
+## Lệnh tự động
 
-You can trigger an action after many events in Vim, such as a buffer being
-saved or Vim having started up, by so-called _autocmds_.
+Bạn có thể kích hoạt một hành động sau các sự kiện (events) của Vim, chẳng hạn 
+như khi buffer được lưu hoặc khi Vim đã khởi động, bằng thứ gọi là các lệnh tự 
+động (_autocmds_).
 
-Vim relies extensively on autocmds. Don't believe me? Check `:au`, but don't let
-the output overwhelm you. These are all the autocmds that are in effect right
-now!
+Vim phụ thuộc rất nhiều vào các lệnh tự động. Không tin tôi ư? Thử chạy lệnh 
+`:au` xem, nhưng bạn cũng đừng lo lắng với danh sách khổng lồ đó. Đó là tất cả 
+các lệnh tự động đang có hiệu lực trong Vim của bạn.
 
-See `:h {event}` for a quick overview of all available events and `:h
-autocmd-events-abc` for more details.
+Xem `:h {event}` để biết một cách tổng quan về các sự kiện có sẵn trong Vim và 
+`:h autocmd-events-abc` để biết thêm chi tiết.
 
-A typical example would be filetype-specific settings:
+Một ví dụ điển hình sẽ là áp dụng các cài đặt riêng cho từng loại file khác nhau.
 
 ```vim
 autocmd FileType ruby setlocal shiftwidth=2 softtabstop=2 comments-=:#
 ```
 
-But how does a buffer even know that it contains Ruby code? Because another
-autocmd detected it as that and set the filetype accordingly which again
-triggered the `FileType` event.
+Nhưng làm sao một buffer có thể biết rằng nó đang chứa code Ruby? Bởi vì một 
+lệnh tự động khác đã xác định nó và đặt loại file (filetype) phù hợp cho buffer 
+đó rồi, điều này một lần nữa lại kích hoạt một sự kiện `FileType`;
 
-One of the first things everyone adds to their vimrc is `filetype on`. This
-simply means that `filetype.vim` is read at startup which sets autocmds for
-almost all filetypes under the sun.
+Một trong những cài đặt đầu tiên mà mọi người thường thêm vào file cấu hình Vim 
+của họ đó là `filetype on`. Điều này hiểu nôm na là `filetype.vim` được thực 
+thi khi Vim khởi động, đặt các lệnh tự động để xác định loại file cho hều hết 
+các loại file trên thế giới này :).
 
-If you're brave enough, have a look at it: `:e $VIMRUNTIME/filetype.vim`. Search
-for "Ruby" and you'll find that Vim simply uses the file extension `.rb` to
-detect Ruby files:
+Nếu bạn đủ dũng cảm, hãy xem thử: `:e $VIMRUNTIME/filetype.vim`. Tìm "Ruby" và 
+bạn sẽ thấy là Vim chỉ đơn giản sử dụng phần mở rộng của file (file extension) 
+để xác định đó có phải một file Ruby hay không.
 
-**NOTE**: Autocmds of the same event are executed in the order they were
-created. `:au` shows them in the correct order.
+Lưu ý: Autocmds của cùng một sự kiện được thực thi theo thứ tự chúng được tạo.
+Nếu bạn chạy lệnh `:au` chúng sẽ được liệt kê theo đúng thứ tự (từ trên xuống).
 
 ```vim
 au BufNewFile,BufRead *.rb,*.rbw  setf ruby
 ```
 
-The `BufNewFile` and `BufRead` events in this case are hardcoded in the C
-sources of Vim and get emitted everytime you open a file via `:e` and similar
-commands. Afterwards all the hundreds of filetypes from `filetype.vim` are
-tested for.
+Các sự kiện `BufNewFile` và `BufRead` trong trường hợp này được code cứng trong 
+mã nguồn (ngôn ngữ C) và sẽ thực thi mỗi khi bạn mở một file với lệnh `:e` và 
+các lệnh tương tự. Sau đó, hàng trăm loại file đều được `filetype.vim` kiểm tra.
 
-Putting it in a nutshell, Vim makes heavy use of events and autocmds but also
-exposes a clean interface to hook into that event-driven system for
-customization.
+Tóm lại, Vim sử dụng nhiều sự kiện và các lệnh tự động nhưng cũng chìa ra các 
+interface gọn gàng để kết nối với hệ thống hướng sự kiện (event-driven system) 
+của nó để chúng ta dễ dàng tùy biến.
 
-Help: `:h autocommand`
+Xem thêm: `:h autocommand`
 
-## Changelist, jumplist
+## Danh sách thay đổi, danh sách nhảy
 
-The positions of the last 100 changes are kept in the **changelist**. Several
-small changes on the same line will be merged together, but the position will be
-that of the last change nevertheless (in case you added something in the middle
-of the line).
+Vị trí của 100 sự thay đổi gần nhất được Vim lưu trữ trong danh sách thay đổi (
+changelist). Một vài thay đổi nhỏ trên cùng một dòng sẽ được gộp lại với nhau,
+tuy nhiên, ví trí thay đổi sẽ được lấy vị trí của thay đổi cuối cùng (trong 
+trường hợp bạn đã thêm gì đó vào giữa một dòng).
 
-Every time you jump, the position _before_ the jump is remembered in the
-**jumplist**. A jumplist has up to 100 entries. Each window has its own
-jumplist. When you split a window, the jumplist is copied.
+Mỗi khi bạn nhảy con trỏ của mình đến một vị trí khác, vị trí trước đó sẽ được 
+lưu vào danh sách nhảy (jumplist). Một danh sách nhảy có thể có tới 100 mục. 
+Mỗi window sẽ có danh sách nhảy riêng của nó. Khi bạn tách một window, danh 
+sách nhảy sẽ được sao chép theo.
 
-A jump is one of the following commands: `'`, `` ` ``, `G`, `/`, `?`, `n`, `N`,
-`%`, `(`, `)`, `[[`, `]]`, `{`, `}`, `:s`, `:tag`, `L`, `M`, `H` and commands
-that start editing a new file.
+Lệnh nhảy (nhảy) con trỏ là một trong các lệnh sau: `'`, `` ` ``, `G`, 
+`/`, `?`, `n`, `N`, `%`, `(`, `)`, `[[`, `]]`, `{`, `}`, `:s`, `:tag`, `L`, 
+`M`, `H` và các lệnh để bạn bắt đầu chỉnh sửa một file mới.
 
-| List       | List all entries | Go to older position | Go to newer position |
-|------------|------------------|----------------------|----------------------|
-| jumplist   | `:jumps`         | `[count]<c-o>`       | `[count]<c-i>`       |
-| changelist | `:changes`       | `[count]g;`          | `[count]g,`          |
+| Danh sách  | Lệnh để liệt kê  | Về vị trí trước đó   | Tới vị trí sau vị trí hiện tại |
+|------------|------------------|----------------------|-----------------------|
+| jumplist   | `:jumps`         | `[count]<c-o>`       | `[count]<c-i>`        |
+| changelist | `:changes`       | `[count]g;`          | `[count]g,`           |
 
-When you list all entries, a marker `>` will be used to show the current
-position. Usually that will be below position 1, the latest position.
+Khi bạn liệt kê tất cả các mục, một marker `>` sẽ được dùng để hiển thị vị trí 
+hiện tại của bạn. Thông thường đó sẽ là bên dưới vị trí 1, vị trí gần nhất.
 
-If you want both lists to persist after restarting Vim, you need to use the
-viminfo file and `:h viminfo-'`.
+Nếu bạn muốn cả hai danh sách vẫn còn tồn tại sau khi bạn khởi động lại Vim, 
+bạn cần sửa dụng file viminfo và `:h viminfo-`.
 
-**NOTE**: The position before the latest jump is also kept as a [mark](#marks)
-and can be jumped to via ``` `` ``` or `''`.
+**Chú ý**: Vị trí lần nhảy mới nhất cũng được lưu trữ dưới dạng một 
+[marker](#đánh-dấu) và có thể được nhảy đến với lệnh ``` `` ``` hoặc `''`.
 
-Help:
+Xem thêm:
 
 ```
 :h changelist
 :h jumplist
 ```
 
-## Undo tree
+## Cây hoàn tác
 
-The latest changes to the text state are remembered. You can use _undo_ to
-revert changes and _redo_ to reapply previously reverted changes.
+Những thay đổi mới nhất của một văn bản đều được Vim ghi nhớ vào cây hoàn tác 
+(Undo tree). Bạn có thể dử dụng _undo_ để hoàn tác một thay đổi và _redo_ để 
+áp dụng lại thay đổi vừa hoàn tác.
 
-The important bit to understand it that the data structure holding recent
-changes is not a
-[queue](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)) but a
-[tree](https://en.wikipedia.org/wiki/Tree_(data_structure))! Your changes are
-nodes in the tree and each (but the top node) has a parent node. Each node keeps
-information about the changed text and time. A branch is a series of nodes that
-starts from any node and goes up to the top node. New branches get created when
-you undo a change and then insert something else.
+Điều quan trọng mà bạn cần hiểu là cấu trúc dữ liệu để lưu trữ các thay đổi 
+trong Vim không phải là [hàng đợi (queue)](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)) 
+mà là [cấu trúc cây (tree)](https://en.wikipedia.org/wiki/Tree_(data_structure))!. 
+Các thay đổi của bạn sẽ là các nút (node) trong cây, và mỗi nút (trừ nút trên 
+cùng), sẽ có một nút cha. Mỗi nút giữ thông tin về văn bản của bạn, và thời gian 
+bạn đã thay đổi chúng. Một nhánh (branch) là một danh sách các nút bắt đầu từ 
+nút bất kì nào đó và đi lên đến nút trên cùng (nút gốc). Các nhánh sẽ được tạo 
+khi bạn hoàn tác một thay đổi và sau đó chèn một đoạn khác vào văn bản bạn vừa 
+hoàn tác.
 
 ```
 ifoo<esc>
@@ -923,7 +927,7 @@ u
 oquux<esc>
 ```
 
-Now you have 3 lines and the undo tree looks like this:
+Bây giờ bạn có 3 dòng và cây hoàn tác của bạn sẽ trông như thế này:
 
 ```
      foo(1)
@@ -933,39 +937,42 @@ Now you have 3 lines and the undo tree looks like this:
 baz(3)   quux(4)
 ```
 
-The undo tree has 4 changes. The numbers represent the _time_ the nodes were
-created.
+Cây hoàn tác có 4 thay đổi. Các con số đại diện cho _thời gian_ các nút được tạo.
 
-Now there are two ways to traverse this tree, let's call them _branch-wise_ and
-_time-wise_.
+Bạn có hai cách để đi qua cây hoàn tác này, hãy gọi chúng là _branch-wise_ and
+_time-wise_ (Duyệt cây theo nhánh hoặc theo thời gian).
 
-Undo (`u`) and redo (`<c-r>`) work branch-wise. They go up and down the current
-branch. `u` will revert the text state to the one of node "bar". Another `u`
-will revert the text state even further, to the one of node "foo". Now `<c-r>`
-goes back to the state of node "bar" and another `<c-r>` to the state of node
-"quux". (There's no way to reach node "baz" using branch-wise commands anymore.)
+Hoàn tác (`u`) và áp dụng lại (`<c-r>`) hoạt động theo nhánh. Chúng sẽ đi lên 
+và xuống trong nhánh hiện tại. `u` sẽ hoàn tác lại nguyên trạng văn bản của nút 
+"bar". Nhấn `u` một lần nữa sẽ hoàn tác lại nguyên trạng văn bản của nút xa hơn 
+nữa đó là nút "foo". Tiếp theo, nếu bạn nhấn `<c-r>`, văn bản của bạn sẽ quay 
+trở lại trạng thái của nút "bar", nhấn tiếp một lần nữa bạn sẽ có văn bản ở 
+trạng thái của nút "baz". (Bạn không thể dùng lệnh để đi đến node "baz" bằng 
+cách duyệt cây theo nhánh (branch-wise)).
 
-Opposed to this, `g-` and `g+` work time-wise. Thus, `g-` won't revert to the
-state of node "bar", like `u` does, but to the chronologically previous state,
-node "baz". Another `g-` would revert the state to the one of node "bar" and so
-on. Thus, `g-` and `g+` simply go back and forth in time, respectively.
+Khác với việc duyệt theo nhánh, `g-` và `g+` duyệt cây theo thời gian. Do đó, 
+`g-` không hoàn tác trạng thái của văn bản về nút "bar", giống như khi bạn dùng 
+`u`, mà nó sẽ hoàn tác về trạng thái trước đó theo thời gian, nghĩa là nút "baz".
+Nhấn `g-` một lần nữa sẽ hoàn tác văn bản về trạng thái của nút "bar", và cứ thế 
+tiếp tục. Vì vậy `g-` và `g+` chỉ đơn giản là hoàn tác về trạng thái trước tuần 
+tự theo thời gian.
 
-| Command / Mapping | Action |
+| Lệnh / Mapping | Hành động |
 |-------------------|--------|
-| `[count]u`, `:undo [count]` | Undo [count] changes. |
-| `[count]<c-r>`, `:redo` | Redo [count] changes. |
-| `U` | Undo all changes to the line of the latest change. |
-| `[count]g-`, `:earlier [count]?` | Go to older text state [count] times. The "?" can be either "s", "m", "h", "d", or "f". E.g. `:earlier 2d` goes to the text state from 2 days ago. `:earlier 1f` will go to the state of the latest file save. |
-| `[count]g+`, `:later [count]?` | Same as above, but other direction. |
+| `[count]u`, `:undo [count]` | Hoàn tác thay đổi [số] lần. |
+| `[count]<c-r>`, `:redo` | Áp dụng lại thay đổi [số] lần. |
+| `U` | Hoàn tác tất cả các thay đổi đối với dòng được thay đổi gần nhất. |
+| `[count]g-`, `:earlier [count]?` | Chuyển đến trạng thái của văn bản trước đó [số] lần. Trong đó "?" có thể là "s", "m", "h", "d", hoặc "f". Ví dụ: `:earlier 2d` sẽ hoàn tác văn bản về trạng thái của 2 ngày trước. `:earlier 1f` sẽ hoàn tác văn bản về trạng thái của lần lưu gần nhất. |
+| `[count]g+`, `:later [count]?` | Giống như trên, nhưng theo hướng ngược lại. |
 
-The undo tree is kept in memory and will be lost when Vim quits. See [Undo
-files](#undo-files) for how to enable persistent undo.
+Cây hoàn tác được Vim lưu trữ trong bộ nhớ và sẽ bị xóa khi bạn thoát Vim. Xem 
+thêm [Hoàn tác file](#hoàn-tác-file) để biết thêm chi tiết.
 
-If you're confused by the undo tree,
-[undotree](https://github.com/mbbill/undotree) does a great job at visualizing
-it.
+Nếu bạn cảm thấy khó khăn với cây hoàn tác, 
+[undotree](https://github.com/mbbill/undotree) sẽ giúp bạn hiểu cây hoàn tác 
+với cái nhìn trực quan hơn.
 
-Help:
+Xem thêm:
 
 ```
 :h undo.txt
@@ -2763,7 +2770,7 @@ because then you're just throwing text at the terminal emulator. Vim doesn't
 know that you just pasted the text, it thinks you're an extremely fast typist.
 Accordingly, it tries to indent the lines and fails.
 
-Obviously this is not an issue, if you paste using Vim's registers, e.g. `"+p`,
+Obviously this is not an issue, if you paste using Vim's registersDTree Toggle,
 because then Vim knows that you're actually pasting.
 
 To workaround this, you have to `:set paste`, so it gets pasted as-is. See `:h
