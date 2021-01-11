@@ -43,11 +43,11 @@
 - [Danh sách sửa lỗi nhanh và danh sách vị trí](#danh-sách-sửa-lỗi-nhanh-và-danh-sách-vị-trí)
 - [Macros](#macros)
 - [Bảng màu](#bảng-màu)
-- [Folding](#folding)
-- [Sessions](#sessions)
-- [Locality](#locality)
+- [Thu gọn code](#thu-gọn-code)
+- [Phiên làm việc](#phiên-làm-việc)
+- [Tính cục bộ](#tính-cục-bộ)
 
-### [Usage](#usage-1)
+### [Cách sử dụng](#cách-sử-dụng-1)
 
 - [Nhận hỗ trợ mà không cần kết nối mạng](#nhận-hỗ-trợ-mà-không-cần-kết-nối-mạng)
 - [Getting help offline (alternative)](#getting-help-offline-alternative)
@@ -1153,16 +1153,19 @@ Xem thêm:
 - [Danh sách bảng màu](PLUGINS.md#các-bảng-màu)
 - [Thay đổi màu sắc](#thay-đổi-màu-sắc)
 
-## Folding
+## Thu gọn Code
 
-Every text (or source code) has a certain structure. If you have a structure, it
-means you have regions of logically separated text. Folding allows to "fold"
-such a region into a single line and displaying a short description. There are
-many commands that act on these regions called _folds_. Folds can be nested.
+Mọi văn bản (hoặc mã nguồn) đều có một cấu trúc (structure) nhất định. Nếu văn 
+bản, mã nguồn code của bạn có một cấu trúc, điều đó có nghĩa là bạn có các 
+vùng văn bản được phân tách một cách hợp lý. Thu gọn code, hay còn gọi là gấp 
+code (folding) cho phép bạn "thu gọn" một vùng như vậy thành một dòng duy nhất 
+và chỉ hiển thị một mô tả ngắn. Có nhiều lệnh trong Vim có thể hoạt động trên các 
+vùng này, mỗi vùng thường được gọi là các _fold_. Các fold có thể được lồng vào 
+nhau.
 
-Vim distinguishes between several types of fold methods:
+Vim phân biệt giữa một số loại phương pháp thu gọn code:
 
-| 'foldmethod' | Usage |
+| 'phương thức thu gọn (fold method)' | Cách sử dụng |
 |--------------|-------|
 | diff         | Used in diff windows to fold unchanged text. |
 | expr         | Uses `'foldexpr'` to basically create a new fold method. |
@@ -1171,50 +1174,59 @@ Vim distinguishes between several types of fold methods:
 | marker       | Folds based on markers in the text (often in comments). |
 | syntax       | Folds based on syntax, e.g. folding `if` blocks. |
 
-**NOTE**: Folding can be computationally intensive! If you experience any
-performance drawbacks (small delays when typing), have a look at
-[FastFold](https://github.com/Konfekt/FastFold), which prevents Vim from
-updating folds when it's not needed.
+**LƯU Ý**: Việc thu gọn code có thể cần rất nhiều xử lý! Nếu bạn gặp bất kỳ hạn chế 
+nào về hiệu suất (độ trễ khi nhập liệu), hãy xem plugin 
+[FastFold](https://github.com/Konfekt/FastFold), plugin này ngăn Vim cập nhật 
+các fold khi không cần thiết.
 
-Help:
+Xem thêm:
 
 ```
 :h usr_28
 :h folds
 ```
 
-## Sessions
+## Phiên làm việc
 
-If you save a **view** (`:h :mkview`), the current state of the window (and
-options and mappings) gets saved for later use (`:h :loadview`).
+Nếu bạn lưu một **view** (Xem `:h :mkview`), trạng thái hiện tại của window (cũng 
+như các cài đặt và mapping của nó) cũng sẽ được lưu để sử dụng sau này 
+(`:h :loadview`).
 
-A **session** saves the views of all windows plus global settings. It basically
-makes a snapshot of your current Vim instance and saves it in a session file.
-Let me stress this: it saves the current state; everything done after saving a
-session won't be part of the session file. To "update" a session, simply write
-it out again.
+Một ** phiên ** lưu chế độ xem của tất cả các cửa sổ cộng với cài đặt chung. 
+Về cơ bản, nó tạo một ảnh chụp nhanh của phiên bản Vim hiện tại của bạn và lưu 
+nó trong một tệp phiên. Hãy để tôi nhấn mạnh điều này: nó lưu trạng thái hiện 
+tại; mọi thứ được thực hiện sau khi lưu một phiên sẽ không nằm trong tệp phiên. 
+Để "cập nhật" một phiên, chỉ cần viết lại.
 
-This makes it perfect for saving your _projects_ and easy to switch between
-them.
+Một phiên làm việc sẽ lưu các view của tất cả các window và cả các cài đặt 
+chung. Về cơ bản, nó sẽ tạo một snapshot của phiên làm việc hiện tại của bạn và 
+lưu trong trong một file. Để tôi nhấn mạnh điều này: Vim sẽ lưu trạng thái hiện 
+tại; mọi thứ được thực hiện sau khi bạn lưu một phiên làm việc sẽ không nằm 
+trong file lưu trữ phiên làm việc, tức chúng sẽ không được lưu lại. Để 
+"cập nhật" một phiên làm việc, chỉ cần lưu lại.
 
-Try it right now! Open a few windows and tabs and do `:mksession Foo.vim`. If
-you omit the filename, `Session.vim` will be assumed. The file will be saved to
-the current working directory, check `:pwd`. Restart Vim and do `:source
-Foo.vim` and voilà, the buffer list, window layout, mappings, working directory
-etc. should all be the same as before you saved the session. Do some more work
-and update the session by overwriting the already existing session file with
-`:mksession! Foo.vim`.
+Điều này giúp bạn dễ dàng lưu lại, cũng như chuyển đổi qua lại giữa các _dự án_ 
+của mình.
 
-Note that a session file is really just a collection of Vim commands that are
-supposed to restore a certain state of a Vim instance, so feel free to take a
-look at it: `:vs Foo.vim`.
+Thử ngay đi! Mở một vài window, tab, và dùng lệnh `:mksession Foo.vim`. Nếu bạn 
+không điền tên file, `Session.vim` sẽ mặc định được dùng. File này sẽ được lưu 
+vào thư mục làm việc hiện tại của bạn, xem `:pwd`. Khởi động lại Vim là nhập 
+`source Foo.vim` và bất ngờ chưa, danh sách buffer, bố trí của các window, các 
+mapping, thư mục làm việc hiện tại, v.v. sẽ giống y chang lúc bạn lưu phiên làm 
+việc. Làm một vài thứ, và chập nhật phiên làm việc bằng cách ghi đè lên file 
+lưu trữ phiên làm việc đã tồn tại với lệnh `:mksession! Foo.vim`.
 
-You can tell Vim what things to save in a session by setting `'sessionoptions'`.
+Lưu ý rằng một file lưu trữ phiên làm việc thực sự chỉ là một tập hợp của các 
+lệnh trong vim để khôi phục lại trạng thái của Vim khi bạn thực hiện lưu phiên 
+làm việc. Vì vậy hãy xem: `:vs Foo.vim`.
 
-For scripting purposes Vim keeps the name of the last sourced or written session
-in the internal variable `v:this_session`.
+Bạn có thể cho Vim biết những gì cần lưu trong một phiên bản với cài đặt 
+`'sessionoptions'`.
 
-Help:
+Đối với việc viết code, Vim sẽ giữ tên của phiên làm việc được áp dụng hoặc lưu 
+lại lần cuối vào biến cục bộ (internal variable) `v:this_session`.
+
+Xem thêm:
 
 ```
 :h Session
@@ -1222,21 +1234,21 @@ Help:
 :h v:this_session
 ```
 
-## Locality
+## Tính cục bộ
 
-Many of the concepts mentioned above also have _local_ counterparts:
+Nhiều khái niệm được đề cập ở trên cũng có các phiên bản chạy _cục bộ_:
 
-| Global | Local | Scope | Help |
-|--------|-------|-------|------|
+| Toàn cục   | Cục bộ | Phạm vi | Xem thêm |
+|------------|--------|-------|------|
 | `:set`     | `:setlocal`           | buffer or window | `:h local-options`    |
 | `:map`     | `:map <buffer>`       | buffer           | `:h :map-local`       |
 | `:autocmd` | `:autocmd * <buffer>` | buffer           | `:h autocmd-buflocal` |
 | `:cd`      | `:lcd`                | window           | `:h :lcd`             |
 | `<leader>` | `<localleader>`       | buffer           | `:h maplocalleader`   |
 
-[Variables also have different scopes](https://vimhelp.appspot.com/usr_41.txt.html#41.2).
+[Các biến (variables) cũng có các phạm vi khác nhau](https://vimhelp.appspot.com/usr_41.txt.html#41.2).
 
-# Usage
+# Cách sử dụng
 
 ## Nhận hỗ trợ không cần kết nối mạng
 
