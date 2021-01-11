@@ -40,9 +40,9 @@
 - [Lệnh tự động](#lệnh-tự-động)
 - [Danh sách thay đổi, danh sách nhảy](#danh-sách-thay-đổi-danh-sách-nhảy)
 - [Cây hoàn tác](#cây-hoàn-tác)
-- [Quickfix and location lists](#quickfix-and-location-lists)
+- [Danh sách sửa lỗi nhanh và danh sách vị trí](#danh-sách-sửa-lỗi-nhanh-và-danh-sách-vị-trí)
 - [Macros](#macros)
-- [Colorschemes](#colorschemes)
+- [Bảng màu](#bảng-màu)
 - [Folding](#folding)
 - [Sessions](#sessions)
 - [Locality](#locality)
@@ -82,7 +82,7 @@
 - [Disable audible and visual bells](#disable-audible-and-visual-bells)
 - [Quickly move current line](#quickly-move-current-line)
 - [Quickly add empty lines](#quickly-add-empty-lines)
-- [Quickly edit your macros](#quickly-edit-your-macros)
+- [Chỉnh sửa nhanh macros của bạn](#chỉnh-sửa-nhanh-macros-của-bạn)
 - [Quickly jump to header or source file](#quickly-jump-to-header-or-source-file)
 - [Quickly change font size in GUI](#quickly-change-font-size-in-gui)
 - [Change cursor style dependent on mode](#change-cursor-style-dependent-on-mode)
@@ -90,7 +90,7 @@
 - [Reload a file on saving](#reload-a-file-on-saving)
 - [Smarter cursorline](#smarter-cursorline)
 - [Faster keyword completion](#faster-keyword-completion)
-- [Cosmetic changes to colorschemes](#cosmetic-changes-to-colorschemes)
+- [Thay đổi màu sắc](#thay-đổi-màu-sắc)
 
 ### [Commands](#commands-1)
 
@@ -979,55 +979,58 @@ Xem thêm:
 :h usr_32
 ```
 
-## Quickfix and location lists
+## Danh sách sửa lỗi nhanh và danh sách vị trí
 
-The quickfix list is a data structure that holds file positions. Essentially,
-each entry in the quickfix list consists of a file path, a line number and
-optional column, and a description.
+Danh sách Sửa lỗi nhanh (Quickfix) là một cấu trúc dữ liệu chứa vị trí của các 
+tệp. Về cơ bản, mỗi mục trong danh sách sửa lỗi nhanh sẽ liệt kê đường dẫn của một 
+file, số thứ tự của một dòng, cột và một mô tả.
 
-Typical use cases are assembling compiler errors or results of a grep tool.
+Các trường hợp sử dụng điển hình là để tập hợp các lỗi biên dịch hoặc kết quả 
+của một công cụ grep (Tìm nội dung trong file).
 
-Vim has a special type of buffer for showing the quickfix list: the quickfix
-buffer. Each line in the quickfix buffer shows one entry from the quickfix list.
+Vim có một loại buffer đặc biệt để hiển thị danh sách sửa lỗi nhanh: bộ đệm sửa 
+lỗi nhanh (quickfix bufer).  Mỗi dòng trong buffer sửa lỗi nhanh hiển thị một mục 
+từ danh sách sửa lỗi nhanh.
 
-Usually you open a new window to display the quickfix list: the quickfix window.
-When that happens, the last window gets associated with the quickfix window.
+Thông thường, bạn sẽ mở một window mới để hiển thị danh sách sửa lỗi nhanh. Khi 
+bạn làm điều đó, window được sử dụng lần gần nhất sẽ được liên kết với cửa sổ 
+sửa lỗi nhanh (quickfix window).
 
-In the quickfix buffer `<cr>` opens the selected entry in the associated window
-and `<c-w><cr>` in a new window.
+Trong buffer sửa lỗi nhanh, dùng `<cr>` để mở một mục đang được chọn trong 
+window đang được liên kết và `<c-w><cr>` để mở mục đó trong một window mới.
 
-The quickfix list was named after the "quick fix" feature from the [Aztec C
-compiler](https://en.wikipedia.org/wiki/Aztec_C).
+Danh sách sửa lỗi nhanh được đặt tên theo tính năng "quick fix" của 
+[Aztec C compiler](https://en.wikipedia.org/wiki/Aztec_C).
 
-Actually there are two kinds of lists: quickfix and location lists. They behave
-almost the same, but have the follwing differences:
+Trên thực tế, có hai loại danh sách: danh sách sửa lỗi nhanh (quickfix) và danh 
+sách vị trí (location list). Chúng hoạt động gần như giống nhau, nhưng có các 
+điểm khác biệt sau:
 
-- There is only one quickfix list. There can be multiple location lists; one per
-  window.
-- They use slightly different commands for navigation.
+- Chỉ có thể có một danh sách sửa lỗi nhanh duy nhất. Nhưng có thể có nhiều 
+danh sách vị trí; mỗi danh sách tương ứng với một window.
+- Chúng sử dụng các lệnh hơi khác nhau để điều hướng.
 
-| Action         | Quickfix     | Location     |
-|----------------|--------------|--------------|
-| open window    | `:copen`     | `:lopen`     |
-| close window   | `:cclose`    | `:lclose`    |
-| next entry     | `:cnext`     | `:lnext`     |
-| previous entry | `:cprevious` | `:lprevious` |
-| first entry    | `:cfirst`    | `:lfirst`    |
-| last entry     | `:clast`     | `:llast`     |
+| Hành động      | Sửa lỗi nhanh | Vị trí       |
+|----------------|---------------|--------------|
+| mở window      | `:copen`      | `:lopen`     |
+| đóng window    | `:cclose`     | `:lclose`    |
+| mục tiếp theo  | `:cnext`      | `:lnext`     |
+| mục trước đó   | `:cprevious`  | `:lprevious` |
+| mục đầu tiên   | `:cfirst`     | `:lfirst`    |
+| mục cuối cùng  | `:clast`      | `:llast`     |
 
-Mind that the quickfix and location windows don't need to be open for these
-commands to work.
+Lưu ý rằng các cửa sổ định vị và sửa lỗi nhanh không cần phải mở để các lệnh 
+này có thể hoạt động.
 
-See `:h quickfix` for more information and a full list of commands.
+Xem thêm `:h quickfix` để có thêm nhiều thông tin chi tiết và danh sách các 
+lệnh đầy đủ.
 
-For conciseness, _quickfix_ and _location_ are often abbreviated as _qf_ and
-_loc_ respectively.
+Để ngắn gọn, _quickfix_ và _location_ thường được viết tắt là _qf_ và _loc_.
 
-**Example**:
+Ví dụ**:
 
-Let us use our good old friend `grep` for searching the files in the current
-directory recursively for a certain query and put the results in the quickfix
-list.
+Hãy dùng `grep` để tìm kiếm các file trong thư mục hiện tại cho một truy vấn 
+nhất định nào đó và đưa kết quả tìm được vào danh sách sửa lỗi nhanh.
 
 ```vim
 :let &grepprg = 'grep -Rn $* .'
@@ -1036,24 +1039,26 @@ list.
 :copen
 ```
 
-Assuming any files contained the string "foo", it should be shown now in the
-quickfix window.
+Giả sử tất cả các file đều chứa chuỗi "foo", cửa sổ sửa lỗi nhanh sẽ được hiển 
+thị với các kết quả từ grep.
 
 ## Macros
 
-Vim allows _recording_ typed characters into a [register](#registers). It's a
-great way to automate certain tasks on the fly. (For more elaborate tasks, Vim
-scripting should be used instead.)
+Vim cho phép bạn _ghi lại_ các ký tự đã nhập vào [bộ ghi nhớ](#bộ-ghi-nhớ).
+Vim cho phép _ ghi âm_ các ký tự đã nhập vào [sổ đăng ký] (# đăng ký). Đó là 
+một cách tuyệt vời để tự động hóa một số tác vụ mà bạn phải làm đi làm lại. 
+(Đối với các tác vụ phức tạp hơn, bạn nên sử dụng VimScript để thay thế.)
 
-- Start recording by typing `q` followed by the register, e.g. `q`. (The
-  command-line will signify this via "recording @q".)
-- Stop recording by hitting `q` once again.
-- Execute the macro via `[count]@q`.
-- Repeat the last used macro via `[count]@@`.
+- Bắt đầu ghi lại hành động của bạn bằng cách nhấn phím `q` theo sau là tên bộ 
+ghi, ví dụ : `q`. (Thanh trạng thái lúc này sẽ hiển thị "recording @q".)
+- Kết thúc quá trì ghi bằng cách nhấn phím `q` một lần nữa.
+- Chạy macro vừa ghi với `[số lượng]@q`. Ví dụ `2@q` sẽ chạy cách lệnh bạn vừa 
+ghi lại 2 lần.
+- Lặp lại macro được sử dụng lần gần nhất với `[số lần]@@`.
 
-**Example 1:**
+**Ví dụ 1:**
 
-Insert a line and repeat it 10 times:
+Chèn một dòng và lặp lại nó 10 lần:
 
 ```
 qq
@@ -1062,13 +1067,13 @@ q
 10@q
 ```
 
-(The same could be done without macros: `oabc<esc>10.`)
+(Ví dụ trên cũng có thể được thực hiện mà không cần macro: `oabc <esc> 10. ')
 
-**Example 2:**
+**Ví dụ 2:**
 
-For adding line numbers in front of all lines, start on the first line and add
-"1. " to it manually. Increment the number under the cursor by using `<c-a>`,
-displayed as `^A`.
+Để thêm số thứ tự vào trước tất cả các dòng, bạn hãy tự thêm "1." vào dòng đầu 
+tiên. Tăng số đang hiển thị tại con trỏ bằng cách sử dụng `<c-a>`, lệnh này có 
+thể được viết dưới dạng `^A`.
 
 ```
 qq
@@ -1077,9 +1082,9 @@ q
 1000@q
 ```
 
-Here we simply hope that the file doesn't contain more than 1000 lines when
-using `1000@q`, but we can also use a _recursive macro_, which executes until
-the macro can't be applied to a line anymore:
+Ở đây, chúng ta giả định rằng tệp không chứa nhiều hơn 1000 dòng khi sử 
+dụng `1000 @ q`, nhưng chúng ta cũng có thể sử dụng macro_ đệ quy, nó sẽ thực 
+thi cho đến khi không thể áp dụng macro cho một dòng nữa:
 
 ```
 qq
@@ -1088,60 +1093,65 @@ q
 @q
 ```
 
-(The same could be done without macros: `:%s/^/\=line('.') . '. '`)
+(Ví dụ trên cũng có thể được thực hiện mà không cần macro: `:%s/^/\=line('.') . '. '`)
 
-Mind that I also show how to achieve the same without using macros, but this
-mostly works only for such simple examples. For more complex automation, macros
-are the bomb!
+Lưu ý rằng tôi cũng chỉ bạn cách làm tương tự với những ví dụ trên mà không cần 
+phải sử dụng macros, nhưng chúng chỉ thích hợp với những công việc đơn giản. 
+Đối với những công việc cần thực hiện tự động nhưng phức tạp hơn, macros mới 
+chính là thứ bạn cần.
 
-Also see: [Quickly edit your macros](#quickly-edit-your-macros)
+Bạn cũng nên xem: [Chỉnh sửa nhanh macros của bạn](#chỉnh-sửa-nhanh-macros-của-bạn)
 
-Help:
+Xem thêm:
 
 ```
 :h recording
 :h 'lazyredraw'
 ```
 
-## Colorschemes
+## Bảng màu
 
-Colorschemes are the way to style your Vim. Vim consists of many components and
-each of those can be customized with different colors for the foreground,
-background and a few other attributes like bold text etc. They can be set like
-this:
+Bảng màu (Colorschemes) là cách bạn áp dụng màu sắc cho Vim của bạn. Vim được 
+cấu thành từ nhiều thành phần (component) và mỗi thành phần có thể được tùy 
+chỉnh với các màu sắc khác nhau cho màu chữ, màu nền của chữ và một số thuộc 
+tính khác như in đậm chữ, v.v. Chúng có thể được thiết lập như sau:
 
 ```vim
 :highlight Normal ctermbg=1 guibg=red
 ```
 
-This would paint the background of the editor red. See `:h :highlight` for more
-information.
+Lệnh trên sẽ tô màu nền thành màu đỏ cho trình soạn thảo của bạn. Xem 
+`:h :highlight` để biết thêm chi tiết.
 
-So, colorschemes are mostly collections of `:highlight` commands.
+Vì vậy, các bảng màu hầu như đều là tập hợp các lệnh cho `:highlight`.
 
-Actually, most colorschemes are really 2 colorschemes! The example above sets
-colors via `ctermbg` and `guibg`. The former definition (`cterm*`) will only be
-used if Vim was started in a terminal emulator, e.g. xterm. The latter (`gui*`)
-will be used in graphical environments like gvim or MacVim.
+Trên thực tế, hầu hết các bảng màu thực sự đều là 2 bảng màu! Ví dụ trên cài 
+đặt màu thông qua `ctermbg` và `guibg`. Theo định nghĩa của thì (`cterm*`) sẽ 
+chỉ được áp dụng nếu bạn khởi động Vim từ terminal, ví dụ: xterm. Còn (`gui*`)
+sẽ được sử dụng khi bạn sử dụng Vim với giao diện đồ họa, như là gvim hoặc 
+MacVim.
 
-If you ever happen to use a colorscheme in terminal Vim and the colors don't
-look like the ones in the screenshot at all, chances are that the colorscheme
-only defines colors for the GUI. Conversely, if you use a graphical Vim (e.g.
-gvim or MacVim) and the colors look off, the colorscheme might only define
-colors for the terminal.
+Nếu bạn từng sử dụng một bảng màu trong khi mở Vim trong terminal, và các màu 
+sắc không trông giống như màu được cung cấp trong screenshot demo, thì rất có 
+thể bảng màu đó chỉ định nghĩa các màu cho Vim với giao diện đồ họa. Ngược lại, 
+nếu bạn sử dụng Vim với giao diện đồ họa (ví dụ gvim hoặc MacVim) và các màu 
+sắc trông không giống như màu mẫu, thì rất có thể bảng màu chỉ định nghĩa màu 
+sắc cho Vim chạy trên terminal.
 
-The latter case can be "solved" by enabling true colors in Neovim or Vim
-7.4.1830 and newer. This makes terminal Vim use the GUI definitions instead, but
-also requires the terminal emulator itself and all software in between (e.g.
-tmux) to be capable of handling true colors. ([This
-gist](https://gist.github.com/XVilka/8346728) gives a good overview about the
-topic.)
+Trường hợp thứ hai có thể được "giải quyết" bằng cách bắt chế độ màu sắc trung 
+thực (true colors) trên Neovim hoặc Vim có phiên bản 7.4.1830 hoặc mới hơn. 
+Điều này làm cho Vim chạy dưới terminal sẽ sử dụng các định nghĩa của Vim với 
+giao diện thay cho các định nghĩa mặc định, nhưng đồng thời việc này cũng yêu 
+cầu bản thân terminal cũng như các phần mềm trung gian (ví dụ: tmux) phải có 
+khả năng xử lý màu sắc thực (true color). 
+([Hãy xem gist này](https://gist.github.com/XVilka/8346728) để có thêm nhiều 
+thông tin về vấn đề này.)
 
-Help:
+Xem thêm:
 
 - `:h 'termguicolors'`
-- [List of colorschemes](PLUGINS.md#colorschemes-1)
-- [Cosmetic changes to colorschemes](#cosmetic-changes-to-colorschemes)
+- [Danh sách bảng màu](PLUGINS.md#các-bảng-màu)
+- [Thay đổi màu sắc](#thay-đổi-màu-sắc)
 
 ## Folding
 
@@ -2271,7 +2281,7 @@ set complete-=i   " disable scanning included files
 set complete-=t   " disable searching tags
 ```
 
-## Cosmetic changes to colorschemes
+## Thay đổi màu sắc
 
 Always use a dark gray statusline, no matter what colorscheme is chosen:
 

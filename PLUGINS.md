@@ -1,6 +1,6 @@
 ## List of plugins
 
-#### [Colorschemes](#colorschemes-1)
+#### [Các bảng màu](#các-bảng-màu)
 
 #### [By topic](#by-topic-1)
 
