@@ -49,8 +49,8 @@
 
 ### [Cách sử dụng](#cách-sử-dụng-1)
 
-- [Nhận hỗ trợ mà không cần kết nối mạng](#nhận-hỗ-trợ-mà-không-cần-kết-nối-mạng)
-- [Getting help offline (alternative)](#getting-help-offline-alternative)
+- [Nhận trợ giúp ngoại tuyến](#nhận-trợ-giúp-ngoại-tuyến)
+- [Nhận trợ giúp ngoại tuyến (cách khác)](#nhận-trợ-giúp-ngoại-tuyến-cách-khác)
 - [Getting help online](#getting-help-online)
 - [Autocmds in practice](#autocmds-in-practice)
   - [User events](#user-events)
@@ -1250,68 +1250,77 @@ Nhiều khái niệm được đề cập ở trên cũng có các phiên bản 
 
 # Cách sử dụng
 
-## Nhận hỗ trợ không cần kết nối mạng
+## Nhận trợ giúp ngoại tuyến
 
-Vim comes with great documentation in the form of single text files with a
-special layout. Vim uses a system based on tags for accessing certain parts of
-those help files.
+Vim đi kèm với một bộ tài liệu tuyệt vời dưới dạng các file văn bản đơn lẻ và 
+có bố cục đặc biệt. Vim sử dụng một hệ thống dựa trên các thẻ (tag) để truy cập 
+các phần nhất định của một file tài liệu.
 
-First of all, read this: `:help :help`. This will open the file
-`$VIMRUNTIME/doc/helphelp.txt` in a new window and jump to the `:help` tag
-within that file.
+Trước hết, bạn hãy đọc: `:help :help`. Chạy lệnh trên sẽ mở file 
+First of all, read this: `:help :help`. This will open the file 
+`$VIMRUNTIME/doc/helphelp.txt` trong một window mới và nhảy tới thẻ `:help` 
+trong file đó.
 
-A few simple rules:
+Một vài quy tắc đơn giản:
 
-- options are enclosed in single quotes, e.g. `:h 'textwidth'`
-- VimL functions end in `()`, e.g. `:h reverse()`
-- commands start with `:`, e.g. `:h :echo`
+- Các cài đặt được đặt trong dấu ngoặc kép, ví dụ: `:h 'textwidth'`
+- Các hàm trong ngôn ngữ Vim kết thúc bằng `()`. Ví dụ: `:h reverse()`
+- Các lệnh bắt đầu với `:`, ví dụ `:h :echo`
 
-You can use `<c-d>` (this is <kbd>ctrl</kbd>+<kbd>d</kbd>) to list all tags that
-match the currently entered query. E.g. `:h tab<c-d>` will get you a list of all
-tags from `tab` over `'softtabstop'` to `setting-guitablabel`.
+Bạn có thể dùng `<c-d>` (tức <kbd>ctrl</kbd>+<kbd>d</kbd>) để liệt kê tất cả 
+các thẻ phù hợp với lệnh đang được nhập. Ví dụ: `:h tag <c-d>` sẽ cung cấp cho 
+bạn danh sách tất cả các thẻ từ `tab`, `'softtabstop'` cho tới 
+`setting-guitablabel`.
 
-You want to list all VimL functions? Simple: `:h ()<c-d>`. You want to list all
-VimL functions that concern windows? `:h win*()<c-d>`.
+Nếu bạn muốn liệt kê tất cả các hàm trong Vim? Đơn giản thôi, chỉ cần dùng 
+`:h ()<c-d>`. Bạn muốn liệt kê tất cả các hàm trong vim có liên quan đến window?
+ Hãy dùng `:h win*()<c-d>`.
 
-This quickly becomes second nature, but especially in the beginning, you
-sometimes don't know any part of the tag you are looking for. You can only
-imagine some keywords that could be involved. `:helpgrep` to the rescue!
+Những điều này sẽ dần trở nên tự nhiên với bạn hơn, nhưng đặc biệt là khi mới 
+bắt đầu, đôi khi bạn sẽ không biết bất kì thứ gì về các thẻ mà bạn cần tìm. Bạn 
+chỉ cần tưởng tượng ra một từ khóa có liên quan là được. `:helpgrep` sẽ giúp 
+ích cho bạn.
 
 ```
 :helpgrep backwards
 ```
 
-This will look for "backwards" in all documentation files and jump to the first
-match. The matches will be assembled in the quickfix list. Use `:cn`/`:cp` to
-jump to the next/previous match. Or use `:copen` to open the quickfix window,
-navigate to an entry and hit `<cr>` to jump to that match. See `:h quickfix` for
-the whole truth.
+Lệnh trên sẽ tìm từ "backwards" trong tất cả các file tài liệu và nhảy tới tệp 
+đầu tiên có chứ từ "backwards". Các kết quả tìm được sẽ được tập hợp trong danh 
+sách sửa lỗi nhanh (quickfix). Sử dụng `:cn`/`:cp` để nhảy qua lại giữa các kết 
+quả tìm được. Hoặc dùng `:copen` để mở một window sửa lỗi nhanh (quicfix window),
+điều hướng đến một kết quả và nhấn `<cr>` để nhảy đến file tài liệu ứng với kết 
+quả đó. Xem thêm `:h quickfix` để biết thêm chi tiết.
 
-## Getting help offline (alternative)
+## Nhận trợ giúp ngoại tuyến (cách khác)
 
-This list was compiled by @chrisbra, one of the most active Vim developers, and
-posted to [vim_dev](https://groups.google.com/forum/#!forum/vim_dev).
+Danh sách sày được tổng hợp bởi @chrisbra, một trong những là phát triển Vim 
+tích cực nhất và nó được đăng trên 
+[vim_dev](https://groups.google.com/forum/#!forum/vim_dev).
 
-It's reposted here with minor changes.
+Đây là phiên bản của vim-galore với một vài thay đổi nhỏ.
 
 ---
 
-If you know what you are looking for, it is usually easier to search for it
-using the help system, because the subjects follow a certain style guide.
+Thông thường, nếu bạn biết bạn đang tìm gì, thì bạn sẽ dễ dàng tìm kiếm chúng 
+bằng cách sử dụng hệ thống trợ giúp của Vim.Vì các chủ đề được sắp xếp tuân 
+theo một phong cách trình bày nhất định.
 
-Also, the help has the advantage of belonging to your particular Vim version, so
-that obsolete topics or topics that have been added later won't turn up.
+Ngoài ra, hệ thống trợ giúp của Vim sẽ có lợi thế nhất định phụ thuộc vào phiên 
+bản Vim mà bạn đang sử dụng, vì vậy, các chủ đề chủ đề lỗi thời hoặc được thêm 
+vào mà không phù hợp với phiên bản Vim mà bạn đang sử dụng sẽ không xuất hiện.
 
-Therefore, it is essential to learn the help system and the language it uses.
-Here are some examples (not necessarily complete and I might have forgotten
-something).
+Do đó, điều cần thiết ở đây là bạn phải tìm hiểu hệ thống trợ giúp của Vim và 
+ngôn ngữ mà nó sử dụng. Đây là một số ví dụ (không đảm bảo là sẽ đầy đủ vì có 
+thể tôi đã quên một vài thứ).
 
-1. Options are enclosed in single quotes. So you would use `:h 'list'` to go to
-   the help topic for the list option. If you only know, you are looking for a
-   certain option, you can also do `:h options.txt` to open the help page which
-   describes all option handling and then you can search using regular
-   expressions e.g. `/width`. Certain options have their own namespace, e.g. `:h
-   cpo-a`, `:h cpo-A`, `:h cpo-b`, and so on.
+1. Các cài đặt được đặt trong dấu nháy đơn. Vì vậy, bạn hãy sử dụng `:h 'list'` 
+   để chuyển đến danh sách các cài đặt của file trợ giúp đó. Nếu bạn biết chính 
+   xác cài đặt nào mà bạn muốn xem, bạn có thể dùng `:h options.txt` để mở 
+   trang trợ giúp mô tả tất cả các cài đặt và lúc đó bạn có thể sử dụng việc 
+   tìm kiếm bằng biểu thức chính quy (regular expressions), ví dụ `/width`. Một 
+   số tùy chọn có namespace riêng, ví dụ: `:h cpo-a`, `:h cpo-A`, `:h cpo-b`.
+   v.v
 
 2. Normal mode commands are just that. Use `:h gt` to go to the help page for
    the "gt" command.
