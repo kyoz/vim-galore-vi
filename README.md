@@ -738,11 +738,11 @@ Vim cung cấp các mapping cho các loại gợi ý code và chúng đều bắ
 | `<c-x><c-d>` | các định nghĩa (definitions) hoặc macros | `:h i^x^d` |
 | `<c-x><c-v>` | các lệnh của Vim | `:h i^x^v` |
 | `<c-x><c-u>` | người dùng tự định nghĩa (như đã được chỉ định trong `'completefunc'`) | `:h i^x^u` |
-| `<c-x><c-o>` | omni gợi ý code (như đã được chỉ định trong `'omnifunc'`) | `:h i^x^o` |
+| `<c-x><c-o>` | omni completion (như đã được chỉ định trong `'omnifunc'`) | `:h i^x^o` |
 | `<c-x>s`     | gợi ý chính tả | `:h i^Xs` |
 
 Mọi người có lẽ sẽ nhầm lẫn về sự khác biệt giữa các gợi ý code do người dùng 
-tự định nghĩa và omni gợi ý code, nhưng về mặt kĩ thuật, chúng đều làm những 
+tự định nghĩa và omni completion, nhưng về mặt kĩ thuật, chúng đều làm những 
 việc tương tự nhau. Chúng nhận một hàm kiểm tra vị trí hiện tại và trả về một 
 danh sách gợi ý. Các gợi ý code do người dùng tự định nghĩa sẽ được định nghĩa 
 theo mục đích cá nhân của người dùng đó. (Ngạc nhiên chưa!) Chúng có thể là bất 
@@ -1322,99 +1322,116 @@ thể tôi đã quên một vài thứ).
    số tùy chọn có namespace riêng, ví dụ: `:h cpo-a`, `:h cpo-A`, `:h cpo-b`.
    v.v
 
-2. Normal mode commands are just that. Use `:h gt` to go to the help page for
-   the "gt" command.
+2. Các lệnh ở chế độ bình thường thì cũng chỉ có vậy. Hãy dùng lệnh `:h gt` để 
+   xem trang trợ giúp của lệnh "gt".
 
-3. Regexp items always start with "/", so `:h /\+` takes you to the help item
-   for the "\+" quantifier in Vim regexes. If you need to know anything about
-   regular expressions, start reading at `:h pattern.txt`.
+3. Các biểu thức chính quy (regex) luôn bắt đầu bằng "/", vì vậy `: h / \ +` sẽ 
+   đưa bạn đến mục trợ giúp cho bộ định lượng "\ +" của các biểu thức chính quy 
+   trong Vim. Nếu bạn cần biết bất kỳ điều gì về biểu thức chính quy (regex), 
+   hãy đọc tại `: h pattern.txt`.
 
-4. Key combinations. They usually start with a single letter indicating the mode
-   for which they can be used. E.g. `:h i_CTRL-X` takes you to the family of
-   CTRL-X commands for insert mode which can be used to auto complete different
-   things. Note that certain keys will always be written the same, e.g. Control
-   will always be CTRL. Note, for normal mode commands, the "n" is left away,
-   e.g. `:h CTRL-A`. In contrast, `:h c_CTRL-R` will describe what CTRL-R does
-   when entering commands in the command line and `:h v_Ctrl-A` talks about
-   incrementing numbers in visual mode and `:h g_CTRL-A` talks about the g<C-A>
-   command (thus you have to press "g" then <Ctrl-A>). Here the "g" stand for
-   the normal command "g" which always expect a second key before doing
-   something similar to the commands starting with "z".
+4. Về các tổ hợp phím. Chúng thường bắt đầu bằng một chữ cái cho biết chế độ mà 
+   chúng có thể được sử dụng. Ví dụ. `: h i_CTRL-X` đưa bạn đến tập các lệnh 
+   CTRL-X cho chế độ insert, các lệnh này có thể được sử dụng để tự động hoàn 
+   thành các công việc khác nhau. Lưu ý rằng một số từ khóa nhất định sẽ luôn 
+   được viết giống nhau, ví dụ: Control sẽ luôn là CTRL. Lưu ý, đối với các 
+   lệnh ở chế độ normal, chữ "n" sẽ được lược bỏ đi, ví dụ `:h CTRL-A`. Ngược 
+   lại, `:h c_CTRL-R` sẽ mô tả CTRL-R làm gì khi nhập lệnh trong dòng lệnh 
+   (command line) và `:h v_Ctrl-A` mang ý nghĩa tăng dần một số trong chế độ 
+   visual và `:h g_CTRL-A` đại diện cho lệnh g<C-A> (Do đó bạn phải nhấn "g" 
+   rồi nhấn <Ctrl-A>). Ở đây, "g" đại diện cho lệnh "g" thông thường, lệnh "g" 
+   luôn chờ cho một phím thứ hai được nhấn sau nó để thực hiện một hành động 
+   nào đó, tương tự như các lệnh bắt đầu bằng "z".
 
-5. Registers always start with "quote" so use `:h quote` to find out about the
-   special ":" register.
+5. Các bộ ghi nhớ (registers) luôn bắt đầu với "quote", vì vậy hãy sử dụng 
+   `:h quote` để tìm hiểu thêm về bộ ghi nhớ đặc biệt ":".
 
-6. Vim script (VimL) is available at `:h eval.txt`. Certain aspects of the
-   language are available at `:h expr-X` where 'X' is a single letter, e.g. `:h
-   expr-!` will take you to the topic describing the '!' (Not) operator for
-   VimL. Also important, see `:h function-list` to find a short description of
-   all functions available.
+6. Ngôn ngữ lập trình Vim (Vim Script, VimL) có sẵn tại `: h eval.txt`. Một số 
+   khía cạnh của ngôn ngữ này có sẵn tại `:h expr-X`, trong đó 'X' là một chữ 
+   cái đơn lẻ. Ví dụ `:h expr-!` sẽ đưa bạn để chủ đề mô tả về toán tử '!' (not) 
+   trong VimL. Một phần cũng quan trọng khác đó là function-list, hãy xem 
+   `:h function-list` để tìm các mô tả ngắn ngọn về tất cả các hàm có sẵn trong 
+   VimL.
 
-7. Mappings are talked about in the help page `:h map.txt`. Use `:h mapmode-i`
-   to find out about the `:imap` command. Also use `:map-topic` to find out
-   about certain subtopics particular for mappings (e.g. `:h :map-local` for
-   buffer-local mappings or `:h map_bar` for how the '|' is handled in mappings.
+7. Các mapping được đề cập trong trang trợ giúp `:h map.txt`. Sử dụng 
+   `:h mapmode-i` để tìm hiểu về lệnh `:imap`. Bạn cũng nên dùng lệnh
+   `:map-topic` để tìm hiểu thêm về một số chủ đề phụ cụ thể cho mapping 
+   (ví dụ: `:h :map-local` để tìm hiểu về mapping cho buffer cục bộ 
+   (buffer-local mappings) hoặc `:h mapbar` để biết cách xử lý của '|' trong 
+   mapping)
 
-8. Command definitions are talked about at `:h command-*`, so use :h command-bar
-   to find out about the '!' argument for custom commands.
+8. Định nghĩa của các lệnh được đề cập tại `:h command-*`, vì vậy hãy dùng lệnh 
+   `:h command-bar` để tìm hiểu thêm về đối số '!' cho các lệnh được tùy chỉnh.
 
-9. Window management commands always start with CTRL-W, so you find the
-   corresponding help at `:h CTRL-W_*` (e.g. `:h CTRL-W_p` for switch to the
-   previously accessed window). You can also access `:h windows.txt` and read
-   your way through, if you are looking for window handling command.
+9. Các lệnh để quản lý window (cửa sổ, khung nhìn) luôn bắt đầu với CTRL-W, vì 
+   vậy bạn có thể tìm những tài liệu tương ứng tại `:h CTRL-W_*` 
+   (Ví dụ `:h CTRL-W_p` để nhảy đến cửa sổ được truy cập lần gần nhất). Bạn 
+   cũng có truy cập `:h windows.txt` và đọc thêm về các lệnh xử lý window mà 
+   bạn cần sử dụng.
 
-10. Ex commands always start with ":", so `:h :s` covers the ":s" command.
+10. Các lệnh Ex luôn bắt đầu bằng ":", vì vậy hãy dùng lệnh `:h :s` để đọc thêm 
+    về lệnh ":s".
 
-11. Use CTRL-D after typing a topic and let Vim try to complete to all available
-    topics.
+11. Sử dụng CTRL-D sau khi truy cập một chủ đề (tài liệu) và để vim cố gắng 
+    hoàn thành tất cả các chủ đề có sẵn.
 
-12. Use `:helpgrep` to search in all help pages (usually also includes help
-    pages by installed plugins). See `:h :helpgrep` for how to use it. Once you
-    have searched for a topic, all matches are available in the quickfix (or
-    location) window which can be opened with `:copen` or `:lopen`. There you
-    can also use `/` to further filter the matches.
+12. Sử dụng `:helpgrep` để tìm kiếm trong tất cả các trang trợ giúp (thông 
+    thường sẽ kèm cả các trang trợ giúp của các plugin mà bạn đã cài.). Xem 
+    `:h :helpgrep` để biết cách sử dụng. Khi bạn đã tìm kiếm một chủ đề nào đó, 
+    tất cả các kết quả trùng khớp sẽ được hiển thị trong một window hiển thị 
+    danh sách sửa lỗi nhanh (quickfix) hoặc danh sách vị trí (location) mà bạn 
+    có thể mở lên bằng cách dùng lệnh `:copen` hoặc `:lopen`. Sau đó bạn có thể 
+    dùng `/` để tìm kiếm cụ thể hơn trong danh sách kết quả đang hiển thị.
 
-13. `:h helphelp` contains some information on how to use the help.
+13. `:h helphelp` có chứa các nội dung để bạn sử dụng trợ giúp trong vim tốt hơn.
 
-14. The user manual. This describes help topics for beginners in a rather
-    friendly way. Start at `:h usr_toc.txt` to find the table of content (as you
-    might have guessed). Skimming over that help to find certain topics, .e.g
-    you will find an entry "Digraphs" and "Entering special characters" in
-    chapter 24 (so use `:h usr_24.txt` to go to that particular help page).
+14. Phần hướng dẫn sử dụng trong vim mô tả các chủ đề trợ giúp cho những người 
+    mới bắt đầu bằng một cách khá thân thiện.. Bắt đầu với lệnh `:h usr_toc.txt` 
+    để xem mục lục. Lướt qua mục lục để tìm chủ đề cụ thể nào đó bạn cần. Ví dụ
+    bạn sẽ tìm thấy một mục "Digraphs" và 'Entering special characters' trong 
+    chường 24 (Do đó, hãy dùng `:h usr_24.txt` để đi đến trang trợ giúp cụ thể 
+    đó)
 
-15. Highlighting groups always start with `hl-*`. E.g. `:h hl-WarningMsg` talks
-    about the "WarningMsg" highlighting group.
+15. Các nhóm để nhận diện highlight (highlighting groups) luôn bắt đầu với `hl-*`.
+    Ví dụ: `:h hl-WarningMsg` nói về nhóm nhận diện màu sắc "WarningMsg".
 
-16. Syntax highlighting is namespaced to ":syn-topic", e.g. `:h :syn-conceal`
-    talks about the conceal argument for the :syn command.
+16. Nhận diện syntax (Syntax highlighting) được đặt tên theo cú pháp ":syn-topic".
+    Ví dụ `:h :syn-conceal` nói về đối số conceal cho lệnh :syn.
 
-17. Quickfix commands usually start with ":c", while location list commands
-    usually start with ":l".
+17. Các lệnh thuộc nhóm lệnh sửa lỗi nhanh (quickfix) thường bắt đầu với ":c", 
+    còn đối với danh sách vị trí (location list) thì là ":l".
 
-18. `:h BufWinLeave` talks about the BufWinLeave autocmd. Also, `:h
-    autocommands-events` talks about all possible events.
+18. Lệnh `:h BufWinLeave` nói về lệnh tự động BufWinLeave. Ngoài ra, 
+    `:h autocommands-events` nói về tất cả các sự kiện có thể xảy ra.
 
-19. Startup arguments always start with "-", so `:h -f` takes you to the help of
-    the "-f" command switch of Vim.
+19. Các đối số (arguments) để khởi động Vim luôn bắt đầu với "-", vì vậy `:h -f` 
+    sẽ dẫn bạn đến trang trợ giúp của lệnh "-f" trong Vim.
 
-20. Compiled extra features always start with "+", so `:h +conceal` talks about
-    the conceal support.
+20. Các tính năng bổ sung được biên dịch sẵn vào Vim luôn bắt đầu bằng "+", vì 
+    vậy lệnh `:h +conceal` sẽ dẫn bạn đến trang trợ giúp nói về tính năng 
+    conceal trong Vim.
 
-21. Error codes can be looked up directly in the help. `:h E297` takes you
-    exactly to the description of the error message. Sometimes however, those
-    error codes are not described, but rather are listed at the Vim command that
-    usually causes this. E.g. `:h hE128` takes you directly to the `:function`
-    command.
+21. Các mã lỗi cũng có thể được tìm kiếm trực tiếp trong các trang hướng dẫn. 
+    Lệnh `:h E297` sẽ trực tiếp dẫn bạn đến phần mô tả của các lỗi. Tuy nhiên, 
+    đôi khi các mã lỗi không được mô rả, mà được liệt kê trong lệnh Vim sẽ 
+    thường gây ra lỗi đó. Ví dụ: `:h hE128` sẽ trực tiếp dẫn bạn đến trang trợ 
+    giúp của lệnh `:function`;
 
-22. Documentation for included syntax files is usually available at `:h
-    ft-*-syntax`. E.g. `:h ft-c-syntax` talks about the C syntax file and the
-    options it provides. Sometimes, additional sections for omni completion (`:h
-    ft-php-omni`) or filetype plugins (`:h ft-tex-plugin`) are available.
+22. Tài liệu cho các cú pháp có sẵn của các file thường có sẵn tại 
+    `:h ft-*-syntax`. Ví dụ: `:h ft-c-syntax` nói về cú pháp của file C và các 
+    các đặt mà nó cung cấp. Đôi khi, các phần bổ sung thêm cho tính năng gợi 
+    ý code omni completion (Xem `:h ft-php-omni`) hoặc các plugin dành cho loại 
+    file (`:h ft-tex-plugin`) có sẵn.
 
 Also, a link to the user documentation (which describes certain commands more
 from a user perspective and less detailed) will be mentioned at the top of help
 pages if they are available. So `:h pattern.txt` mentions the user guide topics
 `:h 03.9` and `:h usr_27`.
+
+Ngoài ra, liên kết đến tài liệu sử dụng (thường sẽ mô tả một số lệnh nhất định 
+từ góc đội người dùng và ít được chi tiết hơn) sẽ được đề cập ở đầu trang trợ 
+giúp nếu như chúng có sẵn. Vì vậy tài liệu `:h pattern.txt` sẽ đề cập đến các 
+chủ đề hướng đẫn sử dụng `:h 03.9` và `:h usr_27`.
 
 ## Getting help online
 
