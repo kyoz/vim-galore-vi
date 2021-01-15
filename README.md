@@ -56,8 +56,8 @@
   - [Các sự kiện người dùng](#các-sự-kiện-người-dùng)
   - [Các lệnh tự động lồng vào nhau](#các-lệnh-tự-động-lồng-vào-nhau)
 - [Clipboard](#clipboard)
-  - [Clipboard usage (Windows, macOS)](#clipboard-usage-windows-macos)
-  - [Clipboard usage (Linux, BSD, ...)](#clipboard-usage-linux-bsd-)
+  - [Sử dụng Clipboard (Windows, macOS)](#sử-dụng-clipboard-windows-macos)
+  - [Sử dụng Clipboard (Linux, BSD, ...)](#sử-dụng-clipboard-linux-bsd-)
 - [Restore cursor position when opening file](#restore-cursor-position-when-opening-file)
 - [Temporary files](#temporary-files)
   - [Backup files](#backup-files)
@@ -121,7 +121,7 @@
 
 - [Editing small files is slow](#editing-small-files-is-slow)
 - [Editing huge files is slow](#editing-huge-files-is-slow)
-- [Bracketed paste (or why do I have to set 'paste' all the time?)](#bracketed-paste-or-why-do-i-have-to-set-paste-all-the-time)
+- [Dán nội dung trong ngoặc (hoặc tại sao tôi phải đặt lệnh 'dán' mọi lúc?)](#dán-nội-dung-trong-ngoặc-hoặc-tại-sao-tôi-phải-đặt-lệnh-dán-mọi-lúc)
 - [Delays when using escape key in terminal](#delays-when-using-escape-key-in-terminal)
 - [Function search undo](#function-search-undo)
 
@@ -1518,11 +1518,12 @@ Xem thêm: `:h autocmd-nested`
 
 ## Clipboard
 
-Required [features](#what-kind-of-vim-am-i-running): `+clipboard` and optionally
-`+xterm_clipboard` if you want to use the `'clipboard'` option on a Unix system
-with a Vim that doesn't have GUI support.
+Clipboard (Bộ nhớ sao chép tạm thời) cần 
+[tính năng](#bạn-đang-sử-dụng-phiên-bản-vim-nào): `+clipboard` và tùy chọn  
+`+xterm_clipboard` nếu bạn muốn sử dụng `'clipboard'` trên một hệ thống Unix 
+với Vim không hỗ trợ giao diện (không hỗ trợ GUI).
 
-Help:
+Xem thêm:
 
 ```
 :h 'clipboard'
@@ -1530,18 +1531,19 @@ Help:
 :h gui-selections
 ```
 
-Also see: [Bracketed paste (or why do I have to set 'paste' all the
-time?)](#bracketed-paste-or-why-do-i-have-to-set-paste-all-the-time)
+Xem thêm: 
+[Dán nội dung trong ngoặc (hoặc tại sao tôi phải đặt lệnh 'dán' mọi lúc?)](#dán-nội-dung-trong-ngoặc-hoặc-tại-sao-tôi-phải-đặt-lệnh-dán-mọi-lúc)
 
-### Clipboard usage (Windows, macOS)
+### Sử dụng Clipboard (Windows, macOS)
 
-Windows comes with a
+Windows hỗ trợ sẵn 
 [clipboard](https://msdn.microsoft.com/en-us/library/windows/desktop/ms649012(v=vs.85).aspx)
-and macOS comes with a
+and macOS hỗ trợ 
 [pasteboard](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/PasteboardGuide106/Introduction/Introduction.html#//apple_ref/doc/uid/TP40008100-SW1).
 
-Both work like most users would expect them to work. You copy selected text with
-`ctrl+c`/`cmd+c` and paste them in another application with `ctrl+v`/`cmd+v`.
+Cả hai đều hoạt đồng bình thường như chúng ta mong đợi. Bạn sao chép văn bản đã 
+chọn với `ctrl+c`/`cmd+c` và dán chúng vào một ứng dụng khác với lệnh 
+`ctrl+v`/`cmd+v`.
 
 Note that copied text is actually transferred to the clipboard, so you can close
 the application you copied from before pasting in another application without
@@ -2814,7 +2816,7 @@ $ vim -n -u NONE -i NONE -N
 Putting it in a nutshell, try to avoid using Vim when intending to write really
 huge files. :\
 
-## Bracketed paste (or why do I have to set 'paste' all the time?)
+## Dán nội dung trong ngoặc (hoặc tại sao tôi phải đặt lệnh 'dán' mọi lúc?)
 
 Bracketed paste mode allows terminal emulators to distinguish between typed text
 and pasted text.
