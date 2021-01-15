@@ -1324,13 +1324,13 @@ thể tôi đã quên một vài thứ).
 2. Các lệnh ở chế độ bình thường thì cũng chỉ có vậy. Hãy dùng lệnh `:h gt` để 
    xem trang trợ giúp của lệnh "gt".
 
-3. Các biểu thức chính quy (regex) luôn bắt đầu bằng "/", vì vậy `: h / \ +` sẽ 
+3. Các biểu thức chính quy (regex) luôn bắt đầu bằng "/", vì vậy `:h / \ +` sẽ 
    đưa bạn đến mục trợ giúp cho bộ định lượng "\ +" của các biểu thức chính quy 
    trong Vim. Nếu bạn cần biết bất kỳ điều gì về biểu thức chính quy (regex), 
-   hãy đọc tại `: h pattern.txt`.
+   hãy đọc tại `:h pattern.txt`.
 
 4. Về các tổ hợp phím. Chúng thường bắt đầu bằng một chữ cái cho biết chế độ mà 
-   chúng có thể được sử dụng. Ví dụ. `: h i_CTRL-X` đưa bạn đến tập các lệnh 
+   chúng có thể được sử dụng. Ví dụ. `:h i_CTRL-X` đưa bạn đến tập các lệnh 
    CTRL-X cho chế độ insert, các lệnh này có thể được sử dụng để tự động hoàn 
    thành các công việc khác nhau. Lưu ý rằng một số từ khóa nhất định sẽ luôn 
    được viết giống nhau, ví dụ: Control sẽ luôn là CTRL. Lưu ý, đối với các 
@@ -1345,7 +1345,7 @@ thể tôi đã quên một vài thứ).
 5. Các bộ ghi nhớ (registers) luôn bắt đầu với "quote", vì vậy hãy sử dụng 
    `:h quote` để tìm hiểu thêm về bộ ghi nhớ đặc biệt ":".
 
-6. Ngôn ngữ lập trình Vim (Vim Script, VimL) có sẵn tại `: h eval.txt`. Một số 
+6. Ngôn ngữ lập trình Vim (Vim Script, VimL) có sẵn tại `:h eval.txt`. Một số 
    khía cạnh của ngôn ngữ này có sẵn tại `:h expr-X`, trong đó 'X' là một chữ 
    cái đơn lẻ. Ví dụ `:h expr-!` sẽ đưa bạn để chủ đề mô tả về toán tử '!' (not) 
    trong VimL. Một phần cũng quan trọng khác đó là function-list, hãy xem 
