@@ -51,10 +51,10 @@
 
 - [Nhận trợ giúp ngoại tuyến](#nhận-trợ-giúp-ngoại-tuyến)
 - [Nhận trợ giúp ngoại tuyến (cách khác)](#nhận-trợ-giúp-ngoại-tuyến-cách-khác)
-- [Getting help online](#getting-help-online)
-- [Autocmds in practice](#autocmds-in-practice)
-  - [User events](#user-events)
-  - [Nested autocmds](#nested-autocmds)
+- [Nhận trợ giúp trực tuyến](#nhận-trợ-giúp-trực-tuyến)
+- [Sử dụng lệnh tự động trong thực tế](#sử-dụng-lệnh-tự-động-trong-thực-tế)
+  - [Các sự kiện người dùng](#các-sự-kiện-người-dùng)
+  - [Các lệnh tự động lồng vào nhau](#các-lệnh-tự-động-lồng-vào-nhau)
 - [Clipboard](#clipboard)
   - [Clipboard usage (Windows, macOS)](#clipboard-usage-windows-macos)
   - [Clipboard usage (Linux, BSD, ...)](#clipboard-usage-linux-bsd-)
@@ -1432,24 +1432,28 @@ từ góc đội người dùng và ít được chi tiết hơn) sẽ được 
 giúp nếu như chúng có sẵn. Vì vậy tài liệu `:h pattern.txt` sẽ đề cập đến các 
 chủ đề hướng đẫn sử dụng `:h 03.9` và `:h usr_27`.
 
-## Getting help online
+## Nhận trợ giúp trực tuyến
 
-If you have an issue you can't resolve or are in need of general guidance, see
-the [vim_use](https://groups.google.com/forum/#!forum/vim_use) mailing list.
-Another great resource is using
-[IRC](https://de.wikipedia.org/wiki/Internet_Relay_Chat). The channel `#vim` on
-[Freenode](https://freenode.net) is huge and usually full of helpful people.
+Nếu bạn có một vấn đề không thể giải quyết hoặc bạn cần sự hướng dẫn cụ thể, 
+vui lòng xem danh sách mailing 
+[vim_use](https://groups.google.com/forum/#!forum/vim_use)
 
-If you want to report a Vim bug, use the
-[vim_dev](https://groups.google.com/forum/#!forum/vim_dev) mailing list.
+Bạn có thể truy cập một nguồn tài liệu tuyệt vời khác bằng cách sử dụng
+[IRC](https://de.wikipedia.org/wiki/Internet_Relay_Chat). Kênh chat `#vim` trên
+[Freenode](https://freenode.net) luôn có những người sẵn sàng giúp đỡ bạn.
 
-## Autocmds in practice
+Nếu bạn muốn báo cáo một lỗi của Vim, sử dụng mailing list 
+[vim_dev](https://groups.google.com/forum/#!forum/vim_dev).
 
-You can trigger any event right now: `:doautocmd BufRead`.
+## Sử dụng lệnh tự động trong thực tế
 
-### User events
+Bạn có thể kích hoạt bất kì sự kiện nào ngay bây giờ với lệnh 
+`:doautocmd BufRead`.
 
-Especially for plugins it's useful to create your own "User" events:
+### Các sự kiện người dùng
+
+Đặc biệt là đối với các plugin, sẽ hữu dụng hơn nếu bạn tạo các sự kiện "Người 
+dùng" cho riêng bạn.
 
 ```vim
 function! Chibby()
@@ -1459,19 +1463,21 @@ function! Chibby()
 endfunction
 ```
 
-Now users of your plugin can execute anything when Chibby finishes running:
+Bây giờ những người sử dụng plugin của bạn có thể thực thi bất cứ thứ gì sau 
+khi hàm Chibby được thực thi bằng cách dùng lệnh:
 
 ```vim
 autocmd User ChibbyExit call ChibbyCleanup()
 ```
+Nhân tiện, nếu không "tìm thấy" lệnh tự động nào, :doautocmd sẽ xuất ra thông 
+báo "No matching autocommands" (Không có lệnh tự động nào phù hợp). Đó là lý do 
+tại sao nhiều plugin sử dụng `silent doautocmd ...`. Nhưng điều này lại có 
+nhược điểm đó là bạn không thể sử dụng `echo "foo"` trong lênh tự động :autocmd, 
+mà bạn cần phải sử dụng `unsilent echo "foo"` để xuất một thông báo cho những 
+người sử dụng plugin của mình.
 
-By the way, if there's no "catching" :autocmd, :doautocmd will output a pesky
-"No matching autocommands" message. That's why many plugins use `silent
-doautocmd ...` instead. But this has the disadvantage, that you can't simply use
-`echo "foo"` in the :autocmd, you have to use `unsilent echo "foo"` instead..
-
-That's why it's better to check if there even is a receiving autocmd and not
-bothering emitting the event otherwise:
+Đó là lý do tại sao bạn nên kiểm tra liệu sự kiện đó có nhận các lệnh tự động 
+hay không, và không nên làm ảnh hưởng sự kiện này, ví dụ:
 
 ```vim
 if exists('#User#ChibbyExit')
@@ -1479,32 +1485,36 @@ if exists('#User#ChibbyExit')
 endif
 ```
 
-Help: `:h User`
+Xem thêm: `:h User`
 
-### Nested autocmds
+### Các lệnh tự động lồng vào nhau
 
-By default, autocmds do not nest! If an autocmd executes a command, which in
-turn would usually trigger another event, it won't happen.
+Theo mặc định, các lệnh tự động (autocmd) không lồng vào nhau! Nếu lệnh tự động 
+thực thi một lệnh, nó thường sẽ kích hoạt một sự kiện khác, điều đó trên thực 
+tế lại không xảy ra.
 
-Let's say every time you start Vim, you want to automatically open your vimrc:
+Giả sử, mỗi khi bạn khởi động Vim, bạn muốn Vim tự động mở file cấu hình vimrc 
+của mình:
 
 ```vim
 autocmd VimEnter * edit $MYVIMRC
 ```
 
-When you now start Vim, it will open your vimrc, but the first thing you'll
-notice is that there won't be any highlighting although usually there would be.
+Bây giờ nếu bạn khởi động Vim, Vim sẽ mở file vimrc của bạn, nhưng điều đầu
+tiên mà bạn nhận ra là bây giờ nội dung của bạn không được tô màu (highlighting) 
+như mọi khi bạn mở file vimrc của mình.
 
-The problem is that `:edit` in your non-nested autocmd won't trigger the
-"BufRead" event, so the filetype never gets set to "vim" and
-`$VIMRUNTIME/syntax/vim.vim` never sourced. See `:au BufRead *.vim`. Use this
-instead:
+Vấn đề ở đây là: lệnh `:edit` trong ví dụ trên sẽ không kích hoạt sự kiện 
+"BufRead", do đó Vim sẽ không thể xác nhận bạn đang mở loại file nào. Vì vậy 
+file `$VIMRUNTIME/syntax/vim.vim` sẽ không bao giờ được thực thi. 
+
+Xem thêm `:au BufRead *.vim`. Và thay vì sử dụng ví dụ trên, hãy sử dụng:
 
 ```vim
 autocmd VimEnter * nested edit $MYVIMRC
 ```
 
-Help: `:h autocmd-nested`
+Xem thêm: `:h autocmd-nested`
 
 ## Clipboard
 
