@@ -1257,7 +1257,6 @@ có bố cục đặc biệt. Vim sử dụng một hệ thống dựa trên cá
 các phần nhất định của một file tài liệu.
 
 Trước hết, bạn hãy đọc: `:help :help`. Chạy lệnh trên sẽ mở file 
-First of all, read this: `:help :help`. This will open the file 
 `$VIMRUNTIME/doc/helphelp.txt` trong một window mới và nhảy tới thẻ `:help` 
 trong file đó.
 
