@@ -1,8 +1,8 @@
-## List of plugins
+## Danh sách các plugin
 
 #### [Các bảng màu](#các-bảng-màu)
 
-#### [By topic](#by-topic-1)
+#### [Theo chủ đề](#theo-chủ-đề-1)
 
 - [Alignment](#alignment)
 - [Building and linting](#building-and-linting)
@@ -28,7 +28,7 @@
 - [Version control](#version-control)
 - [Writing](#writing)
 
-#### [By filetype](#by-filetype-1)
+#### [Theo ngôn ngữ lập trình](#theo-ngôn-ngữ-lập-trình-1)
 
 - [C and C++](#c-and-c)
 - [Clojure](#clojure)
@@ -68,10 +68,11 @@ Here's a list of commonly used colorschemes:
 - [yowish](https://github.com/kabbamine/yowish.vim)
 - [zenburn](https://github.com/jnurmine/Zenburn)
 
-Alternatively, generate your own colorscheme using [themer](https://github.com/mjswensen/themer)
-or [Colortemplate](https://github.com/lifepillar/vim-colortemplate).
+Ngoài ra, bạn có thể tạo bảng màu riêng của mình, bằng cách sử dụng 
+[themer](https://github.com/mjswensen/themer)
+hoặc [Colortemplate](https://github.com/lifepillar/vim-colortemplate).
 
-## By topic
+## Theo chủ đề
 
 #### Alignment
 
@@ -271,7 +272,7 @@ Also see [fuzzy finders](#fuzzy-finders).
 - [vim-startify](https://github.com/mhinz/vim-startify)
 - [vim-unimpaired](https://github.com/tpope/vim-unimpaired)
 
-## By filetype
+## Theo ngôn ngữ lập trình
 
 #### C and C++
 
