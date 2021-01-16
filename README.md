@@ -33,7 +33,7 @@
 - [Mapping lệnh](#mapping-lệnh)
 - [Phím leader](#phím-leader)
 - [Bộ ghi nhớ](#bộ-ghi-nhớ)
-- [Vùng chọn](#vùng-chọn)
+- [Phạm vi](#phạm-vi)
 - [Đánh dấu](#đánh-dấu)
 - [Gợi ý code](#gợi-ý-code)
 - [Chuyển động, các toán tử, các đối tượng văn bản](#chuyển-động-các-toán-tử-các-đối-tượng-văn-bản)
@@ -58,54 +58,54 @@
 - [Clipboard](#clipboard)
   - [Sử dụng Clipboard (Windows, macOS)](#sử-dụng-clipboard-windows-macos)
   - [Sử dụng Clipboard (Linux, BSD, ...)](#sử-dụng-clipboard-linux-bsd-)
-- [Restore cursor position when opening file](#restore-cursor-position-when-opening-file)
-- [Temporary files](#temporary-files)
-  - [Backup files](#backup-files)
-  - [Swap files](#swap-files)
-  - [Undo files](#undo-files)
-  - [Viminfo files](#viminfo-files)
-  - [Example configuration for temporary files](#example-configuration-for-temporary-files)
-- [Editing remote files](#editing-remote-files)
+- [Khôi phục vị trí của con trỏ khi mở file](#khôi-phục-vị-trí-của-con-trỏ-khi-mở-file)
+- [Các file tạm](#các-file-tạm)
+  - [Các file sao lưu](#các-file-sao-lưu)
+  - [Các file swap](#các-file-swap)
+  - [Các file hoàn tác](#các-file-hoàn-tác)
+  - [File Viminfo](#file-viminfo)
+  - [Cấu hình ví dụ cho các file tạm](#example-configuration-for-temporary-files)
+- [Chỉnh sửa file từ xa](#chỉnh-sửa-file-từ-xa)
 - [Quản lý plugin](#quan-ly-plugin)
-- [Block insert](#block-insert)
-- [Running external programs and using filters](#running-external-programs-and-using-filters)
+- [Chèn khối](#chèn-khối)
+- [Chạy các chương trình bên ngoài Vim và sử dụng các bộ lọc](#chạy-các-chương-trình-bên-ngoài-vim-và-sử-dụng-các-bộ-lọc)
 - [Cscope](#cscope)
 - [MatchIt](#matchit)
 - [True colors](#true-colors)
 
-### [Tips](#tips-1)
+### [Các mẹo sử dụng](#các-mẹo-sử-dụng)
 
-- [Go to other end of selected text](#go-to-other-end-of-selected-text)
-- [Saner behavior of n and N](#saner-behavior-of-n-and-n)
-- [Saner command-line history](#saner-command-line-history)
-- [Saner CTRL-L](#saner-ctrl-l)
-- [Disable audible and visual bells](#disable-audible-and-visual-bells)
-- [Quickly move current line](#quickly-move-current-line)
-- [Quickly add empty lines](#quickly-add-empty-lines)
+- [Chuyển đến đầu hoặc cuối của văn bản đang được chọn](#chuyển-đến-đầu-hoặc-cuối-của-văn-bản-đang-được-chọn)
+- [Hành vi tốt hơn của n và N](#hành-vi-tốt-hơn-của-n-và-n)
+- [Lịch sử các lệnh sử dụng tốt hơn](#lịch-sử-các-lệnh-sử-dụng-tốt-hơn)
+- [CTRL-L tốt hơn](#ctrl-l-tốt-hơn)
+- [Tắt hình ảnh và âm thanh của chuông](#tắt-hình-ảnh-và-âm-thanh-của-chuông)
+- [Di chuyển nhanh dòng hiện tại](#di-chuyển-nhanh-dòng-hiện-tại)
+- [Thêm nhanh các dòng trống](#thêm-nhanh-các-dòng-trống)
 - [Chỉnh sửa nhanh macros của bạn](#chỉnh-sửa-nhanh-macros-của-bạn)
-- [Quickly jump to header or source file](#quickly-jump-to-header-or-source-file)
-- [Quickly change font size in GUI](#quickly-change-font-size-in-gui)
-- [Change cursor style dependent on mode](#change-cursor-style-dependent-on-mode)
-- [Don't lose selection when shifting sidewards](#dont-lose-selection-when-shifting-sidewards)
-- [Reload a file on saving](#reload-a-file-on-saving)
-- [Smarter cursorline](#smarter-cursorline)
-- [Faster keyword completion](#faster-keyword-completion)
+- [Nhảy nhanh đến header file hoặc file mã nguồn](#nhảy-nhanh-đến-header-file-hoặc-file-mã-nguồn)
+- [Thay đổi kích thước font trong giao diện](#thay-đổi-kích-thước-font-trong-giao-diện)
+- [Thay đổi kiểu con trỏ tùy thuộc vào chế độ](#thay-đổi-kiểu-con-trỏ-tùy-thuộc-vào-chế-độ)
+- [Không bị mất những lựa chọn (selection) khi di chuyển sang một bên](#không-bị-mất-những-lựa-chọn-selection-khi-di-chuyển-sang-một-bên)
+- [Tải lại file khi lưu](#tải-lại-file-khi-lưu)
+- [Con trỏ thông minh hơn](#con-trỏ-thông-minh-hơn)
+- [Hoàn thành từ khóa nhanh hơn](#hoàn-thành-từ-khóa-nhanh-hơn)
 - [Thay đổi màu sắc](#thay-đổi-màu-sắc)
 
-### [Commands](#commands-1)
+### [Các lệnh](#các-lệnh)
 
-- [:global and :vglobal](#global-and-vglobal) - Execute a command on all matching lines.
-- [:normal and :execute](#normal-and-execute) - The scripting dream team.
-- [:redir and execute()](#redir-and-execute) - Capture command output.
+- [:global và :vglobal](#global-và-vglobal) - Thực thi một lệnh trên tất cả các dòng phù hợp.
+- [:normal và :execute](#normal-và-execute) - Viết kịch bản trong mơ của bạn.
+- [:redir và execute()](#redir-và-execute) - Bắt lấy đầu ra (output) khi thực thi lệnh.
 
-### [Debugging](#debugging-1)
+### [Gỡ lỗi](#gỡ-lỗi)
 
-- [General tips](#general-tips)
-- [Verbosity](#verbosity)
-- [Profiling startup time](#profiling-startup-time)
-- [Profiling at runtime](#profiling-at-runtime)
-- [Debugging Vim scripts](#debugging-vim-scripts)
-- [Debugging syntax files](#debugging-syntax-files)
+- [Các mẹo chung](#các mẹo chung)
+- [Độ chi tiết](#độ-chi-tiết)
+- [Lập hồ sơ thời gian khởi động](#lập-hồ-sơ-thời-gian-khởi-động)
+- [Lập hồ sơ thời gian trong quá trình sử dụng Vim](#lập-hồ-sơ-thời-gian-trong-quá-trình-sử-dụng-vim)
+- [Gỡ lỗi các lệnh Vim](#gỡ-lỗi-các-lệnh-vim)
+- [Gỡ lỗi các file syntax](#gỡ-lỗi-các-file-syntax)
 
 ### [Miscellaneous](#miscellaneous-1)
 
@@ -120,7 +120,7 @@
 ### [Common problems](#common-problems-1)
 
 - [Editing small files is slow](#editing-small-files-is-slow)
-- [Editing huge files is slow](#editing-huge-files-is-slow)
+- [Chỉnh sửa file lớn bị chậm](#chỉnh-sửa-file-lớn-bị-chậm)
 - [Dán nội dung trong ngoặc (hoặc tại sao tôi phải đặt lệnh 'dán' mọi lúc?)](#dán-nội-dung-trong-ngoặc-hoặc-tại-sao-tôi-phải-đặt-lệnh-dán-mọi-lúc)
 - [Delays when using escape key in terminal](#delays-when-using-escape-key-in-terminal)
 - [Function search undo](#function-search-undo)
@@ -338,7 +338,7 @@ Hoặc bạn cũng có thể mở nhanh một bảng cheatsheet ngay bên trong 
 ## Buffer, window và tab
 
 Vim là một trình soạn thảo văn bản. Mỗi khi văn bản được hiển thị, văn bản sẽ 
-là một phần của **buffer (bộ nhớ đệm)**. Mỗi tệp sẽ được mở trong buffer của riêng 
+là một phần của **buffer (bộ nhớ đệm)**. Mỗi file sẽ được mở trong buffer của riêng 
 nó. Các plugin sẽ hiển thị nội dung của chúng trong buffer của riêng từng 
 plugin, vv.
 
@@ -595,21 +595,21 @@ lệnh `:reg` để kiểm tra những gì đang thực sự diễn ra.
 (hoặc chèn lại vào văn bản đã bị xóa trước đó), chứ không phải mang nghĩa 
 copying (sao chép).
 
-## Vùng chọn
+## Phạm vi
 
 Ranges (phạm vi) khá là dễ hiểu, những hầu hết các Vimmers đều không biết về 
 chức năng đầy đủ của chúng.
 
-- Rất nhiều lệnh đều có vùng chọn (phạm vi).
+- Rất nhiều lệnh đều có phạm vi.
 - Một địa chỉ sẽ chỉ định một dòng nhất định.
-- Một vùng chọn có thể là một địa chỉ duy nhất hoặc một cặp địa chỉ được phân cách 
+- Một phạm vi có thể là một địa chỉ duy nhất hoặc một cặp địa chỉ được phân cách 
 bởi `,` hoặc là `;`.
 - Ranges cho biết cách lệnh nên thực thi trên dòng nào.
 - Hầu hết các lệnh chỉ hoạt động trông dòng hiện tại theo mặc định. Các trường 
 hợp đáng chú ý có thể kể đến là `:write` và `:global`, chúng sẽ hoạt động trên 
 tất cả các dòng.
 
-Việc sử dụng các vùng chọn khá là trực quan, đây là một số ví dụ (lệnh `:d`
+Việc sử dụng các phạm vi khá là trực quan, đây là một số ví dụ (lệnh `:d`
 là viết tắt của `:delete`):
 
 | Lệnh     | Các dòng sẽ thực thi lệnh |
@@ -644,13 +644,13 @@ _gộp các pattern_ lại với nhau. Ví dụ:
 Lệnh trên sẽ xóa dòng đầu tiên có chứa "quux" sau dòng đầu tiên chứa "bar" sau 
 dòng đầu tiên có chứa "foo" kể từ sau dòng hiện tại.
 
-Đôi khi Vim tự động thêm một vùng chọn vào trước dòng lệnh của bạn. Ví dụ: bắt 
+Đôi khi Vim tự động thêm một phạm vi vào trước dòng lệnh của bạn. Ví dụ: bắt 
 đầu lựa chọn nhiều dòng với chế độ visual bằng lệnh `V`, chọn một số dòng bạn 
-thích và nhập `:`. Dòng lệnh sẽ được điền với vùng chọn `'<,'>`, có nghĩa là lệnh 
+thích và nhập `:`. Dòng lệnh sẽ được điền với phạm vi `'<,'>`, có nghĩa là lệnh 
 bạn chuẩn bị thực thi sẽ được áp dụng cho các dòng đã chọn trước đó. (Đây cũng 
 là lý do tại sao đôi khi bạn thấy các mapping như là 
-`:vnoremap foo :<c-u>command`. Ở đây `<c-u>` được sử dụng để loại bỏ vùng chọn, 
-bởi vì Vim sẽ quăng lỗi khi bạn cho vùng chọn vào một lệnh không hỗ trợ vùng chọn.
+`:vnoremap foo :<c-u>command`. Ở đây `<c-u>` được sử dụng để loại bỏ phạm vi, 
+bởi vì Vim sẽ quăng lỗi khi bạn cho phạm vi vào một lệnh không hỗ trợ phạm vi.
 
 Một ví dụ khác nữa là sử dụng `!!` ở chế độ normal. Thao tác này sẽ tự động 
 điền `:.!` vào dòng lệnh của bạn. Nếu bạn điền tiếp theo sau bởi một dòng lệnh,
@@ -678,7 +678,7 @@ cột bên trong một file.
 
 Đặt `'`/`g'` hoặc `` ` ``/`` g` `` trước một đánh dấu để tạo một cử chỉ (motion).
 
-Sử dụng `mm` để ghi nhớ vị trí hiện tại với marker "m". Di chuyển xung quanh tệp 
+Sử dụng `mm` để ghi nhớ vị trí hiện tại với marker "m". Di chuyển xung quanh file 
 và sau đó quay lại với `'m` (ký tự đầu tiên không phải khoảng trống trên 1 dòng) 
 hoặc `` `m `` (vị trí cột chính xác đã đánh dấu).
 Các marker được đánh dấu bằng chữ thường sẽ được ghi nhớ khi bạn thoát Vim, nếu 
@@ -704,7 +704,7 @@ Các cử chỉ khác:
 | `'{`, `` `{ ``   | Bắt đầu của đoạn văn bản hiện tại. |
 | `'}`, `` `} ``   | Kết thúc của đoạn văn bản hiện tại. |
 
-Các marker cũng có thể được sử dụng trong một [vùng chọn](#vùng-chọn). Bạn hẳn 
+Các marker cũng có thể được sử dụng trong một [phạm vi](#phạm-vi). Bạn hẳn 
 là đã thấy điều này trước đây và tự hỏi ý nghĩa của nó là gì: Chọn một số đoạn 
 văn bản bạn thích ở chế độ visual và nhấn `:`, dòng lệnh sẽ hiển thị, và được 
 thêm sẵn vào phía trước như thế này `:'<,'>`, có nghĩa là lệnh sau sẽ nhận được 
@@ -982,7 +982,7 @@ Xem thêm:
 ## Danh sách sửa lỗi nhanh và danh sách vị trí
 
 Danh sách Sửa lỗi nhanh (Quickfix) là một cấu trúc dữ liệu chứa vị trí của các 
-tệp. Về cơ bản, mỗi mục trong danh sách sửa lỗi nhanh sẽ liệt kê đường dẫn của một 
+file. Về cơ bản, mỗi mục trong danh sách sửa lỗi nhanh sẽ liệt kê đường dẫn của một 
 file, số thứ tự của một dòng, cột và một mô tả.
 
 Các trường hợp sử dụng điển hình là để tập hợp các lỗi biên dịch hoặc kết quả 
@@ -1082,7 +1082,7 @@ q
 1000@q
 ```
 
-Ở đây, chúng ta giả định rằng tệp không chứa nhiều hơn 1000 dòng khi sử 
+Ở đây, chúng ta giả định rằng file không chứa nhiều hơn 1000 dòng khi sử 
 dụng `1000 @ q`, nhưng chúng ta cũng có thể sử dụng macro_ đệ quy, nó sẽ thực 
 thi cho đến khi không thể áp dụng macro cho một dòng nữa:
 
@@ -1192,12 +1192,6 @@ Nếu bạn lưu một **view** (Xem `:h :mkview`), trạng thái hiện tại c
 như các cài đặt và mapping của nó) cũng sẽ được lưu để sử dụng sau này 
 (`:h :loadview`).
 
-Một ** phiên ** lưu chế độ xem của tất cả các cửa sổ cộng với cài đặt chung. 
-Về cơ bản, nó tạo một ảnh chụp nhanh của phiên bản Vim hiện tại của bạn và lưu 
-nó trong một tệp phiên. Hãy để tôi nhấn mạnh điều này: nó lưu trạng thái hiện 
-tại; mọi thứ được thực hiện sau khi lưu một phiên sẽ không nằm trong tệp phiên. 
-Để "cập nhật" một phiên, chỉ cần viết lại.
-
 Một phiên làm việc sẽ lưu các view của tất cả các window và cả các cài đặt 
 chung. Về cơ bản, nó sẽ tạo một snapshot của phiên làm việc hiện tại của bạn và 
 lưu trong trong một file. Để tôi nhấn mạnh điều này: Vim sẽ lưu trạng thái hiện 
@@ -1284,7 +1278,7 @@ chỉ cần tưởng tượng ra một từ khóa có liên quan là được. `
 :helpgrep backwards
 ```
 
-Lệnh trên sẽ tìm từ "backwards" trong tất cả các file tài liệu và nhảy tới tệp 
+Lệnh trên sẽ tìm từ "backwards" trong tất cả các file tài liệu và nhảy tới file 
 đầu tiên có chứ từ "backwards". Các kết quả tìm được sẽ được tập hợp trong danh 
 sách sửa lỗi nhanh (quickfix). Sử dụng `:cn`/`:cp` để nhảy qua lại giữa các kết 
 quả tìm được. Hoặc dùng `:copen` để mở một window sửa lỗi nhanh (quicfix window),
@@ -1538,45 +1532,46 @@ Xem thêm:
 
 Windows hỗ trợ sẵn 
 [clipboard](https://msdn.microsoft.com/en-us/library/windows/desktop/ms649012(v=vs.85).aspx)
-and macOS hỗ trợ 
+và macOS hỗ trợ 
 [pasteboard](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/PasteboardGuide106/Introduction/Introduction.html#//apple_ref/doc/uid/TP40008100-SW1).
 
 Cả hai đều hoạt đồng bình thường như chúng ta mong đợi. Bạn sao chép văn bản đã 
 chọn với `ctrl+c`/`cmd+c` và dán chúng vào một ứng dụng khác với lệnh 
 `ctrl+v`/`cmd+v`.
 
-Note that copied text is actually transferred to the clipboard, so you can close
-the application you copied from before pasting in another application without
-problems.
+Lưu ý rằng văn bản đã sao chép thực sự được chuyển vào clipboard, vì vậy bạn có 
+thể đóng ứng dụng mà bạn vừa sao chép văn bản đó trước khi dán nội dung vừa sao 
+chép vào một ứng dụng khác mà không có vấn đề gì.
 
-Whenever this happens, the clipboard register `*` gets filled with the
-selection. From Vim use `"*y` and `"*p` to yank and paste from the clipboard
-respectively.
+Bất cứ khi nào bạn thực hiện sao chép với clipboard trong Vim, bộ ghi nhớ 
+(register) `*` sẽ được lấp đầy với đoạn văn bản mà bạn đang chọn. Sử dụng `"*y` 
+và `"*p` để sao chép và dán từ clipboard.
 
-If you don't even want to specify the `*` register all the time, put this in
-your vimrc:
+Nếu bạn không muốn Vim lúc nào cũng lưu nội dung bạn sao chép vào bộ ghi nhớ 
+`*`, thêm đoạn sau vào file cấu hình vimrc của bạn:
 
 ```vim
 set clipboard=unnamed
 ```
 
-Usually all yank/delete/put operations fill the `"` register, now the `*`
-register is used for the same operations, therefore simply `y` and `p` will be
-enough.
+Thông thường thì tất cả các hành động sao chép/xóa/dán sẽ được lưu vào bộ ghi 
+nhớ `"`, lúc này thì bộ ghi nhớ `*` được sử dụng cho hành động tương tự, do đó 
+chỉ cần nhấn `y` và `p` là đủ để thực hiện hành động sao chép và dán văn bản.
 
-Let me repeat: Using the option above means that every yank/paste, even when
-only used in the same Vim window, will alter the clipboard. Decide for yourself
-if this is useful or not.
+Để tôi nhắc lại: Khi bạn thiết lập cài đặt phía trên, mỗi khi bạn sao chép/dán, 
+thận chí khi bạn sử dụng trong cùng một window của Vim, các hành động sao chép/
+dán đó sẽ thay đổi clipboard. Hãy tự mình quyết định xem cài đặt này có hữu 
+ích hay không.
 
-If you're even too lazy to type `y`, you can send every visual selection to the
-clipboard by using these settings:
+Nếu bạn quá lười để nhấn `y`, bạn có thể lưu tất cả những lần bạn lựa chọn văn 
+bản trong chế độ visual vào clipboard bằng cách sử dụng các cài đặt:
 
 ```vim
 set clipboard=unnamed,autoselect
 set guioptions+=a
 ```
 
-Help:
+Xem thêm:
 
 ```
 :h clipboard-unnamed
@@ -1584,50 +1579,51 @@ Help:
 :h 'go_a'
 ```
 
-### Clipboard usage (Linux, BSD, ...)
+### Sử dụng Clipboard (Linux, BSD, ...)
 
-If your OS uses [X](http://www.x.org/wiki), things work a bit different. X
-implements the [X Window System
-Protocol](http://www.x.org/releases/X11R7.7/doc/xproto/x11protocol.html) which
-happens to be at major version 11 since 1987, hence X is also often called X11.
+Nếu hệ điều hành của bạn sử dụng [X](http://www.x.org/wiki), thì có một chút 
+khác biệt . X sử dụng [X Window System 
+Protocol](http://www.x.org/releases/X11R7.7/doc/xproto/x11protocol.html) từ 
+phiên bản 11 từ năm 1987, do đó, thường thường người ta hay gọi X là X11.
 
-Prior, in X10, [cut
+Trước đó, ở phiên bản X10, [cut
 buffers](http://www.x.org/releases/X11R7.7/doc/xorg-docs/icccm/icccm.html#Peer_to_Peer_Communication_by_Means_of_Cut_Buffers)
-were introduced that kind of worked like a _clipboard_ as in copied text was
-actually held by X and it was accessible by all other applications. This
-mechanism still exists in X, but its use is deprecated now and most software
-doesn't use it anymore.
+được giới thiệu là sẽ hoạt động giống như một _clipboard_, như khi bạn sao chép 
+văn bản, thông tin sao chép sẽ được X quản lý và bạn có thể truy cập chúng ở 
+bất kì ứng dụng nào. Cơ chế này vẫn tồn tại trong X, nhưng việc sử dụng nó hiện 
+không còn khả thi nữa, và hầu hết các ứng dụng đều không sử dụng nó nữa.
 
-Nowadays data is transferred between applications by the means of
-[selections](http://www.x.org/releases/X11R7.7/doc/xorg-docs/icccm/icccm.html#Peer_to_Peer_Communication_by_Means_of_Selections).
-From the 3 _selection atoms_ defined, only 2 are used in practice: PRIMARY and
-CLIPBOARD.
+Ngày nay, dữ liệu được chuyển qua lại giữa các ứng dụng bằng 
+[các lựa chọn (selections)](http://www.x.org/releases/X11R7.7/doc/xorg-docs/icccm/icccm.html#Peer_to_Peer_Communication_by_Means_of_Selections).
+Trong 3 _các lựa chọn_ được tình soạn thảo văn bản atoms định nghĩa, chỉ có 2 cái 
+thường được sử dụng trong thực tế, đó là: PRIMARY và CLIPBOARD.
 
-Selections work roughly like this:
+Các lựa chọn hoạt động giống như này:
 
 ```
-Program A: <ctrl+c>
-Program A: assert ownership of CLIPBOARD
-Program B: <ctrl+v>
-Program B: note that ownership of CLIPBOARD is hold by Program A
-Program B: request data from Program A
-Program A: respond to request and send data to Program B
-Program B: receives data from Program A and inserts it into the window
+Ứng dụng A: <ctrl+c>
+Ứng dụng A: xác nhận quyền chiếm dụng CLIPBOARD
+Ứng dụng B: <ctrl+v>
+Ứng dụng B: lưu ý là quyền chiếm dụng CLIPBOARD đang được giữ bởi ứng dụng A
+Ứng dụng B: uêu cầu dữ liệu từ ứng dụng A
+Ứng dụng A: phản hồi yêu cầu và gửi dữ liệu đến ứng dụng B
+Ứng dụng B: nhận dữ liệu từ ứng dụng A và chèn nó vào window
 ```
 
-| Selection | When used? | How to paste? | How to access from Vim? |
-|-----------|------------|---------------|-------------------------|
-| PRIMARY   | Selecting text              | `middle-click`, `shift+insert` | `*` register |
-| CLIPBOARD | Selecting text and `ctrl+c` | `ctrl+v`                       | `+` register |
+| Lựa chọn  | Trường hợp sử dụng? | Làm sao để dán? | Làm sao để truy cập trong Vim? |
+|-----------|---------------------|-----------------|--------------------------------|
+| PRIMARY   | Chọn văn bản        | `middle-click`, `shift+insert` | `*` register    |
+| CLIPBOARD | Chọn văn bản và thực hiện `ctrl+c` | `ctrl+v`        | `+` register    |
 
-**NOTE**: Selections (no, not even the CLIPBOARD selection) are never kept in
-the X server! Thus, you lose the data copied with `ctrl+c` when the application
-closes.
+**Lưu ý**: Các lựa chọn (selections), thậm chí cả lựa chọn CLIPBOARD, không bao giờ 
+được lưu trong X server! Do đó, bạn sẽ mất dữ liệu được sao chép với lệnh 
+`ctrl-c` khi bạn đóng ứng dụng.
 
-Use `"*p` to paste the PRIMARY selection or `"+y1G` to yank the entire file to
-the CLIPBOARD selection.
+Sử dụng `"*p` để dán lựa chọn PRIMARY hoặc `"+y1G` để sao chép toàn bộ nội dung 
+của file vào lựa chọn CLIPBOARD.
 
-If you happen to access one of the two registers all the time, consider using:
+Nếu bạn tình cờ truy cập một trong hai bộ ghi nhớ (register) cùng một lúc, hãy 
+cân nhắc sử dụng:
 
 ```vim
 set clipboard^=unnamed      " * register
@@ -1635,24 +1631,24 @@ set clipboard^=unnamed      " * register
 set clipboard^=unnamedplus  " + register
 ```
 
-(The `^=` is used to prepend to the default value, `:h :set^=`.)
+(Dấu `^=` được dùng như giá trị mặc định, xem `:h :set^=`.)
 
-This will make all yank/delete/put operations use either `*` or `+` instead of
-the unnamed register `"`. Afterwards you can simply use `y` or `p` for accessing
-your chosen X selection.
+Điều này sẽ làm cho tất cả các hoạt động sao chép/xóa/dán sử dụng `*` hoặc `+` 
+thay vì bộ ghi nhớ không tên `"`. Sau đó, bạn chỉ cần sử dụng `y` hoặc `p` để 
+thao tác với các lựa chọn của bạn.
 
-Help:
+Xem thêm:
 
 ```vim
 :h clipboard-unnamed
 :h clipboard-unnamedplus
 ```
 
-## Restore cursor position when opening file
+## Khôi phục vị trí của con trỏ khi mở file
 
-When you open a file, the cursor will be positioned at line 1, column 1.
-Fortunately the viminfo file remembers [marks](#marks). The `"` mark contains
-the position in the buffer where you left off.
+Khi bạn mở một file, con trỏ sẽ được đặt ở dòng 1, cột 1. Nhưng may mắn thay, 
+file viminfo đã ghi nhớ các [đánh dấu (marks)](#đánh-dấu) cho bạn. Marker `"` 
+chứa vị trí con trỏ trong buffer mà bạn đã thoát.
 
 ```vim
 autocmd BufReadPost *
@@ -1661,45 +1657,46 @@ autocmd BufReadPost *
     \ endif
 ```
 
-Read: If the mark `"` contains a line number greater than line 1 but not greater
-than the last line in the file, jump to it.
+Giải thích: Nếu marker `"` có số dòng lớn hơn 1 nhưng không lớn hơn số dòng cuối 
+cùng trong file, hãy chuyển con trỏ đến đó.
 
+Xem thêm:
     :h viminfo-'
     :h `quote
     :h g`
 
-## Temporary files
+## Các file tạm
 
-### Backup files
+### Các file sao lưu
 
-Before saving a file, Vim creates a backup file. If writing to disk was
-successful, the backup file will be deleted.
+Trước khi sử dụng một file, Vim sẽ tạo một file sao lưu (backup file). Nếu ghi 
+vào đĩa thành công, file sao lưu sẽ bị xóa.
 
-With `:set backup`, the backup will persist. This means, the backup file will
-always have the same content as the original file _before_ the most recent save.
-It's up to you to decide whether this is useful or not.
+Với lệnh `:set backup`, sao lưu của bạn sẽ vẫn tồn tại. Nghĩa là , file sao lưu 
+sẽ luôn có cùng nội dung với file gốc _trước khi_ bạn lưu file của bạn lần gần 
+nhất. Bạn hãy tự quyết định xem việc này có hữu ích với mình hay không.
 
-You can disable backups entirely with `:set nobackup nowritebackup`, but you
-shouldn't need to nowadays. `'writebackup'` is a security feature that makes
-sure that you don't lose the original file in case saving it should ever fail,
-no matter whether you keep the backup file afterwards or not.
+Bạn có thể vô hiệu hóa hoàn toàn các sao lưu bằng lệnh 
+`:set nobackup nowritebackup`, nhưng bạn không nên làm điều này. 
+`'writebackup'` là một tính năng bảo mật đảm bảo rằng bạn không làm mất file 
+gốc trong trường hợp bạn lưu file của mình bị lỗi, bất kể bạn có giữ file sao 
+lưu sao đó hay không.
 
-If you frequently use Vim to edit huge files, [and you probably
-shouldn't](#editing-huge-files-is-slow), you can exclude those from backups with
-`'backupskip'`.
+Nếu bạn thường xuyên sử dụng Vim để chỉnh sửa các file lớn, 
+[và có thể bạn không nên](#chỉnh-sửa-file-lớn-bị-chậm), bạn có thể loại trừ 
+những file đó khỏi danh sách sao lưu với lệnh `'backupskip'`.
 
-Vim knows different ways to create a backup: _copying_ and _renaming_.
+Vim có hai cách khác nhau để tạo bản sao lưu: _sao chép_ và _đổi tên_.
 
-- **Copying**
-    1. A full copy of the original file is created and used as backup.
-    1. The original file gets emptied and then filled with the content of the
-    Vim buffer.
-- **Renaming**
-    1. The original file is renamed to the backup file.
-    1. The content of the Vim buffer gets written to a new file with the name of
-    the original file.
+- **Sao chép**
+    1. Một bản sao đầy đủ của file gốc được tạo và sử dụng làm bản sao lưu.
+    1. File gốc được làm rỗng và sao đó được lấp đầy bằng nội dung của buffer 
+    hiện tại trong Vim.
+- **Đổi tên**
+    1. Tệp gốc được đổi tên thành file sao lưu.
+    1. Nội dung của buffer được ghi vào một file mới với tên của file gốc
 
-See `:h 'backupcopy'` for all the nitty-gritty details.
+Xem thêm `:h 'backupcopy'` để biết thêm nhiều thứ hay ho khác.
 
 ---
 
@@ -1710,10 +1707,10 @@ Demo:
 :e /tmp/foo
 ifoo<esc>
 :w
-" original file gets created, no need for backup file
+" file gốc được tạo, không cần file sao lưu
 obar<esc>
 :w
-" backup file is created, original file gets updated
+" file sao lưu được tạo, file gốc được cập nhật
 ```
 
 ```diff
@@ -1726,94 +1723,101 @@ $ diff -u /tmp/foo-backup /tmp/foo
 ```
 
 ---
-
+Xem thêm:
     :h backup
     :h write-fail
 
-### Swap files
+### Các file swap
 
-When editing a file, unsaved changes get written to a swap file.
+Khi chỉnh sửa một file, các thay đổi chưa được lưu sẽ được ghi vào một file 
+swap.
 
-Get the name of the current swap file with `:swapname`. Disable them with `:set
-noswapfile`.
+Xem tên của file swap hiện tại với lệnh `:swapname`. Vô hiệu hóa chúng bằng 
+lệnh `:set noswapfile`.
 
-A swap file gets updated either all 200 characters or when nothing was typed for
-4 seconds. They get deleted when you stop editing the file. You can change these
-numbers with `:h 'updatecount'` and `:h 'updatetime'`.
+Một file swap sẽ được cập nhật cập sau khi bạn nhập 200 kí tự hoặc không có kí 
+tự nào được nhập sau 4 giây. Chúng sẽ bị xóa khi bạn ngừng chỉnh sửa file đó. 
+Bạn có thể thay đổi những thông số cài đặt này này bằng lệnh 
+`:h 'updatecount'` và `:h 'updatetime'`.
 
-If Vim gets killed (e.g. power outage), you lose all changes since the last time
-the file was written to disk, but the swap file won't be deleted. Now, if you
-edit the file again, Vim will offer the chance to recover the file from the swap
-file.
+Nếu Vim bị tắt (ví dụ: khi mất điện), bạn sẽ mất tất cả các thay đổi kể từ lần 
+cuối cùng file của bạn được ghi vào đĩa, nhưng file swap sẽ không bị xóa. Lúc 
+này, nếu bạn chỉnh sửa lại file đó, Vim sẽ cho bạn cơ hội để khôi phục lại dữ 
+liệu từ file swap đó.
 
-When two people try to edit the same file, the second person will get a notice
-that the swap file already exists. It prevents people from trying to save
-different versions of a file. If you don't want that behaviour, see `:h
-'directory'`.
+Khi 2 người cố gắng cùng sửa một file, người thứ hai sẽ nhận được thông báo 
+rằng file swap đã tồn tại. Nó ngăn không cho 2 người lưu các phiên bản khác 
+nhau của cùng một file. Nếu bạn không muốn hành vi đó xuất hiện, xem 
+`:h 'directory'`.
 
+Xem thêm:
     :h swap-file
     :h usr_11
 
-### Undo files
+### Các file hoàn tác
 
-The [undo tree](#undo-tree) is kept in memory and will be lost when Vim quits.
-If you want it to persist, `:set undofile`. This will save the undo file for
-`~/foo.c` in `~/foo.c.un~`.
+[Cây hoàn tác](#cây-hoàn-tác) được giữ trong bộ nhớ và sẽ bị mất khi bạn thoát 
+Vim. Nếu bạn muốn nó vẫn tồn tại, dùng lệnh `:set undofile`. Lệnh này sẽ lưu 
+file hoàn tác cho file `~/foo.c` dưới dạng `~/foo.c.un~`.
 
+Xem thêm:
     :h 'undofile'
     :h undo-persistence
 
-### Viminfo files
+### File viminfo
 
-When backup, swap, and undo files are all about text state, viminfo files are
-used for saving everything else that would otherwise be lost when quitting Vim.
-The viminfo file keeps histories (command line, search, input), registers,
-marks, buffer list, global variables etc.
+Trong khi các file sao lưu, các file swap, các file hoàn tác đều được lưu ở 
+dạng văn bản, các file viminfo được sử dụng để lưu mọi thứ khác, những thứ có 
+thể mất đi khi bạn thoát Vim. File viminfo sẽ lưu lại lịch sử (các lệnh, các 
+tìm kiếm, input), các bộ ghi nhớ, đánh dấu, danh sách buffer, window, các biến...
 
-By default, the viminfo is written to `~/.viminfo`.
+Mặc định, file viminfo sẽ được lưu ở `~/.viminfo`.
 
+Xem thêm:
     :h viminfo
     :h 'viminfo'
 
-### Example configuration for temporary files
+### Cấu hình ví dụ cho các file tạm
 
-Put all temporary files in their own directory under `~/.vim/files`:
+Đặt tất cả các file tạm vào thư mục riêng của chúng trong `~/.vim/files`:
 
 ```vim
-" create directory if needed
+" tạo thư mục nếu cần thiết
 if !isdirectory($HOME.'/.vim/files') && exists('*mkdir')
   call mkdir($HOME.'/.vim/files')
 endif
 
-" backup files
+" các file sao lưu (backup)
 set backup
 set backupdir   =$HOME/.vim/files/backup/
 set backupext   =-vimbackup
 set backupskip  =
-" swap files
+" các file swap
 set directory   =$HOME/.vim/files/swap//
 set updatecount =100
-" undo files
+" các file hoàn tác
 set undofile
 set undodir     =$HOME/.vim/files/undo/
-" viminfo files
+" các file viminfo
 set viminfo     ='100,n$HOME/.vim/files/info/viminfo
 ```
 
-## Editing remote files
+## Chỉnh sửa file từ xa
 
-Vim comes with the netrw plugin that enables editing remote files. Actually it
-transfers the remote file to a local temporary file via scp, opens a buffer
-using that file, and writes the changes back to the remote file on saving.
+Vim đi kèm với plugin netrw cho phép chỉnh sửa các file từ xa. Trên thực tế, 
+chúng chuyển các file từ xa (remote files) sang các file cục bộ thông qua scp, 
+mở một buffer sử dụng file đó, và ghi lại các thay đổi vào file từ xa khi bạn 
+lưu file cục bộ.
 
-This is extremely useful if you want to use your local configuration opposed to
-ssh'ing into a server and use whatever the admins want you to use.
+Điều này cực kỳ hữu ích nếu bạn muốn sử dụng cấu hình cục bộ của mình thay vì 
+phải ssh vào một server và sử dụng cấu hình VIm mà quản trị viên của server đó 
+đang sử dụng.
 
 ```
 :e scp://bram@awesome.site.com/.vimrc
 ```
 
-If you have a `~/.ssh/config` set up already, this gets used automatically:
+Nếu bạn đã thiết lập `~/.ssh/config` sẵn, chúng sẽ được tự động sử dụng:
 
 ```
 Host awesome
@@ -1822,186 +1826,197 @@ Host awesome
     User bram
 ```
 
-Assuming the above content in `~/.ssh/config`, this works just as well:
+Giả sử, nội dung trên nằm trong file `~/.ssh/config`, lệnh này cũng sẽ hoạt 
+động tốt:
 
 ```
 :e scp://awesome/.vimrc
 ```
 
-Similar can be done with a `~/.netrc`, see `:h netrw-netrc`.
+Điều tương tự có thể được thực hiện với lệnh `~/.netrc`, xem `:h netrw-netrc`.
 
-Make sure to read `:h netrw-ssh-hack` and `:h g:netrw_ssh_cmd`.
+Hãy đảm bảo rằng bạn đã đọc `:h netrw-ssh-hack` và `:h g:netrw_ssh_cmd`.
 
 ---
 
-Another possibility is using [sshfs](https://wiki.archlinux.org/index.php/Sshfs)
-which uses [FUSE](https://en.wikipedia.org/wiki/Filesystem_in_Userspace) to
-mount a remote filesystem into your local filesystem.
+Một khả năng khác là bạn có thể dùng [sshfs](https://wiki.archlinux.org/index.php/Sshfs)
+, sshfs sử dụng [FUSE](https://en.wikipedia.org/wiki/Filesystem_in_Userspace) để 
+mount một hệ thống remove vào hệ thống cục bộ của bạn.
 
-## Managing plugins
+## Quản lý plugins
 
-[Pathogen](https://github.com/tpope/vim-pathogen) was the first popular tool for
-managing plugins. Actually it just adjusts the _runtimepath_ (`:h 'rtp'`) to
-include all the things put under a certain directory. You have to clone the
-repositories of the plugins there yourself.
+[Pathogen](https://github.com/tpope/vim-pathogen) là công cụ phổ biến đầu tiên 
+nếu như bạn muốn quản lý các plugin của mình. Trên thực tế, nó chỉ điều chỉnh 
+_runtimepath_ (`:h 'rtp'`) để đặt tất cả các cài đặt vào một thư mục nhất định. 
+Bạn phải tự sao chép repo của các plugin đó để có thể sử dụng.
 
-Real plugin managers expose commands that help you to install and update plugins
-from within Vim.
+Các trình quản lý plugin sẽ chìa ra các lệnh giúp bạn cài đặt và cập nhật các 
+plugin ngay trong Vim.
 
-[List of plugin managers](PLUGINS.md#plugin-managers)
+[Danh sách trình quản lý plugin](PLUGINS.md#các-trình-quản-lý-plugin)
 
-## Block insert
+## Chèn khối
 
-This is a technique to insert the same text on multiple consecutive lines at the
-same time. See this
+Chèn khối (block insert) là một kĩ thuật để chèn cùng một văn bản trên nhiều 
+dòng liên tiếp cùng một lúc. Xem 
 [demo](https://raw.githubusercontent.com/mhinz/vim-galore/master/static/images/content-block_insert.gif).
 
-Switch to visual block mode with `<c-v>`. Afterwards go down for a few lines.
-Hit `I` or `A` and start entering your text.
+Chuyển sang chế độ visual block với lệnh `<c-v>`. Sau đó, chọn một vài dòng. 
+Nhấn `I` hoặc `A` và bắt đầu thêm văn bản của bạn.
 
-It might be a bit confusing at first, but text is always entered for the current
-line and only after finishing the current insertion, the same text will be
-applied to all other lines of the prior visual selection.
+Lúc đầu có thể hơi khó hiểu, nhưng văn bản sẽ được nhập ở dòng hiện tại, sau 
+khi bạn kết thúc việc nhập nhiệu, văn bản vừa nhập sẽ được áp dụng cho tất cả 
+các dòng mà bạn đã chọn.
 
-So a simple example is `<c-v>3jItext<esc>`.
+Một ví dụ đơn giản: `<c-v>3jItext<esc>`.
 
-If you have lines of different length and want to append the same text right
-after the end of each line, do this: `<c-v>3j$Atext<esc>`.
+Nếu bạn có các dòng có độ dài khác nhau, và muốn nối cùng một văn bản vào sau 
+mỗi dòng, hãy dùng lệnh: `<c-v>3j$Atext<esc>`.
 
-Sometime you need to place the cursor somewhere after the end of the current
-line. You can't do that by default, but you can set the `virtualedit` option:
+Đôi khi, bạn cần đặt con trỏ ở đâu đó sau khi kết thúc dòng hiện tại. Mặc định, 
+bạn không thể làm điều đó, nhưng bạn có thể cài đặt trong vimrc của mình với 
+cài đặt `virtualedit`:
 
 ```vim
 set virtualedit=all
 ```
 
-Afterwards `$10l` or `90|` work even after the end of the line.
+Sau đó `$10l` or `90|` hoạt động ngay cả khi con trỏ của bạn đang ở cuối một 
+dòng.
 
-See `:h blockwise-examples` for more info. It might seem complicated at first,
-but quickly becomes second nature.
+Xem `:h blockwise-examples` để biết thêm chi tiết. Ban đầu có thể hơi khó khăn,
+nhưng nó sẽ sớm trở nên tự nhiên với bạn.
 
-If you want to get real fancy, have a look at
+Đây là một plugin hỗ trợ cho tính năng này mà bạn nên xem qua: 
 [multiple-cursors](https://github.com/terryma/vim-multiple-cursors).
 
-## Running external programs and using filters
+## Chạy các chương trình bên ngoài Vim và sử dụng các bộ lọc
 
-Disclaimer: Vim is single-threaded, so running an external program in the
-foreground will block everything else. Sure, you can use one of Vim's
-programming interfaces, e.g. Lua, and use its thread support, but during that
-time the Vim process is blocked nevertheless. Neovim fixed that by adding a
-proper job API.
+Lưu ý: Vim chỉ xử lý một luồng duy nhất (single-threaded), vì vậy việc chạy một 
+chương trình bên ngoài sẽ chặn Vim thực hiện các xử lý tiếp theo. Dĩ nhiên, bạn 
+có thể sử dụng các ngôn ngữ lập trình Vim, ví dụ: Lua, và xử dụng các xử lý hỗ 
+trợ đa luồng của chúng, tuy nhiên, trong quá trình xử lý đó, các luồng xử lý 
+khác của Vim vẫn bị chặn lại. Neovim (Một phiên bản được viết lại của Vim) đã 
+khắc phục điều đó bằng các thêm một API thích hợp.
 
-(Apparently Bram is thinking about adding job control to Vim as well. If you
-have a very recent version, see `:helpgrep startjob`.)
+(Rõ ràng là Bram cũng đang nghĩ đến việc thêm quyền kiểm soát các tiến trình 
+vào Vim. Nếu bạn đang sử dụng một phiên bản Vim được publish gần đây, hãy xem 
+`:helpgrep startjob`)
 
-Use `:!` to start a job. If you want to list the files in the current working
-directory, use `:!ls`. Use `|` for piping in the shell as usual, e.g. `:!ls -1 |
-sort | tail -n5`.
+Sử dụng `:!` để bắt đầu một công việc. Nếu bạn muốn liệt kê danh sách các file 
+trong thư mục hiện tại, hãy dùng `:!ls`. Dùng `|` để thực hiện piping như khi 
+bạn sử dụng các lệnh trong shell của mình, ví dụ `:!ls -1 | sort | tail -n5`.
 
-Without a range, the output of `:!` will be shown in a scrollable window. On the
-other hand, if a range is given, these lines will be
-[filtered](https://en.wikipedia.org/wiki/Filter_(software)). This means they
-will be piped to the
+Nếu không được chỉ định phạm vi (ranges), kết quả của lệnh `:!` sẽ được hiển 
+thị trong một window mà bạn có thể cuộn lên, xuống (scroll). Mặt khác, nếu một 
+phạm vi được chỉ định, các dòng này sẽ được [lọc lại](https://en.wikipedia.org/wiki/Filter_(software)). 
+Điều này nghĩa là chúng sẽ được chuyển đến 
 [stdin](https://en.wikipedia.org/wiki/Standard_streams#Standard_input_.28stdin.29)
-of the filter program and after processing be replaced by the
+của chương trình lọc và sau khi xử lý chúng sẽ được thay thế bởi 
 [stdout](https://en.wikipedia.org/wiki/Standard_streams#Standard_output_.28stdout.29)
-of the filter. E.g. for prepending numbers to the next 5 lines, use this:
+của bộ lọc. Ví dụ: để đánh số đầu dòng cho 5 dòng tiếp theo, hãy dùng.
 
     :.,+4!nl -ba -w1 -s' '
 
-Since manually adding the range is quite burdensome, Vim also provides some
-helpers for convenience. As always with ranges, you can also select lines in
-visual mode and then hit `:`. There's also an operator `!` that takes a motion.
-E.g. `!ip!sort` will sort the lines of the current paragraph.
+Bởi vì việc thêm vào các phạm vi (ranges) một cách thủ công là khá rườm rà, 
+nên Vim cung cấp một số trợ giúp để thuận tiện cho bạn hơn. Như khi sử dụng 
+phạm vi, bạn có thể chọn nhiều dòng trong chế độ visual, sau đó nhấn `:`. 
+Ngoài ra còn có một toán từ `!` chấp nhận các chuyển động (motions). Ví dụ: 
+`!ip!sort` sẽ xắp xếp các dòng của đoạn hiện tại.
 
-A good use case for filtering is the [Go programming
-language](https://golang.org). The indentation is pretty opinionated, it even
-comes with a filter called `gofmt` for indenting Go source code properly. So
-plugins for Go often provide helper commands called `:Fmt` that basically do
-`:%!gofmt`, so they indent all lines in the file.
+Một trường hợp tốt để sử dụng bộ lọc trong vim đó là 
+[Ngôn ngữ lập trình Go](https://golang.org). Việc căn thụt đầu dòng khá là cần 
+thiết, nên go còn có sẵn luôn một bộ lọc gọi là `gofmt` để thụt lề mã nguồn Go 
+đúng cách. Vì vậy các plugin cho Go thường cung cấp các lệnh trợ giúp được gọi 
+là `:Fmt`, về cơ bản, chúng sẽ thực hiện lện `:%!gofmt`, lệnh này sẽ tự động 
+căn lề tất cả các dòng trong file mã nguồn Go mà bạn đang mở.
 
-People often use `:r !prog` to put the output of prog below the current line,
-which is fine for scripts, but when doing it on the fly, I find it easier to use
-`!!ls` instead, which replaces the current line.
+Mọi người thường sử dụng lệnh `:r !prog` để đặt đầu ra (output) của chương 
+trình bên dưới dòng hiện tại, điều này tốt cho các tập lệnh, nhưng khi cần 
+thực hiện nó một cách nhanh chóng, tôi thấy dễ dàng hơn khi sử dụng lệnh 
+`!!ls`, lệnh này sẽ thay thế đầu ra cho dòng hiện tại.
 
+Xem thêm:
     :h filter
     :h :read!
 
 ## Cscope
 
-[Cscope](http://cscope.sourceforge.net/) does more things than
-[ctags](http://ctags.sourceforge.net/), but only supports C (and C++ and Java to
-some extent).
+[Cscope](http://cscope.sourceforge.net/) làm được nhiều thức hơn 
+[ctags](http://ctags.sourceforge.net/), nhưng chỉ hỗ trợ ngôn ngữ lập trình C 
+(C++ và Java với một khía cạnh nào đó).
 
-Whereas a tags file only knows where a symbol was defined, a cscope database
-knows much more about your data:
+Trong khi một file tags chỉ biết vị trí của một symbol cụ thể, thì một cơ sở 
+dữ liệu cscope biết nhiều hơn về dữ liệu của bạn:
 
-- Where is this symbol defined?
-- Where is this symbol used?
-- What is this global symbol's definition?
-- Where did this variable get its value?
-- Where is this function in the source files?
-- What functions call this function?
-- What functions are called by this function?
-- Where does the message "out of space" come from?
-- Where is this source file in the directory structure?
-- What files include this header file?
+- Symbol này được xác định ở đâu?
+- Symbol này được dùng ở đâu?
+- Định nghĩa toàn của của symbol này là gì?
+- Biến này lấy giá trị ở đâu?
+- Hàm này nằm ở đâu trong các file mã nguồn?
+- Các hàm nào gọi đến hàm này?
+- Hàm nào được gọi bởi hàm này?
+- Thông báo "out of space" đến từ đâu?
+- File nguồn này nằm ở đâu trong cấu trúc thư mục?
+- File nào include file header này
 
-### 1. Build the database
+### 1. Xây dựng cơ sở dữ liệu
 
-Do this in the root of your project:
+Chạy lệnh này trong thư mục hiện tại của project bạn đang làm:
 
 ```sh
 $ cscope -bqR
 ```
 
-This will create 3 files: `cscope{,.in,.po}.out` in the current working
-directory. Think of them as your database.
+Lệnh trên sẽ tạo ra 3 file: `cscope{,.in,.po}.out` trong thư mục hiện tại. Cứ 
+nghĩ chúng là cơ sở dữ liệu (database) của bạn đi.
 
-Unfortunately `cscope` only analyzes `*.[c|h|y|l]` files by default. If you want
-to use cscope for a Java project instead, do this:
+Không may thay, theo mặc định thì `cscope` chỉ phân tích các file 
+`*.[c|h|y|l]`. nên nếu bạn muốn sử dụng cscope cho một project Java, hãy dùng 
+lệnh:
 
 ```sh
 $ find . -name "*.java" > cscope.files
 $ cscope -bq
 ```
 
-### 2. Add the database
+### 2. Thêm cơ sở dữ liệu
 
-Open a connection to your freshly built database:
+Mở một kết nối đến cơ sở dữ liệu mới được tạo:
 
 ```vim
 :cs add cscope.out
 ```
 
-Verify that the connection was made:
+Xác minh rằng kết nối đã được thực hiện:
 
 ```vim
 :cs show
 ```
 
-(Yes, you can add multiple connections.)
+(Dĩ nhiên, bạn có thể thêm nhiều kết nối.)
 
-### 3. Query the database
+### 3. Truy vấn cơ sở dữ liệu
 
 ```vim
 :cs find <kind> <query>
 ```
 
-E.g. `:cs find d foo` will list all functions that are called by `foo(...)`.
+Ví dụ: lệnh `:cs find d foo` sẽ liệt kê tất cả các hàm được gọi bởi hàm 
+`foo(...)`.
 
-| Kind | Explanation |
+| Loại | Giải thích  |
 |------|-------------|
-| s    | **s**ymbol: find all references to the token        |
-| g    | **g**lobal: find global definition(s) of the token  |
-| c    | **c**alls: find all calls to the function           |
-| t    | **t**ext: find all instances of the text            |
-| e    | **e**grep: egrep search for the word                |
-| f    | **f**ile: open the filename                         |
-| i    | **i**ncludes: find files that include the filename  |
-| d    | **d**epends: find functions called by this function |
+| s    | **s**ymbol: tìm tất cả tham chiếu đến token         |
+| g    | **g**lobal: tìm các định nghĩa toàn cục của token   |
+| c    | **c**alls: tìm tất cả các liên kết gọi đến hàm      |
+| t    | **t**ext: tìm tất cả các bản sao (instance) của văn bản |
+| e    | **e**grep: egrep để tìm một từ                      |
+| f    | **f**ile: mở file với tên file                      |
+| i    | **i**ncludes: tìm các file có chứa tên file         |
+| d    | **d**epends: tìm các hàm được gọi bởi hàm này       |
 
-I suggest some convenience mappings e.g.:
+Đây là một số mapping tiện lợi mà tôi có thể gợi ý. Ví dụ:
 
 ```vim
 nnoremap <buffer> <leader>cs :cscope find s  <c-r>=expand('<cword>')<cr><cr>
@@ -2014,39 +2029,41 @@ nnoremap <buffer> <leader>ci :cscope find i ^<c-r>=expand('<cfile>')<cr>$<cr>
 nnoremap <buffer> <leader>cd :cscope find d  <c-r>=expand('<cword>')<cr><cr>
 ```
 
-So, when `:tag` (or `<c-]>`) jumps to a definition from the tags file, `:cstag`
-does the same, but also takes connected cscope databases into account. The
-option `'cscopetag'` makes `:tag` act like `:cstag` automatically. This is very
-convenient if you already have tag-related mappings.
+Vì vậy, lệnh `:tag` (hoặc `<c-]>`) sẽ nhảy đến một định nghĩa trong các file 
+tag, `:cstag` cũng làm điều tương tự, nhưng cũng nhận các kết nối đến csdl 
+cscope. Tùy chọn `'cscopetag'` sẽ làm cho `:tag` hoạt động giống `:cstag` một 
+cách tự động. Điều này rất thuận tiện nếu bạn đã có các mapping liên quan đến 
+tag.
 
-Help: `:h cscope`
+Xem thêm: `:h cscope`
 
 ## MatchIt
 
-Since Vim is written in C, a lot of features assume C-like syntax. By default,
-if your cursor is on `{` or `#endif`, you can use `%` to jump to the
-corresponding `}` or `#ifdef` respectively.
+Vì Vim được viết bằng ngôn ngữ lập trình C, nên rất nhiều tính năng đều được 
+giả định giống như ngôn ngữ C. Theo mặc định, nếu con trỏ của bạn đang ở `{` 
+hoặc `#endif`, bạn có thể dùng `%` để nhảy đến kí tự `}` hoặc `#ifdef` tương 
+ứng.
 
-Vim comes bundled with a plugin called matchit.vim which is not enabled by
-default. It makes `%` also cycle through HTML tags, if/else/endif constructs in
-VimL etc. and introduces a few new commands.
+Vim đi kèm với một plugin có tên là matchit.vim, theo mặc định, plugin này sẽ 
+không hoạt động. Plugin này làm cho phím `%` cũng nhảy quanh các thẻ HTML, các 
+lệnh if/else/endif trong VimL, và plugin này cũng giới thiệu thêm một vài lệnh 
+khác cũng khá hữu dụng.
 
-#### Installation for Vim 8
+#### Cài đặt MatchIt cho Vim 8
 
 ```vim
 " vimrc
 packadd! matchit
 ```
 
-#### Installation for Vim 7 and older
+#### Cài đặt MatchIt cho Vim 7 và các phiên bản cũ hơn
 
 ```vim
 " vimrc
 runtime macros/matchit.vim
 ```
 
-Since the documentation of matchit is pretty extensive, I suggest also doing the
-following once:
+Vì tài liệu về matchit khá phong phú, tôi khuyên bạn nên làm như sau:
 
 ```vim
 :!mkdir -p ~/.vim/doc
@@ -2054,21 +2071,22 @@ following once:
 :helptags ~/.vim/doc
 ```
 
-#### Small intro
+#### Giới thiệu nhanh
 
-The plugin is ready to use now. See `:h matchit-intro` for the supported
-commands and `:h matchit-languages` for the supported languages.
+Sau khi cài đặt, plugin đã sẵn sàng để bạn sử dụng. Xem `:h matchit-intro`, để 
+biết các lệnh được hỗ trợ và `:h matchit-languages` để biết các ngôn ngữ được 
+matchit hỗ trợ.
 
-That said, it's easy to define your own matching pairs:
+Bạn cũng có thể dễ dàng định nghĩa các matching pairs phù hợp cho riêng bạn:
 
 ```vim
 autocmd FileType python let b:match_words = '\<if\>:\<elif\>:\<else\>'
 ```
 
-Afterwards you can cycle through these 3 statements in any Python file by using
-`%` (forward) or `g%` (backward).
+Với lệnh trên, bạn có thể nhảy lần lượt từ if, đến elif, rồi đến else trong bất 
+kì file Python nào bằng cách sử dụng `%` (forward) hoặc `g%` (backward).
 
-Help:
+Đọc thêm:
 
 ```
 :h matchit-install
@@ -2078,66 +2096,64 @@ Help:
 
 ## True colors
 
-Using true colors in a terminal emulator means being able to use 24 bits for RGB
-colors. That makes 16777216 (2^24) colors instead of the usual 256.
+Sử dụng các màu sắc trong một trình giả lập terminal nghĩa là bạn có thể sử 
+dụng 24 bits cho màu RGB. Điều này sẽ tạo ra 16777216 (2^24) màu thay vì 256 
+màu thông thường.
 
-As explained [here](#colorschemes), colorschemes can actually be _two_
-colorschemes by having definitions for terminals (xterm) and for GUIs (gvim).
-This made sense before terminal emulators learned about true colors.
+Như đã giải thích [ở đây](#bảng-màu), mỗi bảng màu (colorschemes) thực chất đều 
+có _hai_ phiên bản, một được định nghĩa cho các terminal (xterm) và phiên bản còn 
+lại là cho giao diện GUIs (gvim). Điều này có ý nghĩa vì nếu các terminal không 
+thể sử dụng true colors, chúng sẽ sử dụng bảng màu dành riêng cho terminal.
 
-After `:set termguicolors`, Vim starts emitting escape sequences only understood
-by a terminal emulator that supports true colors. When your colors look weird,
-chances are your terminal emulator doesn't support true colors or your
-colorcheme has no GUI colors defined.
+Sau khi chạy lệnh `:set termguicolors`, Vim bắt đầu phát ra các chuỗi chỉ được 
+hiểu bởi terminal được hỗ trợ true colors. Khi màu sắc của bạn trông kỳ lạ, rất 
+có thể trình giả lập terminal của bạn không hỗ trợ true colors hoặc bảng màu 
+của bạn không được định nghĩa sẵn các màu sắc cho phiên bản GUIs.
 
-Many people use the terminal multiplexer
-[tmux](https://github.com/tmux/tmux/wiki) which basically sits in between the
-terminal emulator and Vim. To make tmux _forward_ the true color escape
-sequences emitted by Vim, you have to put the following in the user's
-`.tmux.conf`:
+Có rất nhiều người sửa dụng 
+[tmux](https://github.com/tmux/tmux/wiki), tmux về cơ bản sẽ nằm giữa terminal 
+và Vim. Để cho tmux nhận được các màu sắc cụ thể từ vim, đặc biệt là true 
+colors, bạn cần phải đặt những thứ sau vào file cấu hình tmux `.tmux.conf` 
+của bạn:
 
 ```
 set-option -g  default-terminal 'tmux-256color'
 set-option -ga terminal-overrides ',xterm-256color:Tc'
 ```
 
-- The first line should be the same for most people and denotes the `$TERM` to
-  be used _within_ tmux.
-- The second line adds the tmux-specific `Tc` (true color) capability to the
-  other terminfo entries of `xterm-256color`. Obviously this assumes that the
-  user is using `TERM=xterm-256color` _outside_ of tmux.
+Vì vậy, đây là danh sách những việc cần làm để sử dụng true colors:
 
-So, here is the checklist for enabling true colors:
+- Đọc `:h 'termguicolors'`.
+- Đặt `set termguicolors` vào file cấu hình vimrc của bạn.
+- Đảm bảo rằng bảng màu (colorscheme) mà bạn đang dùng hỗ trợ GUIs. (Nó phải 
+chứa các dòng đại loại như `guifg` và `guibg`.)
+- Đảm bảo terminal của bạn hỗ trợ true colors.
+- Nếu bạn dùng tmux, cấu hình nó và thêm `Tc` vào file cấu hình.
 
-- Read `:h 'termguicolors'`.
-- Put `set termguicolors` in your vimrc.
-- Make sure your colorscheme has color definitions for GUIs. (It should contain
-  lines with `guifg` and `guibg`.)
-- Make sure your terminal emulator of choice supports true colors.
-- Using tmux? Configure it to add the `Tc` capability.
-
-A popular reference for colors in the terminal:
+Xem thêm:
 https://gist.github.com/XVilka/8346728
 
-# Tips
+# Các mẹo sử dụng
 
-## Go to other end of selected text
+## Chuyển đến đầu hoặc cuối của văn bản đang được chọn
 
-`o` and `O` in a visual selection make the cursor go to the other end. Try with
-blockwise selection to see the difference. This is useful for quickly changing
-the size of the selected text.
+`o` và `O` trong chế độ visual sẽ nhảy con trỏ của bạn đến đầu và cuối văn bản 
+đang được chọn. Hãy thử lựa chọn theo khối (blockwise selection) để thử sự khác 
+biệt. Điều này hữu ích khi bạn muốn thay đổi kích thước của văn bản một cách 
+nhanh chóng.
 
 ```
 :h v_o
 :h v_O
 ```
 
-## Saner behavior of n and N
+## Hành vi tốt hơn của n và N
 
-The direction of `n` and `N` depends on whether `/` or `?` was used for
-searching forward or backward respectively. This is pretty confusing to me.
+Hướng của `n` và `N` phụ thuộc vào việc bạn sử dụng `/` hay `?` để tìm kiếm tới,
+hoặc tìm kiếm lùi về trước đó. Điều này khá khó hiểu với tôi.
 
-If you want `n` to always search forward and `N` backward, use this:
+Nếu bạn muốn `n` luôn tìm kiếm tới phía trước và `N` luôn tìm kiếm ngược lại, 
+hãy dùng:
 
 ```vim
 nnoremap <expr> n  'Nn'[v:searchforward]
@@ -2149,38 +2165,40 @@ xnoremap <expr> N  'nN'[v:searchforward]
 onoremap <expr> N  'nN'[v:searchforward]
 ```
 
-## Saner command-line history
+## Lịch sử các lệnh sử dụng tốt hơn
 
-If you're anything like me, you're used to going to next and previous items via
-`<c-n>` and `<c-p>` respectively. By default, this also works in the
-command-line and recalls older or more recent command-lines from history.
+Nếu bạn giống như tôi, bạn đã quen với việc chuyển đến các mục tiếp theo, và 
+trước đó thông qua các lệnh `<c-n>` và `<c-p>` tương ứng. Theo mặc định, điều 
+này cũng hoạt động trong command-line và sẽ gọi lại các lệnh cũ hơn hoặc gần 
+đây hơn từ lịch sử các lệnh đã được sử dụng.
 
-So far, so good. But `<up>` and `<down>` are even smarter! They recall the
-command-line whose beginning matches the current command-line. E.g. `:echo <up>`
-may change to `:echo "Vim rocks!"`.
+Nhưng `<up>` và `<down>` thậm chí còn thông minh hơn! Chúng nhớ lại lệnh có 
+phần đầu khớp với lệnh hiện tại. Ví dụ: `:echo <up>` có thể thay đổi thành 
+`:echo "Vim rocks!"`.
 
-Of course, I don't want you to reach to the arrow keys, just map it instead:
+Dĩ nhiên, tôi không muốn bạn phải rướn tay của mình tới các phím điều hướng, vì 
+vậy hãy map chúng như sau:
 
 ```vim
 cnoremap <c-n>  <down>
 cnoremap <c-p>  <up>
 ```
 
-I depend on this behaviour several times a day.
+Tôi sử dụng các lệnh này vài lần mỗi ngày.
 
-## Saner CTRL-L
+## CTRL-L tốt hơn
 
-By default, `<c-l>` clears and redraws the screen (like `:redraw!`). The
-following mapping does the same, plus de-highlighting the matches found via `/`,
-`?` etc., plus fixing syntax highlighting (sometimes Vim loses highlighting due
-to complex highlighting rules), plus force updating the syntax highlighting in
-diff mode:
+Theo mặc dịnh, lệnh `<c-l>` sẽ xóa và vẽ lại màn hình (giống lệnh `:redraw!`). 
+Mapping sau đây cũng làm điều tương tự, thêm nữa là chúng sẽ highlight các kết 
+quả phù hợp tìm được thông qua `/`, `?`, highlight cú pháp (đôi khi Vim mất đi 
+các highlight do các quy tắc highlight phức tạp.), cập nhật các highlight cú 
+pháp trong chế độ diff:
 
 ```vim
 nnoremap <leader>l :nohlsearch<cr>:diffupdate<cr>:syntax sync fromstart<cr><c-l>
 ```
 
-## Disable audible and visual bells
+## Tắt hình ảnh và âm thanh của chuông
 
 ```vim
 set noerrorbells
@@ -2188,72 +2206,75 @@ set novisualbell
 set t_vb=
 ```
 
-See [Vim Wiki: Disable beeping](http://vim.wikia.com/wiki/Disable_beeping).
+Xem thêm [Vim Wiki: Disable beeping](http://vim.wikia.com/wiki/Disable_beeping).
 
-## Quickly move current line
+## Di chuyển nhanh dòng hiện tại
 
-Sometimes I need a quick way to move the current line above or below:
+Thỉnh thoảng tôi cần di chuyển nhanh một dòng lên trên hoặc xuống dưới:
 
 ```vim
 nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
 nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
 ```
 
-These mappings also take a count, so `2]e` moves the current line 2 lines below.
+Các mapping này sẽ nhận vào một số đếm, ví dụ `2]e` sẽ di chuyển dòng hiện tại 
+xuống 2 dòng.
 
-## Quickly add empty lines
+## Thêm nhanh các dòng trống
 
 ```vim
 nnoremap [<space>  :<c-u>put! =repeat(nr2char(10), v:count1)<cr>'[
 nnoremap ]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
 ```
 
-Now `5[<space>` inserts 5 blank lines above the current line.
+Bây giờ `5[<space>` sẽ chèn 5 dòng trống lên trên dòng hiện tại.
 
-## Quickly edit your macros
+## Chỉnh sửa nhanh macros của bạn
 
-This is a real gem! The mapping takes a register (or `*` by default) and opens
-it in the cmdline-window. Hit `<cr>` when you're done editing for setting the
-register.
+Đây thực sự là một viên quá quý! Mapping sẽ nhận vào một bộ ghi nhớ (register) 
+(Hoặc `*` theo mặc định) và mở nó trên cửa sổ command line. Nhấn `<cr>` khi bạn 
+đã chỉnh sửa xong văn bản để cài đặt cho bộ ghi nhớ.
 
-I often use this to correct typos I did while recording a macro.
+Tôi thường sử dụng mapping này để chỉnh sửa lỗi chính tả mà tôi mắc phải khi 
+tôi đang ghi lại một macro.
 
 ```vim
 nnoremap <leader>m  :<c-u><c-r><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>
 ```
 
-Use it like this `<leader>m` or `"q<leader>m`.
+Sử dụng như sau `<leader>m` hoặc `"q<leader>m`.
 
-Notice the use of `<c-r><c-r>` to make sure that the `<c-r>` is inserted
-literally. See `:h c_^R^R`.
+Lưu ý việc sử dụng `<c-r><c-r>` để đảm bảo `<c-r>` được chèn theo nghĩa đen. 
+Xem `:h c_^R^R`.
 
-## Quickly jump to header or source file
+## Nhảy nhanh đến file header hoặc file mã nguồn
 
-This technique can probably be applied to many filetypes. It sets _file marks_
-(see `:h marks`) when leaving a source or header file, so you can quickly jump
-back to the last accessed one by using `'C` or `'H` (see `:h 'A`).
+Kĩ thuật này có thể được áp dụng cho nhiều loại file khác nhau. Nó sẽ đặt các 
+_đánh dấu file_ (xem `:h marks`) khi bạn rời khỏi một file mã nguồn hoặc file 
+header, vì vậy bạn có thể nhảy nhanh ngược lại bằng cách dùng `'C` hoặc `'H` 
+(Xem thêm `:h 'A`).
 
 ```vim
 autocmd BufLeave *.{c,cpp} mark C
 autocmd BufLeave *.h       mark H
 ```
 
-**NOTE**: The info is saved in the viminfo file, so make sure that `:set
-viminfo?` includes `:h viminfo-'`.
+**LƯU Ý**: Thông tin được lưu trong file viminfo, vì vậy hãy đảm bảo rằng lệnh 
+`:set viminfo?` đã được bạn đặt vào file cài đặt. Xem thêm `:h viminfo-'`.
 
-## Quickly change font size in GUI
+## Thay đổi kích thước font trong giao diện
 
-I think this was taken from tpope's config:
+Tôi nghĩ rằng config này được lấy từ config của tpope:
 
 ```vim
 command! Bigger  :let &guifont = substitute(&guifont, '\d\+$', '\=submatch(0)+1', '')
 command! Smaller :let &guifont = substitute(&guifont, '\d\+$', '\=submatch(0)-1', '')
 ```
 
-## Change cursor style dependent on mode
+## Thay đổi kiểu con trỏ tùy thuộc vào chế độ
 
-I like to use a block cursor in normal mode, i-beam cursor in insert mode, and
-underline cursor in replace mode.
+Tôi thích dùng con trỏ hình khối ở chế độ normal, con trỏ dạng i-beam ở chế độ 
+insert, và con trỏ gạch dưới ở chế độ replace.
 
 ```vim
 if empty($TMUX)
@@ -2267,63 +2288,61 @@ else
 endif
 ```
 
-This simply tells Vim to print a certain sequence of characters ([escape
-sequence](https://en.wikipedia.org/wiki/Escape_sequence)) when entering/leaving
-insert mode. The underlying terminal, or programs like
-[tmux](https://tmux.github.io) that sit between Vim and the terminal, will
-process and evaluate it.
+Điều này chỉ đơn giản là yêu cầu Vim in một chuỗi kí tự nhất định 
+([escape sequence](https://en.wikipedia.org/wiki/Escape_sequence)) khi bạn vào/
+rời chế độ insert. Terminal, hoặc chương trình như 
+[tmux](https://tmux.github.io) đứng giữa terminal và vim, sẽ xử lý và đánh giá 
+nó. Các cấu hình trên có thể không hoạt động với bạn. Cài đặt của thạm thậm chí 
+còn có thể không hỗ trợ nhiều kiểu con trỏ khác nhau. Hãy đọc tài liệu của 
+chúng sẽ rõ.
 
-There's one drawback though: there are many terminal emulator implementations
-and not all use the same sequences for doing the same things. The sequences used
-above might not work with your implementation. Your implementation might not
-even support different cursor styles. Check the documentation.
+Ví dụ trên hoạt động tốt với iTerm2.
 
-The example above works with iTerm2.
+## Không bị mất những lựa chọn (selection) khi di chuyển sang một bên
 
-## Don't lose selection when shifting sidewards
+Nếu bạn chọn một hoặc nhiều dòng, bạn có thể dùng `<` hoặc `>` để chuyển chúng 
+sang một bên. Thật không may bạn sẽ bị mất các lựa chọn sau khi dùng `<` và `>`.
 
-If you select one or more lines, you can use `<` and `>` for shifting them
-sidewards. Unfortunately you immediately lose the selection afterwards.
-
-You can use `gv` to reselect the last selection (see `:h gv`), thus you can work
-around it like this:
+Bạn có thể gùn `gv` để chọn lại lựa chọn mà bạn thực hiện lần gần nhất 
+(xem `:h gv`), do đó, bạn có thể map lệnh lại như sau:
 
 ```vim
 xnoremap <  <gv
 xnoremap >  >gv
 ```
 
-Now you can use `>>>>>` on your visual selection without any problems.
+Bây giờ bạn có thể dùng `>>>>>` mà không có vấn đề gì.
 
-**NOTE**: The same can be achieved using `.`, which repeats the last change.
+**Lưu ý**:  Bạn có thể đạt được điều tương tự với lệnh `.`, lệnh lặp lại thay đổi 
+cuối cùng.
 
-## Reload a file on saving
+## Tải lại file khi lưu
 
-Using [autocmds](#autocmds) you can do anything on saving a file, e.g. sourcing
-it in case of a dotfile or running a linter to check for syntactical errors in
-your source code.
+Sử dụng [lệnh tự động](#lệnh-tự-động) bạn có thể làm bất kì thứ gì khi bạn lưu 
+một file. Ví dụ, source nó nếu nó làm một dotfile hoặc chạy linter cho file đó 
+để kiểm tra lỗi cũ pháp của nội dung trong file.
 
 ```vim
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 autocmd BufWritePost ~/.Xdefaults call system('xrdb ~/.Xdefaults')
 ```
 
-## Smarter cursorline
+## Con trỏ thông minh hơn
 
-I love the cursorline, but I only want to use it in the current window and not
-when being in insert mode:
+Tôi thích con trỏ, nhưng tôi chỉ muốn dùng nó trong window hiện tại chứ không 
+muốn ở chế độ chèn.
 
 ```vim
 autocmd InsertLeave,WinEnter * set cursorline
 autocmd InsertEnter,WinLeave * set nocursorline
 ```
 
-## Faster keyword completion
+## Hoàn thành từ khóa nhanh hơn
 
-The keyword completion (`<c-n>`/`<c-p>`) tries completing whatever is listed in
-the `'complete'` option. By default, this also includes tags (which can be
-annoying) and scanning all included files (which can be very slow). If you can
-live without these things, disable them:
+Hoàn thành từ khóa khi bạn sử dụng gợi ý code (`<c-n>`/`<c-p>`) sẽ cố gắng lựa 
+chọn các lựa chọn trong `'complete'`. Theo mặc định, điều này cũng bao gồm các 
+tag (có thể khá khó chịu) và quét tất cả các file được include (có thể sẽ rất 
+chậm). Nếu bạn có thể sống mà không cần những thứ này, hãy tắt chúng đi:
 
 ```vim
 set complete-=i   " disable scanning included files
@@ -2332,67 +2351,72 @@ set complete-=t   " disable searching tags
 
 ## Thay đổi màu sắc
 
-Always use a dark gray statusline, no matter what colorscheme is chosen:
+Luôn sử dụng dòng trạng thái (statusline) màu tối, bất kể bảng màu nào đang 
+được sử dụng:
 
 ```vim
 autocmd ColorScheme * highlight StatusLine ctermbg=darkgray cterm=NONE guibg=darkgray gui=NONE
 ```
 
-This triggers every time you use `:colorscheme ...`. If you want it to trigger
-only for a certain colorscheme:
+Lệnh trên sẽ được kích hoạt mỗi khi bạn sử dụng `:colorscheme ...`. Nếu bạn muốn 
+nó chỉ kích hoạt cho một số bảng màu nhất định, hãy dùng.
 
 ```vim
 autocmd ColorScheme desert highlight StatusLine ctermbg=darkgray cterm=NONE guibg=darkgray gui=NONE
 ```
 
-This triggers only for `:colorscheme desert`.
+Lệnh trên chỉ được thực thi cho bảng màu `:colorscheme desert`.
 
-# Commands
+# Các lệnh
 
-Useful commands that are good to know. Use `:h :<command name>` to learn more
-about them, e.g. `:h :global`.
+Các lệnh hữu ích mà bạn cần biết. Dùng `:h :<command name>`, để đọc thêm về 
+chúng, ví dụ `:h :global`.
 
-## :global and :vglobal
+## :global và :vglobal
 
-Execute a command on all matching lines. E.g. `:global /regexp/ print` will use
-`:print` on all lines that contain "regexp".
+Thực hiện một lệnh trên tất cả các dòng phừ hợp. Ví dụ `:global /regexp/ print` 
+sẽ gọi lệnh `:print` trên tất cả các dòng có chứa "regexp".
 
-Fun fact: You probably all know good old grep, the filter program written by Ken
-Thompson. What does it do? It prints all lines matching a certain regular
-expression! Now guess the short form of `:global /regexp/ print`? That's right!
-It's `:g/re/p`. Ken Thompson was inspired by vi's `:global` when he wrote grep.
+Thực tế thú vị: Có thể bạn biết rằng grep được viết bởi Ken Thompson hoạt động 
+rất tốt. Nó làm gì? Nó sẽ in ra tất cả các dòng khớp với một biểu thức chính 
+quy (regex) nhất định! Bây giờ hãy đoán dạng rút gọn của 
+`:global /regexp/ print` xem? ĐÚng rồi! Đó là `:g/re/p`. Ken Thompson đã lấy 
+cảm hứng từ lệnh `:global` trong vi (phiên bản cũ hơn của Vim) khi anh ấy lập 
+trình ra grep.
 
-Despite its name, `:global` only acts on all lines by default, but it also takes
-a range. Assume you want use `:delete` on all lines from the current line to the
-next blank line (matched by the regular expression `^$`) that contain "foo":
+Không như tên gọi của nó, `:global` chỉ hoạt động trên tất cả các dòng theo mặc 
+định, nhưng nó cũng nhận vào một phạm vi (ranges). Giả sử bạn muốn dùng lệnh 
+`:delete` trên tất cả các dòng từ dòng hiện tại đến dòng trống tiếp theo 
+(khớp với regex `^$`) có chứa "foo":
 
 ```vim
 :,/^$/g/foo/d
 ```
 
-For executing commands on all lines that do _not_ match a given pattern, use
-`:global!` or its alias `:vglobal` (think _inVerse_) instead.
+Để thực hiện các lệnh trên tất cả các dòng mà _không_ có một một mẫu (pattern) 
+nhất định, sử dụng `:global!` hoặc bí danh của nó `:vglobal` (_inVerse_) để 
+thay thế.
 
 ## :normal and :execute
 
-These commands are commonly used in Vim scripts.
+Các lệnh này thường được dùng khi viết mã nguồn cho Vim với VimL.
 
-With `:normal` you can do normal mode mappings from the command-line. E.g.
-`:normal! 4j` will make the cursor go down 4 lines (without using any custom
-mapping for "j" due to the "!").
+Với lệnh `:normal` bạn có thể thực hiện mapping trong command-line. Ví dụ: 
+`:normal! 4j` sẽ làm cho con trỏ đi xuống 4 dòng (mà không sử dụng bất kì 
+mapping khác nào cho "j" bởi vì đã có dấu "!").
 
-Mind that `:normal` also takes a [range](#ranges), so `:%norm! Iabc` would
-prepend "abc" to every line.
+Lưu ý rằng: lệnh `:normal` cũng nhận vào một [phạm vi](#phạm-vi), vì vậy 
+`:%norm! Iabc` sẽ thêm "abc" vào trước mỗi dòng.
 
-With `:execute` you can mix commands with expressions. Assume you edit a C
-source file and want to switch to its header file:
+Với `:execute` bạn có thể trộn các lệnh với các biểu thức (expressions). Giả sử 
+bạn đang chỉnh sửa một file C và muốn đổi sang file header của nó, dùng:
 
 ```vim
 :execute 'edit' fnamemodify(expand('%'), ':r') . '.h'
 ```
 
-Both commands are often used together. Assume you want to make the cursor go
-down "n" lines:
+Cả hai lệnh thường được sử dụng cùng nhau. Giả sử bạn muốn đưa con trỏ xuống 
+dòng "n" dòng:
 
 ```vim
 :let n = 4
@@ -2401,8 +2425,9 @@ down "n" lines:
 
 ## :redir and execute()
 
-Many commands print messages and `:redir` allows to redirect that output. You
-can redirect to files, [registers](#registers) or variables.
+Rất nhiều lệnh sẽ in ra thông báo, và `:redir` cho phép bạn chuyển hướng đầu ra 
+của các thông báo đó. Bạn có thể chuyển hướng đến các file, 
+[bộ ghi nhớ](#bộ-ghi-nhớ) hoặc các biến (variables).
 
 ```vim
 :redir => var
@@ -2413,61 +2438,66 @@ can redirect to files, [registers](#registers) or variables.
 :put =var
 ```
 
-In Vim 8 there is an even shorter way:
+Trong Vim 8 thậm chí còn có cách ngắn ngọn hơn:
 
 ```vim
 :put =execute('reg')
 ```
 
-Help:
+Xem thêm:
 
 ```
 :h :redir
 :h execute()
 ```
 
-# Debugging
+# Gỡ lỗi
 
-## General tips
+## Các mẹo chung
 
-If you encounter a strange behaviour, try reproducing it like this:
+Nếu bạn gặp phải một lỗi lạ, hãy thử tái lập lại lỗi đó:
 
 ```
 vim -u NONE -N
 ```
 
-This will start Vim without vimrc (thus default settings) and in nocompatible
-mode (which makes it use Vim defaults instead of vi defaults). (See `:h
---noplugin` for other combinations of what to load at start.)
+Lệnh trên sẽ khởi động Vim mà không có vimrc (nghĩa là Vim sẽ chạy các cài đặt 
+mặc định). (Xem `:h --noplugin` để biết những gì cần thiết khi Vim khởi động).
 
-If you can still reproduce it now, it's most likely a bug in Vim itself! Report
-it to the [vim_dev](https://groups.google.com/forum/#!forum/vim_dev) mailing
-list. Most of the time the issue won't be resolved at this time and you'll have
-to further investigate.
+Nếu bạn vẫn có thể tái lập lại lỗi đó, rất có thể đó làm một lỗi của Vim! Hãy 
+báo có nó tại [vim_dev](https://groups.google.com/forum/#!forum/vim_dev). Hầu 
+hết thời gian, vấn đề sẽ không được giải quyết ngay lập tức và bạn sẽ cần phải 
+kiểm tra thêm để xác định.
 
-Plugins often introduce new/changed/faulty behaviour. E.g. if it happens on
-saving, check `:verb au BufWritePost` to get a list of potential culprits.
+Các plugin thường giới thiệu chức năng mới/các thay đổi/các lỗi nếu chúng xảy 
+ra khi bạn lưu file, hãy kiểm tra `:verb au BufWritePost` để xem danh sách các 
+nguyên nhân có thể gây ra lỗi.
 
-If you're using a plugin manager, comment them out until you find the culprit.
+Nếu bạn đang sử dụng một trình quản lý plugin, hãy thử comment chúng lại cho 
+tới khi bạn tìm ra nguyên nhân.
 
-Issue is still not resolved? If it's not a plugin, it must be your other
-settings, so maybe your options or autocmds etc.
+Vấn đề vẫn chưa được giải quyết? Nếu đó không phải lỗi từ một plugin, đó có thể 
+là một trong những cài đặt của bạn, vì vậy bạn nên kiểm tra lại các cài đặt, 
+lệnh tự động (autocmd) của mình.
 
-Time to use binary search. Repeatedly split the search space in two until you
-find the culprit line. Due to the nature of binary division, it won't take many
-steps.
+Đã đến lúc sử dụng tìm kiếm nhị phân (binary search). Hãy liên tục chia đôi 
+không gian tìm kiếm của bạn cho đến khi bạn tìm ra nguyên nhân. (Ví dụ, thử 
+comment một vài dòng để kiểm tra liệu chúng có phải nguyên nhân gây ra lỗi hay 
+không). Vì đó là bản chất của tìm kiếm nhị phân, bạn sẽ không phải mất quá 
+nhiều bước.
 
-In practice, it works like this: Put the `:finish` command in the middle of your
-vimrc. Vim will skip everything after it. If it still happens, the problem is in
-the active upper half. Move the `:finish` to the middle of _that_ half.
-Otherwise, the issue is in the inactive lower half. Move the `:finish` to the
-middle of _that_ half. And so on.
+Trong thực tế, bạn có thể làm như sau: Đặt lệnh `:finish` vào giữa file cấu 
+hình vimrc của bạn. Vim sẽ bỏ qua tất cả các lệnh phía sau nó. Nếu lỗi vẫn còn 
+tồn tại, vậy vấn đề là ở phần cấu hình ở trên, nếu không có lỗi xảy ra, vậy có 
+nghĩa là lỗi nằm ở phần dưới. Di chuyển lệnh `:finish` của bạn vào phần mà bạn 
+đã xác định là gây ra lỗi, đặt nó vào giữa phần đó, và cứ thế lặp đi lặp lại,
+ bạn sẽ nhanh chóng tìm ra nguyên nhân gây ra lỗi.
 
-## Verbosity
+## Độ chi tiết
 
-Another useful way for observing what Vim is currently doing is increasing the
-verbosity level. Currently Vim supports 9 different levels. See `:h 'verbose'`
-for the full list.
+Một cách hữu ích khác để quan sát những gì Vim đang thực hiện là tăng độ chi 
+tiết. Hiện tại Vim hỗ trợ 9 cấp độ khác nhau. Xem `:h 'verbose'` để biết danh 
+sách đầy đủ.
 
 ```vim
 :e /tmp/foo
@@ -2476,12 +2506,12 @@ for the full list.
 :set verbose=0
 ```
 
-This would show all the files that get sourced, e.g. the undo file or various
-plugins that act on saving.
+Lệnh trên sẽ hiển thị tất cả các file được thực thi, ví dụ, file undo hoặc các 
+plugin khác nhau được thực hiện khi bạn lưu file.
 
-If you only want increase verbosity for a single command, there's also
-`:verbose`, which simply gets put in front of any other command. It takes the
-verbosity level as count and defaults to 1:
+Nếu bạn chỉ muốn tăng độ chi tiết cho một lệnh, thì cũng có lệnh `:verbose`, 
+lệnh này được sử dụng bằng cách đặt trước các lệnh khác. Bạn có thể cấu hình 
+mức độ chi tiết (mặc định là 1):
 
 ```vim
 :verb set verbose
@@ -2490,47 +2520,48 @@ verbosity level as count and defaults to 1:
 "  verbose=10
 ```
 
-It's very often used with its default verbosity level 1 to show where an option
-was set last:
+Lệnh này thường được sử dụng với độ chi tiết là 1, để xem một cài đặt được 
+thiết lập lần cuối ở đâu:
 
 ```vim
 :verb set ai?
 "      Last set from ~/.vim/vimrc
 ```
 
-Naturally, the higher the verbosity level the more overwhelming the output. But
-fear no more, you can simply redirect the output to a file:
+Đương nhiên, mức độ chi tiết càng cao thì kết quả trả ra sẽ càng nhiều. Nhưng 
+đừng lo, bạn có thể chỉ cần chuyển hướng danh sách đó thành một file:
 
 ```vim
 :set verbosefile=/tmp/foo | 15verbose echo "foo" | vsplit /tmp/foo
 ```
 
-You can also enable verbosity at starting time, with the `-V` option. It
-defaults to verbosity level 10. E.g. `vim -V5`.
+Bạn cũng có thể kích hoạt độ chi tiết khi Vim khởi động, với tùy chọn `-V`. Nó 
+được mặt định ở mức 10. Bạn có thể đặt lại theo bạn muốn, ví dụ `vim -V5`.
 
-## Profiling startup time
+## Lập hồ sơ thời gian khởi động
 
-Vim startup feels slow? Time to crunch some numbers:
+Vim của bạn khởi động chậm? Đã đến lúc xem qua vài thông số:
 
 ```
 vim --startuptime /tmp/startup.log +q && vim /tmp/startup.log
 ```
 
-The first column is the most important as it shows the elapsed absolute time. If
-there is a big jump in time between two lines, the second line is either a very
-big file or a file with faulty VimL code that is worth investigating.
+Cột đầu tiên là cột quan trọng nhất vì nó hiển thị thời gian tuyệt đối đã trôi 
+qua. Nếu có một sự thay đổi lớn về thời gian giữa hai dòng, dòng thứ 2 là một 
+file rất lớn hoặt một file có code VimL bị lỗi đáng để điều tra.
 
-## Profiling at runtime
+## Lập hồ sơ thời gian trong quá trình sử dụng Vim
 
-Required [feature](#what-kind-of-vim-am-i-running): `+profile`
+Cần có [tính năng](#bạn-đang-sử-dụng-phiên-bản-vim-nào): `+profile`
 
-Vim provides a built-in capability for profiling at runtime and is a great way
-to find slow code in your environment.
+Vim tích hợp sẵn một tính năng để bạn có thể lập hồ sơ trong khi bạn đang sử 
+dụng Vim, và đó là một cách tuyệt vời để bạn biết phần nào khiến Vim của bạn 
+chạy chậm.
 
-The `:profile` command takes a bunch of sub-commands for specifying what to
-profile.
+Lệnh `:profile` nhận một loạt các lệnh phụ để chỉ định những gì cần thiết để 
+lập nên hồ sơ.
 
-If you want to profile _everything_, do this:
+Nếu bạn muốn lập hồ sơ _cho tất cả mọi thứ_, hãy dùng:
 
     :profile start /tmp/profile.log
     :profile file *
@@ -2538,49 +2569,50 @@ If you want to profile _everything_, do this:
     <do something in Vim>
     :qa
 
-Vim keeps the profiling information in memory and only writes it out to the
-logfile on exit. (Neovim has fixed this using `:profile dump`).
+Vim giữ thông tin hồ sơ trong bộ nhớ và chỉ ghi nó ra file log khi bạn thoát 
+Vim. (Neovim đã sửa lỗi này bằng cách dùng lệnh `:profile dump`).
 
-Have a look at `/tmp/profile.log`. All code that was executed during profiling
-will be shown. Every line, how often it was executed and how much time it took.
+Hãy xem file log `/tmp/profile.log`. Tất cả các lệnh được thực thi trong quá 
+trình lập hồ sơ sẽ được hiển thị. Mỗi dòng sẽ hiển thị tần suất thực thi, mất 
+bao lâu để thực thi lệnh đó.
 
-Jump to the bottom of the log. Here are two different sections `FUNCTIONS SORTED
-ON TOTAL TIME` and `FUNCTIONS SORTED ON SELF TIME` that are worth gold. At a
-quick glance you can see which functions are taking the longest.
+Hảy nhảy đến cuối file log. Ở đây có hai phần khác nhau 
+`FUNCTIONS SORTED ON TOTAL TIME` và `FUNCTIONS SORTED ON SELF TIME` rất đáng 
+giá. Chỉ cần nhìn sơ bạn cũng có thể biết hàm nào chạy chậm nhất.
 
-You can use `:profile` during startup as well:
+Bạn có thể dùng `:profile` khi khởi động Vim:
 
     $ vim --cmd 'prof start prof.log | prof file * | prof func *' test.c
     :q
     $ tail -50 prof.log
 
-## Debugging Vim scripts
+## Gỡ lỗi các lệnh Vim
 
-If you ever used a command-line debugger before, `:debug` will quickly feel
-familiar.
+Nếu bạn đã từng sử dụng trình gỡ lỗi trên command line, `:debug` sẽ quen thuộc 
+với bạn.
 
-Simply prepend `:debug` to any other command and you'll be put into debug mode.
-That is, the execution will stop at the first line about to be executed and that
-line will be displayed.
+Chỉ cần thêm trước `:debug` vào bất kì lệnh nào và bạn sẽ được đưa vào chế độ 
+gỡ lỗi. Tức là việc thực thi sẽ dừng lại ở dòng đầu tiên chuẩn bị được thực thi 
+và dòng đó sẽ được hiển thị ra.
 
-See `:h >cont` and below for the 6 available debugger commands and note that,
-like in gdb and similar debuggers, you can also use their short forms: `c`, `q`,
-`n`, `s`, `i`, and `f`.
+Xem `:h >cont` và nội dung bên dưới để biết 6 lệnh gỡ lỗi có sẵn trong Vim, và 
+hãy lưu ý rằng, giống như trong gdb và các trình gỡ lỗi tương tự, bạn cũng có 
+thể sử dụng các dạng rút gọn của chúng: `c`, `q`, `n`, `s`, `i`, and `f`.
 
-Apart from that those, you're free to use any Vim command, e.g. `:echo myvar`,
-which gets executed in the context of the current position in the code.
+Ngoài những điều đó, bạn có thể tự do sử dụng bất kì lệnh Vim nào, ví dụ 
+`:echo myvar`, sẽ được thực thi ở vị trí hiện tại trong file code.
 
-You basically get a
-[REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop) by
-simply using `:debug 1`.
+Về cơ bản, bạn sẽ nhận được một 
+[REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop) bằng 
+cách rất đơn giản, đó là sử dụng `:debug 1`
 
-It would be a pain if you had to single-step through every single line, so of
-course we can define breakpoints, too. (Breakpoints are called breakpoints,
-because the execution stops when they're hit, thus you can simply skip code
-you're not interested in.) See `:h :breakadd`, `:h :breakdel`, and `:h
-:breaklist` for further details.
+Sẽ rất khó khăn nếu bạn phải đi qua từng dòng một, vì vậy, tất nhiên chúng ta 
+cũng có thể xác định các điểm ngắt (breakpoints). (Các điểm ngắt được gọi là 
+điểm ngắt vì quá trình thực thi các lệnh sẽ dừng lại khi chúng gặp điểm ngắt, 
+do đó, bạn có thể đơn giản bỏ qua các lệnh mà bạn không quan tâm). Xem 
+`:h :breakadd`, `:h :breakdel`, và `:h :breaklist` để biết thêm chi tiết.
 
-Let's assume you want to know what code is run every time you save a file:
+Giả sử, bạn muốn biết lệnh nào được chạy mỗi khi bạn lưu file:
 
 ```vim
 :au BufWritePost
@@ -2602,29 +2634,30 @@ Let's assume you want to know what code is run every time you save a file:
 :breakdel *
 ```
 
-As you can see, using `<cr>` will repeat the previous debugger command, `s` in
-this case.
+Như bạn có thể thấy, việc sử dụng `<cr>` sẽ lặp lại lệnh gỡ lỗi trước đó, 
+trong trường hợp này là `s`.
 
-`:debug` can be used in combination with the [verbose](#verbosity) option.
+`:debug` có thể được sử dụng chung với [độ chi tiết](#độ-chi-tiết).
 
-## Debugging syntax files
+## Gỡ lỗi các file syntax
 
-Syntax files are often the cause for slowdowns due to wrong and/or complex
-regular expressions. If the `+profile` [feature](#what-kind-of-vim-am-i-running)
-is compiled in, Vim provides the super useful `:syntime` command.
+Các file syntax (cú pháp) thường là nguyên nhân gây ra sự chập chạp do các biểu 
+thức chính quy (regex) sai và/hoặc phức tạp. Nếu 
+[tính năng](#bạn-đang-sử-dụng-phiên-bản-vim-nào): `+profile` được biên dịch sẵn 
+trong Vim, Vim sẽ cung cấp cho bạn một lệnh vô cùng hữu ích, đó là `:syntime`.
 
 ```vim
 :syntime on
-" hit <c-l> a few times to redraw the window which causes the syntax rules to get applied again
+" nhấn <c-l> vài lần để vẽ lại window, điều này làm cho các cú pháp được vẽ lại
 :syntime off
 :syntime report
 ```
 
-The output contains important metrics. E.g. you can see which regexp takes too
-long and should be optimized or which regexps are used all the time but never
-even match.
+Đầu ra có chứa các số liệu quan trọng. Ví dụ: bạn có thể thấy regexp nào mất 
+quá nhiều thời gian và cần được tối ưu, hoặc regexp nào được sử dụng mọi lúc 
+mà không cần thiết.
 
-See `:h :syntime`.
+Xem thêm `:h :syntime`.
 
 # Miscellaneous
 
@@ -2771,7 +2804,7 @@ This also shows why `~` is used to denote the home directory on Unix systems.
 
 # Common problems
 
-## Editing small files is slow
+## Chỉnh sửa file nhỏ bị chậm
 
 There are two things which can have a huge impact on performance:
 
@@ -2791,7 +2824,7 @@ There are two things which can have a huge impact on performance:
 **NOTE**: You only need to do this if you experience actual performance
 drawbacks. In most cases using the things mentioned above is absolutely fine.
 
-## Editing huge files is slow
+## Chỉnh sửa file lớn bị chậm
 
 The biggest issue with big files is, that Vim reads the whole file at once. This
 is done due to how buffers are represented internally.
@@ -2816,7 +2849,7 @@ $ vim -n -u NONE -i NONE -N
 Putting it in a nutshell, try to avoid using Vim when intending to write really
 huge files. :\
 
-## Dán nội dung trong ngoặc (hoặc tại sao tôi phải đặt lệnh 'dán' mọi lúc?)
+## Dán nội dung trong ngoặc (hoặc tại sao tôi phải đặt lpệnh 'dán' mọi lúc?)
 
 Bracketed paste mode allows terminal emulators to distinguish between typed text
 and pasted text.
