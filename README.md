@@ -40,7 +40,7 @@
 - [Lệnh tự động](#lệnh-tự-động)
 - [Danh sách thay đổi, danh sách nhảy](#danh-sách-thay-đổi-danh-sách-nhảy)
 - [Cây hoàn tác](#cây-hoàn-tác)
-- [Danh sách sửa lỗi nhanh và danh sách vị trí](#danh-sách-sửa-lỗi-nhanh-và-danh-sách-vị-trí)
+- [Danh sách sửa lỗi nhanh và danh sách vị trí](##danh-sách-sửa-lỗi-nhanh-và-danh-sách-vị-trí)
 - [Macros](#macros)
 - [Bảng màu](#bảng-màu)
 - [Thu gọn code](#thu-gọn-code)
@@ -66,14 +66,14 @@
   - [File Viminfo](#file-viminfo)
   - [Cấu hình ví dụ cho các file tạm](#example-configuration-for-temporary-files)
 - [Chỉnh sửa file từ xa](#chỉnh-sửa-file-từ-xa)
-- [Quản lý plugin](#quan-ly-plugin)
+- [Quản lý plugin](#quản-lý-plugins)
 - [Chèn khối](#chèn-khối)
 - [Chạy các chương trình bên ngoài Vim và sử dụng các bộ lọc](#chạy-các-chương-trình-bên-ngoài-vim-và-sử-dụng-các-bộ-lọc)
 - [Cscope](#cscope)
 - [MatchIt](#matchit)
 - [True colors](#true-colors)
 
-### [Các mẹo sử dụng](#các-mẹo-sử-dụng)
+### [Các mẹo sử dụng](#các-mẹo-sử-dụng-1)
 
 - [Chuyển đến đầu hoặc cuối của văn bản đang được chọn](#chuyển-đến-đầu-hoặc-cuối-của-văn-bản-đang-được-chọn)
 - [Hành vi tốt hơn của n và N](#hành-vi-tốt-hơn-của-n-và-n)
@@ -83,7 +83,7 @@
 - [Di chuyển nhanh dòng hiện tại](#di-chuyển-nhanh-dòng-hiện-tại)
 - [Thêm nhanh các dòng trống](#thêm-nhanh-các-dòng-trống)
 - [Chỉnh sửa nhanh macros của bạn](#chỉnh-sửa-nhanh-macros-của-bạn)
-- [Nhảy nhanh đến header file hoặc file mã nguồn](#nhảy-nhanh-đến-header-file-hoặc-file-mã-nguồn)
+- [Nhảy nhanh đến header file hoặc file mã nguồn](#nhảy-nhanh-đến-file-header-hoặc-file-mã-nguồn)
 - [Thay đổi kích thước font trong giao diện](#thay-đổi-kích-thước-font-trong-giao-diện)
 - [Thay đổi kiểu con trỏ tùy thuộc vào chế độ](#thay-đổi-kiểu-con-trỏ-tùy-thuộc-vào-chế-độ)
 - [Không bị mất những lựa chọn (selection) khi di chuyển sang một bên](#không-bị-mất-những-lựa-chọn-selection-khi-di-chuyển-sang-một-bên)
@@ -92,24 +92,24 @@
 - [Hoàn thành từ khóa nhanh hơn](#hoàn-thành-từ-khóa-nhanh-hơn)
 - [Thay đổi màu sắc](#thay-đổi-màu-sắc)
 
-### [Các lệnh](#các-lệnh)
+### [Các lệnh](#các-lệnh-1)
 
 - [:global và :vglobal](#global-và-vglobal) - Thực thi một lệnh trên tất cả các dòng phù hợp.
-- [:normal và :execute](#normal-và-execute) - Viết kịch bản trong mơ của bạn.
-- [:redir và execute()](#redir-và-execute) - Bắt lấy đầu ra (output) khi thực thi lệnh.
+- [:normal và :execute](#normal-and-execute) - Viết kịch bản trong mơ của bạn.
+- [:redir và execute()](#redir-and-execute) - Bắt lấy đầu ra (output) khi thực thi lệnh.
 
-### [Gỡ lỗi](#gỡ-lỗi)
+### [Gỡ lỗi](#gỡ-lỗi-1)
 
-- [Các mẹo chung](#các mẹo chung)
+- [Các mẹo chung](#các-mẹo-chung)
 - [Độ chi tiết](#độ-chi-tiết)
 - [Lập hồ sơ thời gian khởi động](#lập-hồ-sơ-thời-gian-khởi-động)
 - [Lập hồ sơ thời gian trong quá trình sử dụng Vim](#lập-hồ-sơ-thời-gian-trong-quá-trình-sử-dụng-vim)
 - [Gỡ lỗi các lệnh Vim](#gỡ-lỗi-các-lệnh-vim)
 - [Gỡ lỗi các file syntax](#gỡ-lỗi-các-file-syntax)
 
-### [Linh tinh](#linh-tinh)
+### [Linh tinh](#linh-tinh-1)
 
-- [Tài liệu bổ sung](#tai-lieu-bo-sung)
+- [Tài liệu bổ sung](#tài-liệu-bổ-sung)
 - [Các bản phân phối Vim](#các-bản-phân-phối-vim)
 - [Các plugin tiêu chuẩn](#các-plugin-tiêu-chuẩn)
 - [Map CapsLock sang Control](#map-capslock-sang-control)
@@ -117,7 +117,7 @@
 - [Những điều thú vị](#những-điều-thú-vị)
 - [Tại sao lại dùng hjkl để điều hướng?](#tại-sao-lại-dùng-hjkl-để-điều-hướng)
 
-### [Các vấn đề thường gặp](#các-vấn-đề-thường-gặp)
+### [Các vấn đề thường gặp](#các-vấn-đề-thường-gặp-1)
 
 - [Chỉnh sửa file nhỏ bị chậm](#chỉnh-sửa-file-nhỏ-bị-chậm)
 - [Chỉnh sửa file lớn bị chậm](#chỉnh-sửa-file-lớn-bị-chậm)
@@ -125,11 +125,11 @@
 - [Độ trễ khi sử dụng phím esc trong terminal](#độ-trễ-khi-sử-dụng-phím-esc-trong-terminal)
 - [Hoàn tác các hàm tìm kiếm](#hoàn-tác-các-hàm-tìm-kiếm)
 
-### [Các vấn đề kĩ thuật kì quặc](#các-vấn-đề-kĩ-thuật-kì-quặc)
+### [Các vấn đề kĩ thuật kì quặc](#các-vấn-đề-kĩ-thuật-kì-quặc-1)
 
 - [Dòng mới được sử dụng cho NUL](#dòng-mới-được-sử-dụng-cho-nul)
 
-### [Thuật ngữ](#thuật-ngữ)
+### [Thuật ngữ](#thuật-ngữ-1)
 
 - [Vim script? Vimscript? VimL?](#vim-script-vimscript-viml)
 
@@ -2661,7 +2661,7 @@ Xem thêm `:h :syntime`.
 
 # Linh tinh
 
-## Tài liệu bổ sun
+## Tài liệu bổ sung
 
 | Tài liệu | Mô tả |
 |----------|-------------|
