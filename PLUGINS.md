@@ -44,7 +44,7 @@
 - [TeX](#tex)
 - [VimL](#viml)
 
-## Colorschemes
+## Các bảng màu
 
 Here's a list of commonly used colorschemes:
 

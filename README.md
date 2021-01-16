@@ -107,35 +107,35 @@
 - [Gỡ lỗi các lệnh Vim](#gỡ-lỗi-các-lệnh-vim)
 - [Gỡ lỗi các file syntax](#gỡ-lỗi-các-file-syntax)
 
-### [Miscellaneous](#miscellaneous-1)
+### [Linh tinh](#linh-tinh)
 
 - [Tài liệu bổ sung](#tai-lieu-bo-sung)
-- [Vim distributions](#vim-distributions)
-- [Standard plugins](#standard-plugins)
-- [Map CapsLock to Control](#map-capslock-to-control)
-- [Generating HTML from buffer](#generating-html-from-buffer)
-- [Easter eggs](#easter-eggs)
-- [Why hjkl for navigation?](#why-hjkl-for-navigation)
+- [Các bản phân phối Vim](#các-bản-phân-phối-vim)
+- [Các plugin tiêu chuẩn](#các-plugin-tiêu-chuẩn)
+- [Map CapsLock sang Control](#map-capslock-sang-control)
+- [Tạo file HTML từ buffer](#tạo-file-html-từ-buffer)
+- [Những điều thú vị](#những-điều-thú-vị)
+- [Tại sao lại dùng hjkl để điều hướng?](#tại-sao-lại-dùng-hjkl-để-điều-hướng)
 
-### [Common problems](#common-problems-1)
+### [Các vấn đề thường gặp](#các-vấn-đề-thường-gặp)
 
-- [Editing small files is slow](#editing-small-files-is-slow)
+- [Chỉnh sửa file nhỏ bị chậm](#chỉnh-sửa-file-nhỏ-bị-chậm)
 - [Chỉnh sửa file lớn bị chậm](#chỉnh-sửa-file-lớn-bị-chậm)
 - [Dán nội dung trong ngoặc (hoặc tại sao tôi phải đặt lệnh 'dán' mọi lúc?)](#dán-nội-dung-trong-ngoặc-hoặc-tại-sao-tôi-phải-đặt-lệnh-dán-mọi-lúc)
-- [Delays when using escape key in terminal](#delays-when-using-escape-key-in-terminal)
-- [Function search undo](#function-search-undo)
+- [Độ trễ khi sử dụng phím esc trong terminal](#độ-trễ-khi-sử-dụng-phím-esc-trong-terminal)
+- [Hoàn tác các hàm tìm kiếm](#hoàn-tác-các-hàm-tìm-kiếm)
 
-### [Technical quirks](#technical-quirks-1)
+### [Các vấn đề kĩ thuật kì quặc](#các-vấn-đề-kĩ-thuật-kì-quặc)
 
-- [Newline used for NUL](#newline-used-for-nul)
+- [Dòng mới được sử dụng cho NUL](#dòng-mới-được-sử-dụng-cho-nul)
 
-### [Terminology](#terminology-1)
+### [Thuật ngữ](#thuật-ngữ)
 
 - [Vim script? Vimscript? VimL?](#vim-script-vimscript-viml)
 
-### [List of colorschemes](PLUGINS.md#colorschemes-1)
+### [Danh sách bảng màu](PLUGINS.md#các-bảng-màu)
 
-### [List of plugins](PLUGINS.md)
+### [Danh sách plugin](PLUGINS.md)
 
 <br>
 
@@ -2659,11 +2659,11 @@ mà không cần thiết.
 
 Xem thêm `:h :syntime`.
 
-# Miscellaneous
+# Linh tinh
 
-## Additional resources
+## Tài liệu bổ sun
 
-| Resource | Description |
+| Tài liệu | Mô tả |
 |----------|-------------|
 | [Seven habits of effective text editing](http://www.moolenaar.net/habits.html) | By Bram Moolenaar, the author of Vim. |
 | [Seven habits of effective text editing 2.0 (PDF)](http://www.moolenaar.net/habits_2007.pdf) | See above. |
@@ -2679,42 +2679,45 @@ Xem thêm `:h :syntime`.
 - [By wincent](https://www.youtube.com/channel/UCXPHFM88IlFn68OmLwtPmZA)
 - [By Derek Wyatt](http://derekwyatt.org/vim/tutorials/index.html)
 
-## Vim distributions
+## Các bản phân phối Vim
 
-Vim distributions are bundles of custom settings and plugins for Vim.
+Các bản phân phối của Vim là các gói cài đặt và plugin tùy chỉnh cho Vim được 
+làm sẵn.
 
-More advanced users know how to configure their editor anyway, so distributions
-are mostly targeted at beginners. If you think about that, it's quite
-paradoxical though: Making it easier by adding even more things to learn about?
+Những người dùng Vim nâng cao hơn sẽ biết cách định cấu hình của Vim theo ý 
+thích của họ, do vậy, các bản phân phối của Vim thường chỉ nhắm đến những người 
+mới bắt đầu. Nếu bạn nghĩ về điều đó, thì thật là nghịch lý: làm cho nó dễ dàng 
+hơn bằng cách thêm nhiều thứ hơn để phải tìm hiểu?
 
-I know that many people don't want to spend hours and hours on customizing an
-editor (and actually you never stop customizing your vimrc when you finally got
-hooked), but eventually you only get efficient in Vim when you take the time to
-learn it properly.
+Tôi biết rằng nhiều người không muốn dành hàng giờ đồng hồ để tùy chỉnh trình 
+soạn thảo văn bản của mình (và thực sự là bạn không bao giờ có thể ngừng 
+tùy chỉnh vimrc của mình khi bạn đã dính vào Vim), nhưng cuối cùng, hiệu quả mà 
+bạn đạt được sẽ xứng đáng nếu bạn chịu khó dành thời gian để học Vim.
 
-Repeat after me: "A programmer should know their tools."
+Nhắc lại theo tôi: "Một lập trình viên nên biết sử dụng các công cụ của họ"
 
-Anyway, if you know what you're doing, you might draw some inspiration from
-looking at a few distributions:
+Dù sao, nếu bạn biết mình đang làm gì, bạn có thể có được một số cảm hứng khi 
+xem một vài bản phân phối như:
 
 - [cream](http://cream.sourceforge.net)
 - [janus](https://github.com/carlhuda/janus.git)
 - [spacevim](https://github.com/SpaceVim/SpaceVim)
 - [spf13](https://github.com/spf13/spf13-vim)
 
-## Standard plugins
+## Các plugin tiêu chuẩn
 
-Many people are surprised by the fact that Vim comes with a handful of standard
-plugins. Some get loaded by default (`:e $VIMRUNTIME/plugin`) and some are not
-(`:e $VIMRUNTIME/pack/dist/opt`). Read `:h pack-add` on how to source the
-latter.
+Nhiều người sẽ ngạc nhiên khi biết Vim đi kèm với một số plugin tiêu chuẩn. Một 
+số được sử dụng mặc định (`:e $VIMRUNTIME/plugin`) và một số thì không 
+(`:e $VIMRUNTIME/pack/dist/opt`). Đọc `:h pack-add` để biết cách sử dụng chúng 
+sau này.
 
-Most of the plugins that get loaded by default will never get used, though.
-Disable them as you see fit. They will still be shown as sourced
-(`:scriptnames`), but only the first lines actually get read before Vim bails
-out. No further code (mappings, commands, logic) will be processed.
+Tuy nhiên, hầu hết các plugin được chạy mặc định sẽ không bao giờ được bạn sử 
+dụng. Hãy tắt chúng khi bạn thấy phù hợp. Chúng sẽ vẫn được hiển thị là đã 
+chạy (sourced) (Xem `:scriptnames`), nhưng chỉ những dòng đầu tiên thực sự được 
+đọc trước khi Vim ngừng hoạt động. Sẽ không có lệnh nào khác 
+(mappings, các lệnh, logic) được xử lý.
 
-| Plugin     | Disable it using..                  | Help |
+| Plugin     | Tắt nó bằng cách..                  | Xem thêm |
 |------------|-------------------------------------|------|
 | 2html      | `let g:loaded_2html_plugin = 1`     | `:h 2html` |
 | getscript  | `let g:loaded_getscriptPlugin = 1`  | `:h pi_getscript` |
@@ -2728,58 +2731,58 @@ out. No further code (mappings, commands, logic) will be processed.
 | vimball    | `let g:loaded_vimballPlugin = 1`    | `:h pi_vimball` |
 | zip        | `let g:loaded_zipPlugin = 1`        | `:h pi_zip` |
 
-## Map CapsLock to Control
+## Map CapsLock sang Control
 
-CapsLock belongs to the most useless keys on your keyboard, but it's much easier
-to reach than the Control key, since it lies on your [home
-row](https://raw.githubusercontent.com/mhinz/vim-galore/master/static/images/content-homerow.png).
-Mapping CapsLock to Control is a great way to prevent or at least reduce
-[RSI](https://de.wikipedia.org/wiki/Repetitive-Strain-Injury-Syndrom) if you
-program a lot.
+CapsLock là một trong những phím vô dụng nhất trên bàn phím của bạn, nhưng nó 
+lại nằm ở một vị trí dễ với tới hơn so với phím Control, bởi vì nó nằm trên 
+[home row](https://raw.githubusercontent.com/mhinz/vim-galore/master/static/images/content-homerow.png)
+của bạn. Vì vậy, mapping CapsLock thành Control là một cách tối để ngăn chặn, 
+hay ít nhất là giảm 
+[RSI](https://de.wikipedia.org/wiki/Repetitive-Strain-Injury-Syndrom) nếu bạn 
+lập trình hoặc sử dụng bàn phím nhiều.
 
-Attention: When you get used to it, you can't live without it anymore.
+Chú ý: Khi đã quen rồi thì bạn sẽ không thể sống thiếu nó nữa.
 
-**macOS**:
+**Với macOS**:
 
-`System Preferences -> Keyboard -> Keyboard Tab -> Modifier Keys`. Change
-"CapsLock" to "Control".
+`System Preferences -> Keyboard -> Keyboard Tab -> Modifier Keys`.Đổi  
+"CapsLock" thành "Control".
 
-**Linux**:
+**Với Linux**:
 
-To change the keys in X, put this in your `~/.xmodmap`:
+Để thay đổi các phím trong X, thêm các dòng sau vào `~/.xmodmap`:
 
     remove Lock = Caps_Lock
     keysym Caps_Lock = Control_L
     add Control = Control_L
 
-Afterwards source it via `$ xmodmap ~/.xmodmap`.
+Sau đó hãy áp dụng nó `$ xmodmap ~/.xmodmap`.
 
-An alternative would be using [caps2esc](https://github.com/oblitum/caps2esc) or
-[xcape](https://github.com/alols/xcape).
+Một giải pháp thay thế là sử dụng [caps2esc](https://github.com/oblitum/caps2esc) 
+hoặc [xcape](https://github.com/alols/xcape).
 
-**Windows**:
+**Với Windows**:
 
-See [superuser.com: Map Caps-Lock to Control in Windows
+Xem [superuser.com: Map Caps-Lock to Control in Windows
 8.1](http://superuser.com/questions/764782/map-caps-lock-to-control-in-windows-8-1).
 
-## Generating HTML from buffer
+## Tạo file HTML từ buffer
 
-Generate HTML from any buffer using `:TOhtml` from the 2html [standard
-plugin](#standard-plugins). The output can be used for printing or easy web
-publishing.
+Tạo HTML từ buffer với lệnh `:TOhtml` từ [plugin 2html](#các-plugin-tiêu-chuẩn). 
+Kết quả cho ra có thể được dùng để in hoặc chạy một trang web.
 
-The command creates a new buffer of the same name with `.html` appended. The
-colors are the same as seen in Vim. They depend on the
-[colorscheme](#colorschemes).
+Lệnh trên sẽ tạo một buffer mới có cùng tên và được thêm `.html` vào sau đuôi. 
+Các màu sắc cũng tương tự như khi bạn xem trên Vim. Chúng phụ thuộc vào 
+[bảng màu](#bảng-màu) mà bạn đang sử dụng.
 
-The plugin knows several options to finetune the output, e.g. for setting the
-encoding and font.
+Plugin cũng cung cấp một số tùy chọn để tinh chỉnh đầu ra (output). Ví dụ: để 
+cài đặt mã encode và font.
 
-See `:h :TOhtml`.
+Xem thêm `:h :TOhtml`.
 
-## Easter eggs
+## Những điều thú vị
 
-| Command   | Message |
+| Lệnh   | Tin nhắn |
 |-----------|---------|
 | `:Ni!` | `Do you demand a shrubbery?` |
 | `:h 'sm'` | `NOTE: Use of the short form is rated PG.` |
@@ -2789,188 +2792,196 @@ See `:h :TOhtml`.
 | `:h holy-grail` | `You found it, Arthur!` |
 | `:h map-modes` | `:nunmap can also be used outside of a monastery.` |
 | `:help!` | `E478: Don't panic!` (Glitch? When used in a help buffer (`buftype=help`) this works like `:h help.txt` instead.) |
-| `:smile` | Try it out yourself. ;-) Added in 7.4.1005. |
+| `:smile` | Tự thử nó đi. ;-) Được thêm vào vim từ phiên bản 7.4.1005. |
 
-## Why hjkl for navigation?
+## Tại sao lại dùng hjkl để điều hướng?
 
-When [Bill Joy](https://en.wikipedia.org/wiki/Bill_Joy) created
-[vi](https://en.wikipedia.org/wiki/Vi), a predecessor of Vim, he did it on a
-[ADM-3A](https://en.wikipedia.org/wiki/ADM-3A) which had no extra cursor buttons
-but used, you might already guessed it, hjkl instead.
+Khi [Bill Joy](https://en.wikipedia.org/wiki/Bill_Joy) tạo ra 
+[vi](https://en.wikipedia.org/wiki/Vi), tiền thân của Vim, anh ấy sử dụng 
+[ADM-3A](https://en.wikipedia.org/wiki/ADM-3A), thiết bị này không có các phím 
+điều hướng để sử dụng, bạn có thể đoán ra rồi đó, anh ta sử dụng hjkl để thay 
+thế.
 
-Keyboard layout: [click](https://raw.githubusercontent.com/mhinz/vim-galore/master/static/images/content-adm-3a-layout.jpg)
+Bố cục bàn phím: [click](https://raw.githubusercontent.com/mhinz/vim-galore/master/static/images/content-adm-3a-layout.jpg)
 
-This also shows why `~` is used to denote the home directory on Unix systems.
+Điều này cũng cho thấy lý do tại sao `~` được sử dụng để biểu thị cho thư mục 
+chính trên hệ thống Linux.
 
-# Common problems
+# Các vấn đề thường gặp
 
 ## Chỉnh sửa file nhỏ bị chậm
 
-There are two things which can have a huge impact on performance:
+Có hai điều có thể gây ảnh hưởng lớn đến hiệu năng của Vim:
 
-1. Complex **regular expressions**. Particular the Ruby syntax file caused
-   people to have slowdowns in the past. (Also see [Debugging syntax files](#debugging-syntax-files).)
-2. **Screen redraws**. Some features force all lines to redraw.
+1. Biểu thức chính quy (regex) **phức tạp**. Đặc biệt là file cú pháp của ngôn ngữ 
+   Ruby đã từng khiến mọi người bị chậm trong quá khứ. (Bạn cũng nên xem 
+   [gỡ lỗi các file syntax](#gỡ-lỗi-các-file-syntax).)
+2. **Vẽ lại màn hình**. Một vài tính năng bắt buộc tất cả các dòng phải vẽ (render) 
+   lại.
 
-| Typical culprit | Why? | Solution? |
+| Thủ phạm điển hình | Tại sao? | Giải pháp? |
 |-----------------|------|-----------|
-| `:set cursorline`        | Causes all lines to redraw. | `:set nocursorline` |
-| `:set cursorcolumn`      | Causes all lines to redraw. | `:set nocursorcolumn` |
-| `:set relativenumber`    | Causes all lines to redraw. | `:set norelativenumber` |
-| `:set foldmethod=syntax` | If the syntax file is slow already, this makes it even worse. | `:set foldmethod=manual`, `:set foldmethod=marker` or [FastFold](https://github.com/Konfekt/FastFold) |
-| `:set synmaxcol=3000`    | Due to internal representation, Vim has problems with long lines in general. Highlights columns till column 3000. | `:set synmaxcol=200` |
-| matchparen.vim           | Loaded by default. Uses regular expressions to find the accompanying parenthesis. | Disable plugin: `:h matchparen` |
+| `:set cursorline`        | Khiến tất cả các dòng phải vẽ lại. | `:set nocursorline` |
+| `:set cursorcolumn`      | Khiến tất cả các dòng phải vẽ lại. | `:set nocursorcolumn` |
+| `:set relativenumber`    | Khiến tất cả các dòng phải vẽ lại. | `:set norelativenumber` |
+| `:set foldmethod=syntax` | Nếu file cú pháp đã chậm sẵn, lệnh này còn khiến nó tệ hơn. | `:set foldmethod=manual`, `:set foldmethod=marker` or [FastFold](https://github.com/Konfekt/FastFold) |
+| `:set synmaxcol=3000`    | Nhìn chung là Vim có vấn đề với các file có nhiều dòng. | `:set synmaxcol=200` |
+| matchparen.vim           | Được sử dụng mặc định. Sử dụng regex để tìm dấu ngoặc đơn đi kèm. | Vô hiệu hóa plugin: `:h matchparen` |
 
-**NOTE**: You only need to do this if you experience actual performance
-drawbacks. In most cases using the things mentioned above is absolutely fine.
+**Lưu ý**: Bạn chỉ làm điều này nếu bạn gặp phải những hạn chế về hiệu suất thực tế.
+Trong hầu hết các trường hợp, việc bạn sử dụng các giải pháp được nêu trên đều 
+hoàn toàn tốt.
 
 ## Chỉnh sửa file lớn bị chậm
 
-The biggest issue with big files is, that Vim reads the whole file at once. This
-is done due to how buffers are represented internally.
-([Discussion on vim_dev@](https://groups.google.com/forum/#!topic/vim_dev/oY3i8rqYGD4/discussion))
+Vấn đề lớn nhất với các file lớn là Vim đọc toàn bộ file cùng một lúc. Đều này 
+được thực hiện do cách buffer được hiển thị bên trong.
+([Thảo luận trên vim_dev@](https://groups.google.com/forum/#!topic/vim_dev/oY3i8rqYGD4/discussion))
 
-If you only want to read, `tail hugefile | vim -` is a good workaround.
+Nếu bạn chỉ muốn đọc, `tail hugefile | vim -` là một giải pháp tốt.
 
-If you can live without syntax, settings and plugins for the moment:
+Nếu bạn có thể sống mà không cần syntax, đây là lúc cài đặt và sử dụng các 
+plugin:
 
 ```
 $ vim -u NONE -N
 ```
 
-This should make navigation quite a lot faster, especially since no expensive
-regular expressions for syntax highlighting are used. You should also tell Vim
-not to use swapfiles and viminfo files to avoid long delays on writing:
+Đều này sẽ làm cho việc điều hướng nhanh hơn rất nhiều, đặc biệt là vì không sử 
+dụng các regex phức tạp để tô màu cho các cú pháp. Bạn cũng nên yêu cầu Vim 
+không sử dụng file swap và file viminfo để tránh sự chậm trễ khi sử dụng Vim:
 
 ```
 $ vim -n -u NONE -i NONE -N
 ```
 
-Putting it in a nutshell, try to avoid using Vim when intending to write really
-huge files. :\
+Tóm lại, hãy cố gắng tránh sử dụng Vim khi có ý định viết các file thực sự lớn 
+. :\
 
-## Dán nội dung trong ngoặc (hoặc tại sao tôi phải đặt lpệnh 'dán' mọi lúc?)
+## Dán nội dung trong ngoặc (hoặc tại sao tôi phải đặt lệnh 'dán' mọi lúc?
 
-Bracketed paste mode allows terminal emulators to distinguish between typed text
-and pasted text.
+Chế độ dán trong ngoặc (bracketed paste) cho phép terminal phân biệt giữ văn 
+bản đã nhập và văn bản đã được dán.
 
-Did you ever tried pasting code into Vim and afterwards everything seemed messed
-up?
+Bạn đã bao giờ thử dán code của mình vào Vim và sau đó mọi thứ dường như rối 
+tung lên?
 
-This only happens if you paste via `cmd+v`, `shift-insert`, `middle-click` etc.
-because then you're just throwing text at the terminal emulator. Vim doesn't
-know that you just pasted the text, it thinks you're an extremely fast typist.
-Accordingly, it tries to indent the lines and fails.
+Điều này chỉ xảy ra nếu bạn dán văn bản sử dụng `cmd+v`, `shift-insert`, 
+`middle-click`, .v.v bởi vì khi bạn đang dán văn bản vào terminal. Vim không 
+biết rằng bạn vừa dán văn bản đó, nó chỉ nghĩ rằng bạn đang gõ bàn phím cực kì 
+nhanh. Do đó, Vim cố gắng thụt lề các dòng nhưng tất nhiên là không thành 
+công.
 
-Obviously this is not an issue, if you paste using Vim's registersDTree Toggle,
-because then Vim knows that you're actually pasting.
+Dĩ nhiên đây không phải là một vấn đề, nếu bạn dán văn bản sử dụng bộ ghi nhớ 
+(register) trong Vim, bởi vì Vim biết rằng bạn đang thực sự dán văn bản đó.
 
-To workaround this, you have to `:set paste`, so it gets pasted as-is. See `:h
-'paste'` and `:h 'pastetoggle'`.
+Để giải quyết vấn đề này, bạn phải sử dụng `:set paste`. Xem thêm `:h 'paste'` 
+và `:h 'pastetoggle'`.
 
-If you're fed up with toggling `'paste'` all the time, have a look at this fine
-plugin that does it for you:
+Nếu bạn đã chán ngấy với việc chuyển đối các chế đọ `'dán'` (paste) mọi lúc, 
+hãy xem plugin này:
 [bracketed-paste](https://github.com/ConradIrwin/vim-bracketed-paste).
 
-Additional read from the same author as the plugin:
-[here](http://cirw.in/blog/bracketed-paste).
+Đọc thêm bài viết từ tác giả của plugin: 
+[tại đây](http://cirw.in/blog/bracketed-paste).
 
-**Neovim**: Neovim tries to make all of this much more seamless and sets
-bracketed paste mode automatically if the terminal emulator supports it.
+**Neovim**: Neovim cố gắng làm cho tất cả những điều này trở nên liền mạch hơn 
+nhiều và tự động đặt chế độ dán nếu terminal của bạn hỗ trợ nó.
 
-## Delays when using escape key in terminal
+## Độ trễ khi sử dụng phím esc trong terminal
 
-If you live in the command-line, you probably use a so-called _terminal
-emulator_ like xterm, gnome-terminal, iTerm2, etc. (opposed to a real
+Nếu bạn sống với command-line, bạn có thể sử dụng thứ gọi là _trình giả lập 
+terminal_ như xterm, gnome-terminal, iTerm2, v.v. (trái ngược với
 [terminal](https://en.wikipedia.org/wiki/Computer_terminal)).
 
-Like their ancestors, terminal emulators use [escape
-sequences](https://en.wikipedia.org/wiki/Escape_sequence) (or _control
-sequences_) to control things like moving the cursor, changing text colors, etc.
-They're simply strings of ASCII characters starting with an escape character
-(displayed in [caret notation](https://en.wikipedia.org/wiki/Caret_notation) as
-`^[`). When such a string arrives, the terminal emulator looks up the
-accompanying action in the [terminfo](https://en.wikipedia.org/wiki/Terminfo)
-database.
+Cũng giống như tổ tiên của mình, các trình giả lập terminal sử dụng 
+[escape sequences](https://en.wikipedia.org/wiki/Escape_sequence) 
+(hoặc _control sequences_) để điều khiển những thứ như di chuyển con trỏ, thay 
+đổi màu của văn bản.v.v Chúng chỉ đơn giả là các chuỗi ký tự ASCII bắt đầu bằng 
+một ký tự (được hiển thị trong [kí hiệu dấu mũ](https://en.wikipedia.org/wiki/Caret_notation))
+như là `^[`). Khi trình tự như vậy xuất hiện, trình giả lập terminal sẽ tra 
+cứu hành động kèm theo trong csdl [terminfo](https://en.wikipedia.org/wiki/Terminfo).
 
-To make the problem clearer, I'll explain mapping timeouts first. They always
-happen when there's ambiguity between mappings:
+Để làm rõ các vấn đề hơn, trước tiên tôi sẽ giải thích thời gian chờ của việc 
+mapping. Chúng luôn xảy ra khi có sự không rõ ràng giữa các mapping:
 
 ```vim
 :nnoremap ,a  :echo 'foo'<cr>
 :nnoremap ,ab :echo 'bar'<cr>
 ```
 
-Both mappings work as expected, but when typing `,a`, there will be a delay of 1
-second, because Vim waits whether the user keys in another `b` or not.
+Cả hai mapping đều hoạt động như mong đợi, nhưng khi nhập `,a`, sẽ có độ trễ 1 
+giây, vì Vim sẽ chờ xem người dùng có nhập phím `b` hay không.
 
-Escape sequences pose the same problem:
+Các sự kiện liên tiếp đều phơi bày ra cùng một vấn đề:
 
-- `<esc>` is used a lot for returning to normal mode or quitting an action.
-- Cursor keys are encoded using escape sequences.
-- Vim expects <kbd>Alt</kbd> (also called _Meta key_) to send a proper 8-bit
-  encoding with the high bit set, but many terminal emulators don't support it
-  (or don't enable it by default) and send an escape sequence instead.
+- `<esc>` được sử dụng rất nhiều để quay lại chế độ bình thường hoặc thoát một hành động nào đó.
+- Các phím điều hướng được mã hóa sử dụng chuỗi các phím escape.
+- Vim hy vọng rằng phím <kbd>Alt</kbd> (còn được gọi là _Meta key_) sẽ gửi một 
+  thông tin 8-bit đã được mã hóa thích hợp với với bộ bit cao hơn, nhưng rất 
+  nhiều terminal giả lập không hỗ trợ nó (hoặc không bật nó) mà thay vào đó, 
+  chúng gửi một chuỗi các nút escape.
 
-You can test the above like this: `vim -u NONE -N` and type `i<c-v><left>` and
-you'll see a sequence inserted that starts with `^[` which denotes the escape
-character.
+Bạn có thể kiểm tra lại phần trên như sau: `vim -u NONE -N` và gõ 
+`i<c-v><left>`, bạn sẽ thấy một chuỗi được chèn vào, bắt đầu bằng `^[`, biểu 
+trưng cho nút escape.
 
-Putting it in a nutshell, Vim has a hard time distinguishing between a typed
-`<esc>` character and a proper escape sequence.
+Tóm lại, Vim gặp khó khăn trong việc phân biệt giữa ký tự `<esc>` và một chuỗi 
+kí tự escape thật sự.
 
-By default, Vim uses `:set timeout timeoutlen=1000`, so it delays on ambiguity
-of mappings _and_ key codes by 1 second. This is a sane value for mappings, but
-you can define the key code timeout on its own which is the most common
-workaround for this entire issue:
+Theo mặc định, Vim sử dụng `:set timeout timeoutlen=1000`, do đó, nó sẽ trì 
+hoãn sự không rõ ràng của các mapping _và_ các phím trong 1 giây. Đây là một cách 
+giải quyết phổ biến nhất cho toàn bộ vấn đề này:
 
 ```vim
-set timeout           " for mappings
-set timeoutlen=1000   " default value
-set ttimeout          " for key codes
-set ttimeoutlen=10    " unnoticeable small value
+set timeout           " cho mappings
+set timeoutlen=1000   " giá trị mặc định
+set ttimeout          " cho các phím
+set ttimeoutlen=10    " giá trị nhỏ không đáng lưu ý
 ```
 
-Under `:h ttimeout` you find a small table showing the relationship between
-these options.
+Trong `:h ttimeout` bạn sẽ tìm thấy một bảng nhỏ hiển thị mối quan hệ giữa các 
+tùy chọn này.
 
-If you're using tmux between Vim and your terminal emulator, also put this in
-your `~/.tmux.conf`:
+Nếu bạn đang sử dụng tmux giữa Vim và Terminal giả lập của mình, hãy thêm cài 
+đặt sau vào `~/.tmux.conf`:
 
 ```tmux
 set -sg escape-time 0
 ```
 
-## Function search undo
+## Hoàn tác các hàm tìm kiếm
 
-- A search pattern in a command (`/`, `:substitute`, ...) changes the "last used
-  search pattern". (It's saved in the `/` register; print it with `:echo @/`).
-- A simple text change can be redone with `.`. (It's saved in the `.` register;
-  print it with `:echo @.`).
+- Một tìm kiếm với lệnh (`/`, `:substitute`, ...) sẽ thay đổi "tìm kiếm được sử 
+  dụng lần gần nhất". (Nó được lưu vào bộ ghi nhớ `/`; bạn có thể in danh sách đó 
+  ra với lệnh `:echo @/`).
+- Một thay đổi văn bản đơn giản có thể được hoàn tác với lệnh `.`. 
+  (Nó được lưu vào bộ ghi nhớ `.`; bạn có thể in danh sách này ra với lệnh
+  `:echo @.`)
 
-Both things are _not_ the case, if you do them from a function, though! Thus you
-can't easily highlight words from a function or redo the text changes made by
-it.
+Cả hai đều _không phải_ là vấn đề, nếu bạn thực hiện chúng từ một hàm. Do đó,  
+bạn không thể dễ dàng highlight các từ từ một hàm hoặc thực hiện lại các thay 
+đổi văn bản được thực hiện bởi nó.
 
-Help: `:h function-search-undo`
+Xem thêm: `:h function-search-undo`
 
-# Technical quirks
+# Các vấn đề kĩ thuật kì quặc
 
-## Newline used for NUL
+## Dòng mới được sử dụng cho NUL
 
-NUL characters (`\0`) in a file, are stored as newline (`\n`) in memory and
-displayed in a buffer as `^@`.
+Ký tự NUL (`\0`) trong một file, được lưu trữ dưới dạng một dòng mới (`\n`) 
+trong bộ nhớ và hiển thị trong một buffer dưới dạng `^@`.
 
-See `man 7 ascii` and `:h NL-used-for-Nul` for more information.
+Xem `man 7 ascii` và `:h NL-used-for-Nul` để biết thêm chi tiết.
 
-# Terminology
+# Thuật ngữ
 
 ## Vim script? Vimscript? VimL?
 
-`Vim script`, `Vimscript`, and `VimL` all refer to the same thing: The
-programming language used for scripting Vim. Even though
+`Vim script`, `Vimscript`, and `VimL` đều đề cập đến cùng một thứ: Ngôn ngữ lập 
+trình dùng để viết kịch bản cho Vim (Ngôn ngữ lập trình Vim). Mặc dù phiên bản 
 [8.0.360](https://github.com/vim/vim/commit/b544f3c81f1e6a50322855681ac266ffaa8e313c)
-changed all references to `VimL` to `Vim script`, which can now be considered
-the official term, `VimL` is still widespread all over the internet.
+đã thay đổi các tham chiếu đến `VimL` thành `Vim script`, hiện nay có thể được 
+coi là thuật ngữ chính thức, `Viml` vẫn còn phổ biến trên internet.
 
-No matter which term you use, everyone will understand it.
+Bất kể bạn sử dụng thuật ngữ nào, mọi người cũng đều sẽ hiểu.
