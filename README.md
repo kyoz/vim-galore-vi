@@ -177,14 +177,14 @@ Vim tuân thủ triết lý chỉnh sửa theo phương thức. Điều này có
 cung cấp nhiều chế độ và nhiều phím tắt khác nhau, ý nghĩa của các phím tắt sẽ 
 được thay đổi theo từng chế độ. Bạn có thể sử dụng chế độ _normal_ để điều hướng 
 các tệp tin và con trỏ chuột, sử dụng chế độ _insert_ để chèn văn bản, sử dụng 
-chế độ _visual_ để chọn nhiều dùng cùng một lúc, hoặc bạn có thể sử dụng chế độ 
+chế độ _visual_ để chọn nhiều dòng cùng một lúc, hoặc bạn có thể sử dụng chế độ 
 _command-line_ để truy cập các lệnh trong Vim, v.v. Điều này thoạt nghe thì có vẻ 
 phức tạp, nhưng nó lại mạng đến một lợi thế rất lớn: đó là bạn không phải làm 
 khổ các ngón tay của mình khi giữ nhiều nút trên bàn phím cùng một lúc, hầu hết 
 thời gian khi bạn sử dụng Vim, bạn chỉ cần nhấn lần lượt từ phím này đến phím 
 khác. Công việc càng thông dụng, thì càng ít phím phải nhấn.
 
-Các khái niệm hoạt động tốt cùng với việc chỉnh sửa theo phương thức là 
+Các khái niệm hoạt động cùng với việc chỉnh sửa theo phương thức là 
 các toán tử (operators) và chuyển động (motions). _Operators_ sẽ bắt đầu một hành 
 động nhất định, ví dụ như: thay đổi, xóa hoặc chọn văn bản. Sau đó, bạn sẽ chỉ 
 định vùng văn bản bạn muốn thực hiện thay đổi bằng cách sử dụng _motion_. Để thay 
